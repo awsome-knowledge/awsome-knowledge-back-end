@@ -167,3 +167,67 @@ var lengthOfLongestSubstring = function (s) {
 };
 </pre> 
 </details>   
+
+
+4. 寻找两个有序数组的中位数
+
+给定两个大小为 m 和 n 的有序数组 nums1 和 nums2。
+
+请你找出这两个有序数组的中位数，并且要求算法的时间复杂度为 O(log(m + n))。
+
+你可以假设 nums1 和 nums2 不会同时为空。
+
+示例 1:
+```
+nums1 = [1, 3]
+nums2 = [2]
+```
+
+则中位数是 2.0
+示例 2:
+```
+nums1 = [1, 2]
+nums2 = [3, 4]
+```
+则中位数是 (2 + 3)/2 = 2.5
+
+<details><summary><b>答案</b></summary>
+这道题的思路本身也不太难，主要是看看你对数组的api熟不熟，比如常见的push，sort等。
+1. 先将两个数组塞进第三个数组中，这个数组进行正排或逆排，然后筛选中位数
+2. 再取数组长度，判断是偶数还是奇数，奇数则取最中间的数，偶数取最中间的两者的平均数
+
+
+<pre> 
+/*
+ * @lc app=leetcode.cn id=4 lang=javascript
+ *
+ * [4] 寻找两个有序数组的中位数
+ */
+/**
+ * @param {number[]} nums1
+ * @param {number[]} nums2
+ * @return {number}
+ */
+var findMedianSortedArrays = function (nums1, nums2) {
+    var nums = new Array()
+    var medianVal
+    for (let i in nums1) {
+        nums.push(nums1[i])
+    }
+    for (let j in nums2) {
+        nums.push(nums2[j])
+    }
+    nums.sort(function (a, b) {
+        return a - b
+    })
+    var l = nums.length
+    if (l % 2 !== 0) {
+        medianVal = nums[(l - 1) / 2]
+    } else {
+        medianVal = (nums[l / 2 - 1] + nums[l / 2]) / 2
+    }
+    return medianVal
+};
+
+</pre> 
+</details>   
