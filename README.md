@@ -403,3 +403,66 @@ console.log(convert('LEETCODEISHIRING',4))
 </pre> 
 </details>   
 
+
+7. 整数反转
+
+给出一个 32 位的有符号整数，你需要将这个整数中每位上的数字进行反转。
+
+示例 1:
+```
+输入: 123
+输出: 321
+```
+ 示例 2:
+```
+输入: -123
+输出: -321
+```
+示例 3:
+```
+输入: 120
+输出: 21
+```
+注意:
+
+假设我们的环境只能存储得下 32 位的有符号整数，则其数值范围为 [−231,  231 − 1]。请根据这个假设，如果反转后整数溢出那么就返回 0。
+<details><summary><b>答案</b></summary>
+如果行数等于1或者字符串长度小于行数，那就返回字符串
+申明行数、变换、翻转、计数
+遍历行数，为每一行申明一个数组
+遍历字符串
+每一行塞进字符串值
+翻转是真的,则计数自增，否则自减
+如果计数等于行数-1或者计数等于0，则翻转真假替换
+reduce() 方法对数组中的每个元素执行一个由您提供的reducer函数(升序执行)，将其结果汇总为单个返回值。
+
+
+<pre> 
+/*
+ * @lc app=leetcode.cn id=7 lang=javascript
+ *
+ * [7] 整数反转
+ */
+/**
+ * @param {number} x
+ * @return {number}
+ */
+// 在JavaScript中模拟溢出真的有意义吗?JS中没有int。Number类型是浮点类型。如果必须模拟溢出，“整数”单元格大小应该定义为任务中的某个值，例如双单词。
+var reverse = function (x) {
+    if (x > 0) {
+        let arr = x.split('')
+        arr.reverse()
+        let str = arr.join('')
+        return str
+    } else {
+        let arr = x.replace('-', '').split('')
+        arr.reverse()
+        let str = arr.join('')
+        return '-' + str
+    }
+};
+
+
+</pre> 
+</details>   
+
