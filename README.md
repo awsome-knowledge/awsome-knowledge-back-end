@@ -544,3 +544,112 @@ var myAtoi = function (str) {
 </pre> 
 </details>   
 
+
+9. 回文数
+
+判断一个整数是否是回文数。回文数是指正序（从左向右）和倒序（从右向左）读都是一样的整数。
+
+示例 1:
+```
+输入: 121
+输出: true
+```
+示例 2:
+```
+输入: -121
+输出: false
+解释: 从左向右读, 为 -121 。 从右向左读, 为 121- 。因此它不是一个回文数。
+```
+示例 3:
+```
+输入: 10
+输出: false
+解释: 从右向左读, 为 01 。因此它不是一个回文数。
+```
+进阶:
+
+你能不将整数转为字符串来解决这个问题吗？
+<details><summary><b>答案</b></summary>
+初级版：
+1. 将整数转化为字符串
+2. 将字符串分割成数组
+3. 将数组反转
+4. 将数组变为字符串
+5. 比较前后字符串
+
+进阶版：
+Math.pow(10, i)：返回10的i次幂
+
+1. 小于0和10的先判断
+2. length是整数长度
+3. isLengthOdd整数长度是否为奇数
+4. halfIndex是整数长度除于二
+5. maxIndex是整数的长度减一
+6. calcX是整数截取后还剩的部分
+7. currentNum从头取
+8. result是正确的回文数
+9. result和x比对
+<pre> 
+/*
+ * @lc app=leetcode.cn id=9 lang=javascript
+ *
+ * [9] 回文数
+ */
+/**
+ * @param {number} x
+ * @return {boolean}
+ */
+var isPalindrome = function (x) {
+    let str = x.toString().split('').reverse().join('')
+
+    if (x.toString() === str) {
+        return true
+    } else {
+        return false
+    }
+};
+</pre> 
+<pre>
+var isPalindrome = function(x) {
+    if (x < 0) return false
+    if (x < 10) return true
+    let result = 0
+    
+    for (let i = 2; i <= 15; i++) {
+        if (x < Math.pow(10, i)) {
+            const length = i
+            const isLengthOdd = length % 2 !== 0
+            const maxIndex = length - 1
+            const halfIndex = Math.floor(length / 2)
+            let calcX = x
+            
+            for (let j = maxIndex; j >= halfIndex; j--) {
+                const edge = Math.pow(10, j)
+                if (calcX < edge) continue  // e.g. 101, '0' no need calculate
+                
+                const currentNum = parseInt(calcX / edge)
+                
+                if (j === halfIndex && isLengthOdd) {
+                   result += currentNum * edge
+                } else {
+                   result += currentNum * edge + currentNum * Math.pow(10, length - 1 - j) 
+                }
+                
+                calcX = calcX - currentNum * edge
+            }
+            
+            break
+        }
+    }
+    
+    return result === x
+};
+
+// 99  length = 2，max = 1, half = 1, first loop edge = 10,  first loop currentNum = parseInt(99 / 10) = 9
+// 99 = 9 * 10 ** 1 + 9 * 10 ** 0
+
+// 121 length = 3，isLengthOdd = true, max = 2, half = 1, first loop edge = 100, first loop currentNum = parseInt(121 / 100) = 1
+// 121 = 1 * 10 ** 2 + 1 * 10 ** 0 + 2 * 10 ** 1
+</pre>
+</details>   
+
