@@ -45,6 +45,7 @@ var twoSum = function (nums, target) {
 </pre> 
 </details>
 
+[[↑] 回到顶部](#awsome-interview-back-end)
 
 2. 两数相加
 
@@ -118,6 +119,8 @@ var addTwoNumbers = function (l1, l2) {
 </pre> 
 </details>
 
+[[↑] 回到顶部](#awsome-interview-back-end)
+
 3. 无重复字符的最长子串
 
 给定一个字符串，请你找出其中不含有重复字符的 最长子串 的长度。
@@ -168,6 +171,7 @@ var lengthOfLongestSubstring = function (s) {
 </pre> 
 </details>   
 
+[[↑] 回到顶部](#awsome-interview-back-end)
 
 4. 寻找两个有序数组的中位数
 
@@ -231,6 +235,7 @@ var findMedianSortedArrays = function (nums1, nums2) {
 </pre> 
 </details>   
 
+[[↑] 回到顶部](#awsome-interview-back-end)
 
 5. 最长回文子串
 
@@ -312,6 +317,8 @@ var longestPalindrome = function(s) {
 
 </pre> 
 </details>   
+
+[[↑] 回到顶部](#awsome-interview-back-end)
 
 
 6. Z 字形变换
@@ -403,6 +410,7 @@ console.log(convert('LEETCODEISHIRING',4))
 </pre> 
 </details>   
 
+[[↑] 回到顶部](#awsome-interview-back-end)
 
 7. 整数反转
 
@@ -466,6 +474,7 @@ var reverse = function (x) {
 </pre> 
 </details>   
 
+[[↑] 回到顶部](#awsome-interview-back-end)
 
 
 8. 字符串转换整数 (atoi)
@@ -544,6 +553,7 @@ var myAtoi = function (str) {
 </pre> 
 </details>   
 
+[[↑] 回到顶部](#awsome-interview-back-end)
 
 9. 回文数
 
@@ -653,6 +663,7 @@ var isPalindrome = function(x) {
 </pre>
 </details>   
 
+[[↑] 回到顶部](#awsome-interview-back-end)
 
 
 10. 正则表达式匹配
@@ -749,3 +760,81 @@ var isMatch = function (s, p) {
 
 </pre> 
 </details>
+
+
+[[↑] 回到顶部](#awsome-interview-back-end)
+
+
+11. 盛最多水的容器
+
+给定 n 个非负整数 a1，a2，...，an，每个数代表坐标中的一个点 (i, ai) 。在坐标内画 n 条垂直线，垂直线 i 的两个端点分别为 (i, ai) 和 (i, 0)。找出其中的两条线，使得它们与 x 轴共同构成的容器可以容纳最多的水。
+
+说明：你不能倾斜容器，且 n 的值至少为 2。
+
+![avatar](./11.jpg)
+
+图中垂直线代表输入数组 [1,8,6,2,5,4,8,3,7]。在此情况下，容器能够容纳水（表示为蓝色部分）的最大值为 49。
+
+ 
+
+示例:
+```
+输入: [1,8,6,2,5,4,8,3,7]
+输出: 49
+```
+<details><summary><b>答案</b></summary>
+Math.min() 返回零个或更多个数值的最小值。
+Math.max() 返回零个或更多个数值的最大值。
+有图可知，必须两头往中间走，取出最大的面积
+1. 定义i和j
+2. i从头开始往后走
+3. j从后往前走
+4. 如果i<j，则可以继续运行
+5. 取height[i]和height[j]中的最小值和距离乘
+6. 与之前的面积比较，取最大值
+7. 判断height[i]和height[j]的大小，哪个大则另一个往大的靠，相等则一起走
+<pre> 
+/*
+ * @lc app=leetcode.cn id=11 lang=javascript
+ *
+ * [11] 盛最多水的容器
+ */
+/**
+ * @param {number[]} height
+ * @return {number}
+ */
+var maxArea = function (height) {
+    // var max = 0
+    // var min = 0
+    // var arrArea = []
+    // for (let i in height) {
+    //     for (let j = 1; height.length - j > i; j++) {
+    //         min = Math.min(height[height.length - j], height[i])
+    //         area = min * (height.length - j - i)
+    //         arrArea.push(area)
+    //     }
+    // }
+    // for (let j in arrArea) {
+    //     max = Math.max(arrArea[j], max)
+    // }
+    let maxArea = 0
+    let i = 0
+    let j = height.length - 1
+    while (i < j) {
+        maxArea = Math.max(maxArea, Math.min(height[i], height[j]) * (j - i))
+        if (height[i] > height[j]) {
+            j--
+        } else if (height[i] < height[j]) {
+            i++
+        } else {
+            j--
+            i++
+        }
+    }
+    return maxArea
+};
+</pre> 
+</details>   
+
+
+[[↑] 回到顶部](#awsome-interview-back-end)
