@@ -726,7 +726,7 @@ var isPalindrome = function(x) {
 [[↑] 回到顶部](#awsome-interview-back-end)
 
 
-1.  正则表达式匹配
+10.  正则表达式匹配
 给你一个字符串 s 和一个字符规律 p，请你来实现一个支持 '.' 和 '*' 的正则表达式匹配。
 ```
 '.' 匹配任意单个字符
@@ -1096,6 +1096,68 @@ var romanToInt = function (s) {
 
 </pre> 
 </details>   
+
+
+[[↑] 回到顶部](#awsome-interview-back-end)
+
+
+
+14.  最长公共前缀
+
+
+编写一个函数来查找字符串数组中的最长公共前缀。
+
+如果不存在公共前缀，返回空字符串 ""。
+
+示例 1:
+```
+输入: ["flower","flow","flight"]
+输出: "fl"
+```
+示例 2:
+```
+输入: ["dog","racecar","car"]
+输出: ""
+解释: 输入不存在公共前缀。
+```
+说明:
+
+所有输入只包含小写字母 a-z 。
+<details><summary><b>答案</b></summary>
+- reduce：这个方法对数组中的每个元素执行一个自定义的函数，并将结果汇总
+- slice：这个方法对字符串截取
+
+1. 使用reduce方法对字符串数组进行遍历
+
+2. 判断前后字符串每个位子上的值是否相等，循环中相等i+1,否则跳出循环
+
+3. slice按照索引截取公共前缀
+<pre> 
+/*
+ * @lc app=leetcode.cn id=14 lang=javascript
+ *
+ * [14] 最长公共前缀
+ */
+/**
+ * @param {string[]} strs
+ * @return {string}
+ */
+var longestCommonPrefix = function (strs) {
+    if (strs.length === 0) {
+        return ''
+    }
+    return strs.reduce((former, latter) => {
+        let i = 0
+
+        while (former[i] && latter[i] && former[i] === latter[i]) {
+            i++
+        }
+        return former.slice(0, i)
+
+    })
+};
+</pre> 
+</details>
 
 
 [[↑] 回到顶部](#awsome-interview-back-end)
