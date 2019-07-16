@@ -1161,3 +1161,89 @@ var longestCommonPrefix = function (strs) {
 
 
 [[↑] 回到顶部](#awsome-interview-back-end)
+
+
+
+15. 三数之和
+给定一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？找出所有满足条件且不重复的三元组。
+
+注意：答案中不可以包含重复的三元组。
+```
+例如, 给定数组 nums = [-1, 0, 1, 2, -1, -4]，
+
+满足要求的三元组集合为：
+[
+  [-1, 0, 1],
+  [-1, -1, 2]
+]
+```
+
+<details><summary><b>答案</b></summary>
+
+1. 先判断数组长度，小于3则返回空数组
+
+2. 对数组排序（升序）
+
+3. 对数组进行遍历，索引为i变量，如果每个值都大于0，则也返回空数组；
+
+4. 对数组遍历，索引为j变量，是i的后一位，索引为k变量，是数组的最后一位，保持j小于k
+
+5. 如果第i，j，k个值之和为0，则返回i，j，k的数组，然后继续找，j向后移，k向前移
+
+6. 当j小于k并且第j和j-1个值相等，往后移一位
+
+7. 当j小于k并且第k和k+1个值相等，往前移一位
+
+8. 如果之和不为0，则k往前移，否则j往后移 
+
+<pre> 
+/*
+ * @lc app=leetcode.cn id=15 lang=javascript
+ *
+ * [15] 三数之和
+ */
+/**
+ * @param {number[]} nums
+ * @return {number[][]}
+ */
+var threeSum = function (nums) {
+    arr = []
+    if (nums.length < 3) {
+        return arr
+    }
+    nums = nums.sort(function (a, b) {
+        return a - b
+    })
+    for (let i = 0; i < nums.length - 2; i++) {
+        if (nums[i] > 0) {
+            return arr
+        }
+        if (i > 0 && nums[i] == nums[i - 1]) {
+            continue
+        }
+
+        for (var j = i + 1, k = nums.length - 1; j < k;) {
+            if (nums[i] + nums[j] + nums[k] === 0) {
+                arr.push([nums[i], nums[j], nums[k]])
+                j++;
+                k--;
+                while (j < k && nums[j] == nums[j - 1]) {
+                    j++
+                }
+                while (j < k && nums[k] == nums[k + 1]) {
+                    k--
+                }
+            } else if (nums[i] + nums[k] + nums[j] > 0) {
+                k--
+            } else {
+                j++
+            }
+        }
+    }
+    return arr
+};
+</pre> 
+</details>
+
+
+[[↑] 回到顶部](#awsome-interview-back-end)
