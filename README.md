@@ -1247,3 +1247,104 @@ var threeSum = function (nums) {
 
 
 [[↑] 回到顶部](#awsome-interview-back-end)
+
+
+
+16. 最接近的三数之和
+
+给定一个包括 n 个整数的数组 nums 和 一个目标值 target。找出 nums 中的三个整数，使得它们的和与 target 最接近。返回这三个数的和。假定每组输入只存在唯一答案。
+
+```
+例如，给定数组 nums = [-1，2，1，-4], 和 target = 1.
+
+与 target 最接近的三个数的和为 2. (-1 + 2 + 1 = 2).
+```
+<details><summary><b>答案</b></summary>
+方法有点笨
+
+- a1:原数组三数值和所有可能值的数组
+- a2:a1遍历后取距离值的数组
+- a3:对a2排序
+- a4:a1的模板
+
+1. 先判断数组长度，小于3则直接返回数组和
+
+2. 对数组排序（升序）
+
+3. 双重循环:最外层对数组进行遍历，索引为i变量;最内层对数组遍历，索引为j变量，是i的后一位，索引为k变量，是数组的最后一位，保持j小于k
+
+4. 如果第i，j，k个值之和为target，则返回target
+
+5. 如果第i，j，k个值之和大于target，则和值push进a1,并且k往前移一位
+
+6. 如果第i，j，k个值之和小于target，则和值还是push进a1,并且j往后移一位
+
+7. 然后a1遍历,每个值与target做差和绝对值,获取的值放进a2和a4
+
+8. a3是a2排序后的结果(升序)
+
+9. 在a4中取a3最小值的索引位
+
+10. 最后返回a1中的值  
+
+
+<pre> 
+/*
+ * @lc app=leetcode.cn id=16 lang=javascript
+ *
+ * [16] 最接近的三数之和
+ */
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number}
+ */
+var threeSumClosest = function (nums, target) {
+    let sum = 0
+    let a1 = []
+    let a2 = []
+    let a3 = []
+    let a4 = []
+    let index
+    if (nums.length <= 3) {
+        sum = nums.reduce((prev, next) => {
+            return prev + next
+        })
+        return sum
+    }
+    nums = nums.sort((a, b) => {
+        return a - b
+    })
+    for (let i = 0; i < nums.length - 2; i++) {
+        for (let j = i + 1, k = nums.length - 1; j < k;) {
+            if ((nums[i] + nums[j] + nums[k]) === target) {
+                return target
+            } else if ((nums[i] + nums[j] + nums[k]) > target) {
+                a1.push(nums[i] + nums[j] + nums[k])
+                k--
+            } else {
+                a1.push(nums[i] + nums[j] + nums[k])
+                j++
+            }
+        }
+    }
+
+    a1.forEach(item => {
+        a2.push(Math.abs(item - target))
+        a4.push(Math.abs(item - target))
+    })
+
+
+    a3 = a2.sort((a, b) => {
+        return a - b
+    })
+
+    index = a4.indexOf(a3[0])
+    return a1[index]
+
+};
+</pre> 
+</details>
+
+
+[[↑] 回到顶部](#awsome-interview-back-end)
