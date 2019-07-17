@@ -1348,3 +1348,90 @@ var threeSumClosest = function (nums, target) {
 
 
 [[↑] 回到顶部](#awsome-interview-back-end)
+
+
+
+17. 电话号码的字母组合
+
+给定一个仅包含数字 2-9 的字符串，返回所有它能表示的字母组合。
+
+给出数字到字母的映射如下（与电话按键相同）。注意 1 不对应任何字母。
+
+![avatar](./17.png)
+
+示例:
+
+```
+输入："23"
+输出：["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"].
+```
+
+说明:
+尽管上面的答案是按字典序排列的，但是你可以任意选择答案输出的顺序。
+
+<details><summary><b>答案</b></summary>
+
+- substr() 方法返回一个字符串中从指定位置开始到指定字符数的字符。
+
+- split() 方法使用指定的分隔符字符串将一个String对象分割成字符串数组，以将字符串分隔为子字符串，以确定每个拆分的位置。 
+
+- concat() 方法用于合并两个或多个数组。此方法不会更改现有数组，而是返回一个新数组。
+
+- undefined 一个声明未定义的变量的初始值，或没有实际参数的形式参数。
+
+- Map 对象保存键值对。任何值(对象或者原始值) 都可以作为一个键或一个值。
+
+1. 首先用map映射出电话号码和字母
+
+2. 将第一个字符串的字母放进数组arr
+
+3. 原字符串去掉第一个
+
+4. 将字符串分割成字符串数组,并对该数组遍历
+
+5. 根据每一个字符串digit,从map取出对应的字母数组,并对字母数组遍历
+
+6. 遍历arr,返回其中的item拼接letter的值
+
+7. 然后用t合并所有的返回值数组
+
+8. 最后返回arr
+<pre> 
+/*
+ * @lc app=leetcode.cn id=17 lang=javascript
+ *
+ * [17] 电话号码的字母组合
+ */
+/**
+ * @param {string} digits
+ * @return {string[]}
+ */
+var letterCombinations = function (digits) {
+    var map = {
+        "2": ["a", "b", "c"],
+        "3": ["d", "e", "f"],
+        "4": ["g", "h", "i"],
+        "5": ["j", "k", "l"],
+        "6": ["m", "n", "o"],
+        "7": ["p", "q", "r", "s"],
+        "8": ["t", "u", "v"],
+        "9": ["w", "x", "y", "z"]
+    };
+    var arr = map[digits[0]];
+    digits = digits.substr(1);
+    digits.split("").forEach((digit) => {
+        let t = [];
+        map[digit].forEach((letter) => {
+            t = t.concat(arr.map((item) => {
+                return item + letter;
+            }));
+        });
+        arr = t;
+    });
+    return arr === undefined ? [] : arr;
+};
+</pre> 
+</details>
+
+
+[[↑] 回到顶部](#awsome-interview-back-end)
