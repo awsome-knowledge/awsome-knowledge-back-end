@@ -1194,7 +1194,7 @@ var longestCommonPrefix = function (strs) {
 
 7. 当j小于k并且第k和k+1个值相等，往前移一位
 
-8. 如果之和不为0，则k往前移，否则j往后移 
+8. 如果之和大于0，则k往前移，否则j往后移 
 
 <pre> 
 /*
@@ -1248,6 +1248,339 @@ var threeSum = function (nums) {
 
 [[↑] 回到顶部](#awsome-interview-back-end)
 
+
+
+16. 最接近的三数之和
+
+给定一个包括 n 个整数的数组 nums 和 一个目标值 target。找出 nums 中的三个整数，使得它们的和与 target 最接近。返回这三个数的和。假定每组输入只存在唯一答案。
+
+```
+例如，给定数组 nums = [-1，2，1，-4], 和 target = 1.
+
+与 target 最接近的三个数的和为 2. (-1 + 2 + 1 = 2).
+```
+<details><summary><b>答案</b></summary>
+方法有点笨
+
+- a1:原数组三数值和所有可能值的数组
+- a2:a1遍历后取距离值的数组
+- a3:对a2排序
+- a4:a1的模板
+
+1. 先判断数组长度，小于3则直接返回数组和
+
+2. 对数组排序（升序）
+
+3. 双重循环:最外层对数组进行遍历，索引为i变量;最内层对数组遍历，索引为j变量，是i的后一位，索引为k变量，是数组的最后一位，保持j小于k
+
+4. 如果第i，j，k个值之和为target，则返回target
+
+5. 如果第i，j，k个值之和大于target，则和值push进a1,并且k往前移一位
+
+6. 如果第i，j，k个值之和小于target，则和值还是push进a1,并且j往后移一位
+
+7. 然后a1遍历,每个值与target做差和绝对值,获取的值放进a2和a4
+
+8. a3是a2排序后的结果(升序)
+
+9. 在a4中取a3最小值的索引位
+
+10. 最后返回a1中的值  
+
+
+<pre> 
+/*
+ * @lc app=leetcode.cn id=16 lang=javascript
+ *
+ * [16] 最接近的三数之和
+ */
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number}
+ */
+var threeSumClosest = function (nums, target) {
+    let sum = 0
+    let a1 = []
+    let a2 = []
+    let a3 = []
+    let a4 = []
+    let index
+    if (nums.length <= 3) {
+        sum = nums.reduce((prev, next) => {
+            return prev + next
+        })
+        return sum
+    }
+    nums = nums.sort((a, b) => {
+        return a - b
+    })
+    for (let i = 0; i < nums.length - 2; i++) {
+        for (let j = i + 1, k = nums.length - 1; j < k;) {
+            if ((nums[i] + nums[j] + nums[k]) === target) {
+                return target
+            } else if ((nums[i] + nums[j] + nums[k]) > target) {
+                a1.push(nums[i] + nums[j] + nums[k])
+                k--
+            } else {
+                a1.push(nums[i] + nums[j] + nums[k])
+                j++
+            }
+        }
+    }
+
+    a1.forEach(item => {
+        a2.push(Math.abs(item - target))
+        a4.push(Math.abs(item - target))
+    })
+
+
+    a3 = a2.sort((a, b) => {
+        return a - b
+    })
+
+    index = a4.indexOf(a3[0])
+    return a1[index]
+
+};
+</pre> 
+</details>
+
+
+[[↑] 回到顶部](#awsome-interview-back-end)
+
+
+
+17. 电话号码的字母组合
+
+给定一个仅包含数字 2-9 的字符串，返回所有它能表示的字母组合。
+
+给出数字到字母的映射如下（与电话按键相同）。注意 1 不对应任何字母。
+
+![avatar](./17.png)
+
+示例:
+
+```
+输入："23"
+输出：["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"].
+```
+
+说明:
+尽管上面的答案是按字典序排列的，但是你可以任意选择答案输出的顺序。
+
+<details><summary><b>答案</b></summary>
+
+- substr() 方法返回一个字符串中从指定位置开始到指定字符数的字符。
+
+- split() 方法使用指定的分隔符字符串将一个String对象分割成字符串数组，以将字符串分隔为子字符串，以确定每个拆分的位置。 
+
+- concat() 方法用于合并两个或多个数组。此方法不会更改现有数组，而是返回一个新数组。
+
+- undefined 一个声明未定义的变量的初始值，或没有实际参数的形式参数。
+
+- Map 对象保存键值对。任何值(对象或者原始值) 都可以作为一个键或一个值。
+
+1. 首先用map映射出电话号码和字母
+
+2. 将第一个字符串的字母放进数组arr
+
+3. 原字符串去掉第一个
+
+4. 将字符串分割成字符串数组,并对该数组遍历
+
+5. 根据每一个字符串digit,从map取出对应的字母数组,并对字母数组遍历
+
+6. 遍历arr,返回其中的item拼接letter的值
+
+7. 然后用t合并所有的返回值数组
+
+8. 最后返回arr
+<pre> 
+/*
+ * @lc app=leetcode.cn id=17 lang=javascript
+ *
+ * [17] 电话号码的字母组合
+ */
+/**
+ * @param {string} digits
+ * @return {string[]}
+ */
+var letterCombinations = function (digits) {
+    var map = {
+        "2": ["a", "b", "c"],
+        "3": ["d", "e", "f"],
+        "4": ["g", "h", "i"],
+        "5": ["j", "k", "l"],
+        "6": ["m", "n", "o"],
+        "7": ["p", "q", "r", "s"],
+        "8": ["t", "u", "v"],
+        "9": ["w", "x", "y", "z"]
+    };
+    var arr = map[digits[0]];
+    digits = digits.substr(1);
+    digits.split("").forEach((digit) => {
+        let t = [];
+        map[digit].forEach((letter) => {
+            t = t.concat(arr.map((item) => {
+                return item + letter;
+            }));
+        });
+        arr = t;
+    });
+    return arr === undefined ? [] : arr;
+};
+</pre> 
+</details>
+
+
+[[↑] 回到顶部](#awsome-interview-back-end)
+
+
+
+18. 四数之和
+
+给定一个包含 n 个整数的数组 nums 和一个目标值 target，判断 nums 中是否存在四个元素 a，b，c 和 d ，使得 a + b + c + d 的值与 target 相等？找出所有满足条件且不重复的四元组。
+
+注意：
+
+答案中不可以包含重复的四元组。
+
+示例：
+```
+给定数组 nums = [1, 0, -1, 0, -2, 2]，和 target = 0。
+
+满足要求的四元组集合为：
+[
+  [-1,  0, 0, 1],
+  [-2, -1, 1, 2],
+  [-2,  0, 0, 2]
+]
+```
+
+<details><summary><b>答案</b></summary>
+
+<pre> 
+/*
+ * @lc app=leetcode.cn id=18 lang=javascript
+ *
+ * [18] 四数之和
+ */
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number[][]}
+ */
+
+// 未成功
+// var fourSum = function (nums, target) {
+//     let arr = []
+//     if (nums.length < 4) {
+//         return arr
+//     }
+//     nums = nums.sort((a, b) => {
+//         return a - b
+//     })
+//     for (let i = 0; i < nums.length - 3; i++) {
+//         if (nums[i] > target) {
+//             return arr
+//         }
+//         for (let j = i + 1; j < nums.length - 2; j++) {
+//             for (let k = j+1, l = nums.length - 1; k < l;) {
+//                 // console.log(i, j, k, l)
+//                 // console.log(nums[i] + nums[j] + nums[k] + nums[l])
+//                 if ((nums[i] + nums[j] + nums[k] + nums[l]) === target) {
+//                     arr.push([nums[i], nums[j], nums[k], nums[l]])
+//                     k++;
+//                     l--
+//                     while (k < l && nums[j] === nums[j - 1]) {
+//                         j++
+//                     }
+//                     while (k < l && nums[k] === nums[k - 1]) {
+//                         k++
+//                     }
+//                     while (k < l && nums[l] === nums[l + 1]) {
+//                         l--
+//                     }
+//                 } else if ((nums[i] + nums[j] + nums[k] + nums[l]) > target) {
+//                     l--
+//                 } else {
+//                     k++
+//                 }
+//             }
+//         }
+//     }
+//     return arr
+// };
+
+// var fourSum = function(nums, target) {
+//     const counts = new Map();  // counts of elements in `nums`
+//     const aPlusB = new Map();  // sum tuples e.g. 5 => [[2, 3], [1, 4], ... ]
+//     for (let i = 0; i < nums.length - 1; i++) {
+//         counts.set(nums[i], (counts.get(nums[i]) || 0) + 1);
+//         for (let j = i + 1; j < nums.length; j++) {
+//             let a = nums[i], b = nums[j];
+//             aPlusB.set(a + b, [...aPlusB.get(a + b) || [], [a, b]]);
+//         }
+//     }
+//     counts.set(nums[nums.length - 1], (counts.get(nums[nums.length - 1]) || 0) + 1);
+//     const res = new Set();  // Sets are unique, so no worries about duplicates
+//     for (let i = 0; i < nums.length - 1; i++) {
+//         for (let j = i + 1; j < nums.length; j++) {
+//             let c = nums[i], d = nums[j];
+//             if (!aPlusB.has(target - c - d)) continue;  // move on if wrong sum
+//             aPlusB.get(target - c - d)
+//                 .forEach(ab => {
+//                     const abcd = [...ab, c, d];
+//                     if (!abcd.some(e => abcd.reduce((qty, a) => qty + (a === e), 0) > counts.get(e))) {
+//                         res.add(abcd.sort().join(','));
+//                     }
+//                 });
+//         }
+//     }
+//     return [...res].map(abcd => abcd.split(',').map(e => parseInt(e)));
+// };
+
+var fourSum = function (nums, target) {
+    nums = nums.sort(function (a, b) {
+        return a - b
+    }); //先排序
+    var arr = [];
+    for (i = 0; i < nums.length - 3; i++) { //第一个
+        if (i > 0 && nums[i - 1] == nums[i]) continue
+        for (j = i + 1; j < nums.length - 2; j++) { //第二个
+            if (j > i + 1 && nums[j - 1] == nums[j]) continue
+            var k = nums.length - 1
+            var c = j + 1;
+            while (c < nums.length - 1 && c != k) { //第三个
+                var sum = nums[i] + nums[j] + nums[c] + nums[k]
+                if (c > j + 1 && nums[c] == nums[c - 1]) {
+                    c++;
+                    continue;
+                }
+                if (k < nums.length - 1 && nums[k] == nums[k + 1]) {
+                    k--;
+                    continue;
+                }
+                if (sum == target) {
+                    arr.push([nums[i], nums[j], nums[c], nums[k]]);
+                    c++
+                    k = nums.length - 1
+                } else if (sum < target) {
+                    c++
+                } else {
+                    k--
+                }
+            }
+        }
+    }
+    return arr
+};
+</pre> 
+</details>
+
+
+[[↑] 回到顶部](#awsome-interview-back-end)
 
 
 
@@ -1323,10 +1656,8 @@ var removeNthFromEnd = function(head, n) {
     second.next = second.next.next;
     return head
 }
-
 </pre> 
 </details>
 
 
 [[↑] 回到顶部](#awsome-interview-back-end)
-
