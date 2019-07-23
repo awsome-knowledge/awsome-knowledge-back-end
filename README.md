@@ -47,6 +47,8 @@ var twoSum = function (nums, target) {
 
 [[↑] 回到顶部](#awsome-interview-back-end)
 
+---
+
 2. 两数相加
 
 
@@ -121,6 +123,8 @@ var addTwoNumbers = function (l1, l2) {
 
 [[↑] 回到顶部](#awsome-interview-back-end)
 
+---
+
 3. 无重复字符的最长子串
 
 给定一个字符串，请你找出其中不含有重复字符的 最长子串 的长度。
@@ -172,6 +176,9 @@ var lengthOfLongestSubstring = function (s) {
 </details>   
 
 [[↑] 回到顶部](#awsome-interview-back-end)
+
+---
+
 
 4. 寻找两个有序数组的中位数
 
@@ -239,6 +246,9 @@ var findMedianSortedArrays = function (nums1, nums2) {
 </details>   
 
 [[↑] 回到顶部](#awsome-interview-back-end)
+
+
+---
 
 5. 最长回文子串
 
@@ -329,6 +339,7 @@ var longestPalindrome = function(s) {
 
 [[↑] 回到顶部](#awsome-interview-back-end)
 
+---
 
 6. Z 字形变换
 
@@ -429,6 +440,8 @@ console.log(convert('LEETCODEISHIRING',4))
 
 [[↑] 回到顶部](#awsome-interview-back-end)
 
+---
+
 7. 整数反转
 
 给出一个 32 位的有符号整数，你需要将这个整数中每位上的数字进行反转。
@@ -502,6 +515,7 @@ var reverse = function (x) {
 
 [[↑] 回到顶部](#awsome-interview-back-end)
 
+---
 
 8. 字符串转换整数 (atoi)
 
@@ -586,6 +600,8 @@ var myAtoi = function (str) {
 </details>   
 
 [[↑] 回到顶部](#awsome-interview-back-end)
+
+---
 
 9. 回文数
 
@@ -725,6 +741,7 @@ var isPalindrome = function(x) {
 
 [[↑] 回到顶部](#awsome-interview-back-end)
 
+---
 
 10.  正则表达式匹配
 给你一个字符串 s 和一个字符规律 p，请你来实现一个支持 '.' 和 '*' 的正则表达式匹配。
@@ -824,6 +841,7 @@ var isMatch = function (s, p) {
 
 [[↑] 回到顶部](#awsome-interview-back-end)
 
+---
 
 11. 盛最多水的容器
 
@@ -909,6 +927,7 @@ var maxArea = function (height) {
 [[↑] 回到顶部](#awsome-interview-back-end)
 
 
+---
 
 12. 整数转罗马数字
 罗马数字包含以下七种字符： I， V， X， L，C，D 和 M。
@@ -1003,6 +1022,7 @@ var intToRoman = function (num) {
 
 [[↑] 回到顶部](#awsome-interview-back-end)
 
+---
 
 13. 罗马数字转整数
 罗马数字包含以下七种字符： I， V， X， L，C，D 和 M。
@@ -1101,6 +1121,7 @@ var romanToInt = function (s) {
 [[↑] 回到顶部](#awsome-interview-back-end)
 
 
+---
 
 14.  最长公共前缀
 
@@ -1162,6 +1183,7 @@ var longestCommonPrefix = function (strs) {
 
 [[↑] 回到顶部](#awsome-interview-back-end)
 
+---
 
 
 15. 三数之和
@@ -1248,6 +1270,7 @@ var threeSum = function (nums) {
 
 [[↑] 回到顶部](#awsome-interview-back-end)
 
+---
 
 
 16. 最接近的三数之和
@@ -1350,6 +1373,7 @@ var threeSumClosest = function (nums, target) {
 [[↑] 回到顶部](#awsome-interview-back-end)
 
 
+---
 
 17. 电话号码的字母组合
 
@@ -1437,6 +1461,7 @@ var letterCombinations = function (digits) {
 [[↑] 回到顶部](#awsome-interview-back-end)
 
 
+---
 
 18. 四数之和
 
@@ -1582,6 +1607,7 @@ var fourSum = function (nums, target) {
 
 [[↑] 回到顶部](#awsome-interview-back-end)
 
+---
 
 
 19. 删除链表的倒数第N个节点
@@ -1656,6 +1682,95 @@ var removeNthFromEnd = function(head, n) {
     second.next = second.next.next;
     return head
 }
+</pre> 
+</details>
+
+
+[[↑] 回到顶部](#awsome-interview-back-end)
+
+
+---
+
+20. 有效的括号
+
+给定一个只包括 '('，')'，'{'，'}'，'['，']' 的字符串，判断字符串是否有效。
+
+有效字符串需满足：
+
+1. 左括号必须用相同类型的右括号闭合。
+
+2. 左括号必须以正确的顺序闭合。
+
+注意空字符串可被认为是有效字符串。
+
+```
+示例 1:
+
+输入: "()"
+输出: true
+示例 2:
+
+输入: "()[]{}"
+输出: true
+示例 3:
+
+输入: "(]"
+输出: false
+示例 4:
+
+输入: "([)]"
+输出: false
+示例 5:
+
+输入: "{[]}"
+输出: true
+```
+
+<details><summary><b>答案</b></summary>
+
+1. 先申明一个空的临时数组tmp
+
+
+2. 循环s
+
+
+3. 如果在“({[]})”中有的话进入下一个判断，并记下位置i
+
+
+4. 如果在tmp中的最后一个数加上i等于5的话，tmp中长度-1
+
+
+5. 否则将i塞进tmp中
+
+
+6. 最后判断tmp的长度，等于0则为有效括号，返回true
+
+
+7. 如果是有效括号，那么前面push进去的，后面都能消掉。这就是这个算法的神奇之处。
+
+
+<pre> 
+/*
+ * @lc app=leetcode.cn id=20 lang=javascript
+ *
+ * [20] 有效的括号
+ */
+/**
+ * @param {tmpring} s
+ * @return {boolean}
+ */
+
+var isValid = function(s) {
+    var tmp = []
+    for(var l of s)
+        if ((i="({[]})".indexOf(l))>-1)
+            if (tmp[tmp.length-1]+i===5)
+                tmp.length--;
+            else
+                tmp.push(i);
+    return tmp.length===0
+};
+
 </pre> 
 </details>
 
