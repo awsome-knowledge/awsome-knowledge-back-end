@@ -2253,3 +2253,58 @@ var search = function(nums, target) {
 [[↑] 回到顶部](#awsome-interview-back-end)
 
 ---
+
+
+34. 在排序数组中查找元素的第一个和最后一个位置
+    
+给定一个按照升序排列的整数数组 nums，和一个目标值 target。找出给定目标值在数组中的开始位置和结束位置。
+
+你的算法时间复杂度必须是 O(log n) 级别。
+
+如果数组中不存在目标值，返回 [-1, -1]。
+
+示例 1:
+```
+输入: nums = [5,7,7,8,8,10], target = 8
+输出: [3,4]
+```
+示例 2:
+```
+输入: nums = [5,7,7,8,8,10], target = 6
+输出: [-1,-1]
+```
+<details><summary><b>答案</b></summary>
+indexOf这个方法正好用的上,返回目标值在数组中的索引
+
+lastIndexOf()从后往前找目标值,与indexOf()恰好相反
+<pre> 
+/*
+ * @lc app=leetcode.cn id=34 lang=javascript
+ *
+ * [34] 在排序数组中查找元素的第一个和最后一个位置
+ */
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number[]}
+ */
+var searchRange = function(nums, target) {
+    let arr=[]
+    let left=nums.indexOf(target)
+    let right=nums.lastIndexOf(target)
+    arr.push(left)
+    arr.push(right)
+    return arr
+};
+
+
+✔ Accepted
+  ✔ 88/88 cases passed (80 ms)
+  ✔ Your runtime beats 79.6 % of javascript submissions
+  ✔ Your memory usage beats 64.12 % of javascript submissions (34.9 MB)
+</pre> 
+</details>
+
+[[↑] 回到顶部](#awsome-interview-back-end)
+
+---
