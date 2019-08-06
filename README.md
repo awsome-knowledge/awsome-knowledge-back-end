@@ -2556,3 +2556,77 @@ var countAndSay = function (n) {
 
 
 ---
+
+
+39. 组合总和
+
+给定一个无重复元素的数组 candidates 和一个目标数 target ，找出 candidates 中所有可以使数字和为 target 的组合。
+
+candidates 中的数字可以无限制重复被选取。
+
+说明：
+```
+所有数字（包括 target）都是正整数。
+解集不能包含重复的组合。 
+```
+示例 1:
+```
+输入: candidates = [2,3,6,7], target = 7,
+所求解集为:
+[
+  [7],
+  [2,2,3]
+]
+```
+示例 2:
+```
+输入: candidates = [2,3,5], target = 8,
+所求解集为:
+[
+  [2,2,2,2],
+  [2,3,3],
+  [3,5]
+]
+```
+<details><summary><b>答案</b></summary>
+1. 迭代 内置search方法，循环start值
+<pre> 
+/*
+ * @lc app=leetcode.cn id=39 lang=javascript
+ *
+ * [39] 组合总和
+ */
+/**
+ * @param {number[]} candidates
+ * @param {number} target
+ * @return {number[][]}
+ */
+var combinationSum = function (candidates, target) {
+    candidates.sort((a, b) => a - b)
+    let buffer = []
+    let res = []
+    search(0, target)
+    return res
+
+    function search(start, target) {
+        if (target === 0) return res.push(buffer.slice())
+        if (target < 0) return
+        if (start === candidates.length) return
+        buffer.push(candidates[start])
+        search(start, target - candidates[start])
+        buffer.pop()
+        search(start + 1, target)
+    }
+};
+
+✔ Accepted
+  ✔ 168/168 cases passed (124 ms)
+  ✔ Your runtime beats 55.49 % of javascript submissions
+  ✔ Your memory usage beats 99.12 % of javascript submissions (35.8 MB)
+</pre> 
+</details>
+
+[[↑] 回到顶部](#awsome-interview-back-end)
+
+
+---
