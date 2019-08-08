@@ -2631,8 +2631,115 @@ var combinationSum = function (candidates, target) {
 
 ---
 
-395. 至少有K个重复字符的最长子串
-396. 
+
+53. 最大子序和
+
+给定一个整数数组 nums ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。
+
+示例:
+```
+输入: [-2,1,-3,4,-1,2,1,-5,4],
+输出: 6
+解释: 连续子数组 [4,-1,2,1] 的和最大，为 6。
+```
+进阶:
+
+如果你已经实现复杂度为 O(n) 的解法，尝试使用更为精妙的分治法求解。
+<details><summary><b>答案</b></summary>
+1. 最小数是最大值的负数，就是-Number.MAX_VALUE，现将该值赋值给max、
+
+
+2. 申明sum
+
+
+3. 遍历nums
+
+
+4. 如果sum小于零，重置，因为一个数加上负数肯定变小
+
+
+5. sum加上nums数组中的每个值
+
+
+6. 判断max和sum取最大值赋值给max
+
+
+7. 循环结束返回max
+
+
+<pre> 
+
+方法一：动态规划
+
+/*
+ * @lc app=leetcode.cn id=53 lang=javascript
+ *
+ * [53] 最大子序和
+ */
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var maxSubArray = function (nums) {
+    let max=-Number.MAX_VALUE
+    let sum=0
+
+    for(let i of nums){
+        if(sum<0){
+            sum=0
+        }
+        sum+=i
+        max=Math.max(max,sum)
+    }
+    return max
+};
+
+方法二：分治
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var maxSubArray = function(nums) {
+  return divide(nums, 0, nums.length-1);
+};
+ 
+var divide = function(nums, l, r) {
+  if (l === r) {
+    return nums[l];
+  }
+  if (l === r-1) {
+    return Math.max(nums[l], Math.max(nums[r], nums[l] + nums[r]));
+  }
+  
+  let mid = parseInt((l + r) / 2);
+  let lmax = divide(nums, l, mid-1);
+  let rmax = divide(nums, mid+1, r);
+  
+  let mmax = nums[mid];  // 从中间开始计算
+  let sum = mmax; // 用来求和
+  for (let i = mid - 1; i >= l; i--) {
+    sum += nums[i];
+    mmax = Math.max(mmax, sum);
+  }
+  
+  sum = mmax;
+  for (let i = mid + 1; i <= r; i++) {
+    sum += nums[i];
+    mmax = Math.max(mmax, sum);
+  }
+  
+  return Math.max(lmax, Math.max(rmax, mmax));
+};
+</pre> 
+</details>
+
+[[↑] 回到顶部](#awsome-interview-back-end)
+
+
+---
+
+395.   至少有K个重复字符的最长子串
 找到给定字符串（由小写字符组成）中的最长子串 T ， 要求 T 中的每一字符出现次数都不少于 k 。输出 T 的长度。
 
 示例 1:
