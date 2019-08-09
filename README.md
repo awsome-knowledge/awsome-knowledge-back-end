@@ -2632,6 +2632,64 @@ var combinationSum = function (candidates, target) {
 ---
 
 
+46. 全排列
+给定一个没有重复数字的序列，返回其所有可能的全排列。
+
+示例:
+```
+
+输入: [1,2,3]
+输出:
+[
+  [1,2,3],
+  [1,3,2],
+  [2,1,3],
+  [2,3,1],
+  [3,1,2],
+  [3,2,1]
+]
+```
+<details><summary><b>答案</b></summary>
+<pre> 
+/*
+ * @lc app=leetcode.cn id=46 lang=javascript
+ *
+ * [46] 全排列
+ */
+/**
+ * @param {number[]} nums
+ * @return {number[][]}
+ */
+
+// remaining:剩下的
+var permute = function (nums) {
+    let res = []
+    let permutations = (current, remaining) => {
+        if (remaining.length <= 0) res.push(current.slice())
+        else {
+            for (let i = 0; i < remaining.length; i++) {
+                current.push(remaining[i])
+                permutations(current.slice(), remaining.slice(0, i).concat(remaining.slice(i + 1)))
+                current.pop()
+            }
+        }
+    }
+    permutations([], nums)
+    return res
+};
+
+
+✔ Accepted
+  ✔ 25/25 cases passed (96 ms)
+  ✔ Your runtime beats 90.73 % of javascript submissions
+  ✔ Your memory usage beats 24.34 % of javascript submissions (37.3 MB)
+</pre> 
+</details>
+
+[[↑] 回到顶部](#awsome-interview-back-end)
+
+---
+
 53. 最大子序和
 
 给定一个整数数组 nums ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。
