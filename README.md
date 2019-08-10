@@ -2797,7 +2797,74 @@ var divide = function(nums, l, r) {
 
 ---
 
-395.   至少有K个重复字符的最长子串
+
+
+53. 最后一个单词的长度
+给定一个仅包含大小写字母和空格 ' ' 的字符串，返回其最后一个单词的长度。
+
+如果不存在最后一个单词，请返回 0 。
+
+说明：一个单词是指由字母组成，但不包含任何空格的字符串。
+
+示例:
+```
+输入: "Hello World"
+输出: 5
+```
+<details><summary><b>答案</b></summary>
+关键就是切分字符串
+
+1. 判断字符串是否为空，空的就为0
+
+
+2. 分割字符串
+
+
+3. 过滤字符串数组，空的丢弃
+
+
+4. 取字符串最后一个单词，如果index小于0，返回0，否则返回最后一个字符串长度。因为" "，中间有空格的是还没去掉。
+<pre> 
+
+/*
+ * @lc app=leetcode.cn id=58 lang=javascript
+ *
+ * [58] 最后一个单词的长度
+ */
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var lengthOfLastWord = function (s) {
+    if (s === '') {
+        return 0
+    }
+    let last = s.split(' ')
+    last = last.filter(item => {
+        return item !== ''
+    })
+    let index = last.length - 1
+    if (index >= 0) {
+        return last[index].length
+    }else{
+        return 0
+    }
+};
+
+
+√ Accepted
+  √ 59/59 cases passed (64 ms)
+  √ Your runtime beats 98.61 % of javascript submissions
+  √ Your memory usage beats 21.66 % of javascript submissions (33.8 MB)
+</pre> 
+</details>
+
+[[↑] 回到顶部](#awsome-interview-back-end)
+
+
+---
+
+1.     至少有K个重复字符的最长子串
 找到给定字符串（由小写字符组成）中的最长子串 T ， 要求 T 中的每一字符出现次数都不少于 k 。输出 T 的长度。
 
 示例 1:
