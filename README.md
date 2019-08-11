@@ -2857,7 +2857,107 @@ var lengthOfLastWord = function (s) {
 
 ---
 
-395.     至少有K个重复字符的最长子串
+
+66. 加一
+给定一个由整数组成的非空数组所表示的非负整数，在该数的基础上加一。
+
+最高位数字存放在数组的首位， 数组中每个元素只存储单个数字。
+
+你可以假设除了整数 0 之外，这个整数不会以零开头。
+
+示例 1:
+```
+输入: [1,2,3]
+输出: [1,2,4]
+解释: 输入数组表示数字 123。
+```
+示例 2:
+```
+输入: [4,3,2,1]
+输出: [4,3,2,2]
+解释: 输入数组表示数字 4321。
+```
+<details><summary><b>答案</b></summary>
+
+<pre> 
+/*
+ * @lc app=leetcode.cn id=66 lang=javascript
+ *
+ * [66] 加一
+ */
+/**
+ * @param {number[]} digits
+ * @return {number[]}
+ */
+var plusOne = function (digits) {
+    let num=parseInt(digits.join(''))
+    num+=1
+    let arr=num.toString().split('')
+    return arr
+};
+
+× Wrong Answer
+  × 69/109 cases passed (N/A)
+  × testcase: '[6,1,4,5,3,9,0,1,9,5,1,8,6,7,0,5,5,4,3]'
+  × answer: [6,1,4,5,3,9,0,1,9,5,1,8,6,7,0,5,0,0,0]
+  × expected_answer: [6,1,4,5,3,9,0,1,9,5,1,8,6,7,0,5,5,4,4]
+  × stdout:
+</pre> 
+parseInt当数字过大时，精度出错
+
+正确方法：
+
+1. 由于之前转数字错误的示范，这次就要改邪归正了
+
+
+2. 遍历数组，从尾到头，命中数字加1
+
+
+3. 和值如果大于等于10，该位置上清0，再来一遍循环，否则就返回目标值
+
+
+4. 循环结束，所有位置上都大于等于10，那么在目标值头部加1
+<pre>
+
+/*
+ * @lc app=leetcode.cn id=66 lang=javascript
+ *
+ * [66] 加一
+ */
+/**
+ * @param {number[]} digits
+ * @return {number[]}
+ */
+var plusOne = function (digits) {
+    for (let i = digits.length - 1; i >= 0; i--) {
+        digits[i]++
+        if (digits[i] >= 10) {
+            digits[i]=0
+        } else {
+            return digits
+        }   
+    }
+    digits.unshift(1)
+    return digits
+}
+
+</pre>
+
+<pre>
+√ Accepted
+  √ 109/109 cases passed (68 ms)
+  √ Your runtime beats 96.42 % of javascript submissions
+  √ Your memory usage beats 41.65 % of javascript submissions (33.7 MB)
+  
+</pre>
+</details>
+
+[[↑] 回到顶部](#awsome-interview-back-end)
+
+
+---
+
+1.       至少有K个重复字符的最长子串
 找到给定字符串（由小写字符组成）中的最长子串 T ， 要求 T 中的每一字符出现次数都不少于 k 。输出 T 的长度。
 
 示例 1:
