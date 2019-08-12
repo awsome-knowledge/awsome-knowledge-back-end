@@ -2957,7 +2957,129 @@ var plusOne = function (digits) {
 
 ---
 
-1.       至少有K个重复字符的最长子串
+
+67. 二进制求和
+
+给定两个二进制字符串，返回他们的和（用二进制表示）。
+
+输入为非空字符串且只包含数字 1 和 0。
+
+示例 1:
+```
+输入: a = "11", b = "1"
+输出: "100"
+```
+示例 2:
+```
+输入: a = "1010", b = "1011"
+输出: "10101"
+```
+<details><summary><b>答案</b></summary>
+
+<pre> 
+/*
+ * @lc app=leetcode.cn id=67 lang=javascript
+ *
+ * [67] 二进制求和
+ */
+/**
+ * @param {string} a
+ * @param {string} b
+ * @return {string}
+ */
+var addBinary = function (a, b) {
+    // 精度不够
+    // 1. 
+    let suma = 0,
+        sumb = 0,
+        sum = 0
+    for (let i = a.length - 1; i >= 0; i--) {
+        suma += a[i] * Math.pow(2, a.length - 1 - i)
+    }
+    for (let i = b.length - 1; i >= 0; i--) {
+        sumb += b[i] * Math.pow(2, b.length - 1 - i)
+    }
+    sum = suma + sumb
+    console.log(sum)
+
+    return sum.toString(2)
+
+    // 2.
+    suma = parseInt(a, 2)
+    sumb = parseInt(b, 2)
+    sum = suma + sumb
+    return sum.toString(2)
+
+};
+console.log(addBinary("10100000100100110110010000010101111011011001101110111111111101000000101111001110001111100001101", "110101001011101110001111100110001010100001101011101010000011011011001011101111001100000011011110011"))
+</pre> 
+提供的API当数字过大时，精度出错
+
+
+正确方法：
+
+前提:字符串必须转化为数字
+
+
+1. 将a和b都倒置
+
+2. 取出两者中的最长长度
+
+3. 申明一个空数组
+
+4. 循环最长长度,当前a和b和res之和等于一个当前值
+
+5. 如果当前值大于等于2,取模,该位置清0,res最后塞进1,否则res当前位置上的值就等于当前值
+
+6. 跳出循环,返回倒置之后的2进制数
+
+<pre>
+/*
+ * @lc app=leetcode.cn id=67 lang=javascript
+ *
+ * [67] 二进制求和
+ */
+/**
+ * @param {string} a
+ * @param {string} b
+ * @return {string}
+ */
+var addBinary = function (a, b) {
+    a = a.split('').reverse().join('')
+    b = b.split('').reverse().join('')
+    let length = a.length > b.length ? a.length : b.length
+    let res = []
+    for (let i = 0; i < length; i++) {
+        numa = Number(a[i] || 0)
+        numb = Number(b[i] || 0)
+
+        let current = Number(res[i] || 0) + numa + numb
+        if (current >= 2) {
+            res[i] = current % 2
+            res.push(1)
+        } else {
+            res[i] = current
+        }
+    }
+    return res.reverse().join('')
+};
+</pre>
+
+<pre>
+✔ Accepted
+  ✔ 294/294 cases passed (104 ms)
+  ✔ Your runtime beats 48.91 % of javascript submissions
+  ✔ Your memory usage beats 50.21 % of javascript submissions (35.7 MB)
+</pre>
+</details>
+
+[[↑] 回到顶部](#awsome-interview-back-end)
+
+
+---
+
+
+1.         至少有K个重复字符的最长子串
 找到给定字符串（由小写字符组成）中的最长子串 T ， 要求 T 中的每一字符出现次数都不少于 k 。输出 T 的长度。
 
 示例 1:
