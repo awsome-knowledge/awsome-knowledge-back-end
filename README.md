@@ -3201,7 +3201,109 @@ var mySqrt = function (x) {
 
 
 
-395.   至少有K个重复字符的最长子串
+
+70. 爬楼梯
+
+
+假设你正在爬楼梯。需要 n 阶你才能到达楼顶。
+
+每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？
+
+注意：给定 n 是一个正整数。
+
+示例 1：
+```
+输入： 2
+输出： 2
+解释： 有两种方法可以爬到楼顶。
+1.  1 阶 + 1 阶
+2.  2 阶
+```
+示例 2：
+```
+输入： 3
+输出： 3
+解释： 有三种方法可以爬到楼顶。
+1.  1 阶 + 1 阶 + 1 阶
+2.  1 阶 + 2 阶
+3.  2 阶 + 1 阶
+```
+<details><summary><b>答案</b></summary>
+
+
+<pre> 
+/*
+ * @lc app=leetcode.cn id=70 lang=javascript
+ *
+ * [70] 爬楼梯
+ */
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var climbStairs = function (n) {
+    let sum
+    if (n === 2) {
+        return 2
+    } else if (n === 3) {
+        return 3
+    }
+    sum = climbStairs(n - 1) + climbStairs(n - 2)
+    return sum
+}
+
+
+RangeError: Maximum call stack size exceeded
+</pre> 
+这种方法，虽然也是递归但是爆栈了
+
+
+正确如下：
+
+1. 递归方法
+
+2. 结果值就等于前两者相加
+
+3. 最初始值给定，并申明一个数组存放结果，递归的中产生的值放入数组就不会爆栈，最后返回数组中的n位置上的值。
+
+4. 如果递归调用出现问题，可以考虑采取循环的方式来解决，将需要的数据在关键的调用点保存下来使用。简 单的说，就是用自己的数据保存方法来代替系统递归调用产生的堆栈数据。
+<pre>
+/*
+ * @lc app=leetcode.cn id=70 lang=javascript
+ *
+ * [70] 爬楼梯
+ */
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var climbStairs = function (n) {
+    if (n === 0) return 0
+    if (n === 1) return 1
+    if (n === 2) return 2
+    let arr = [0, 1, 2]
+    for (let i = 3; i <= n; i++) {
+        arr[i] = arr[i - 1] + arr[i - 2]
+    }
+    return arr[n]
+}
+
+</pre>
+
+<pre>
+✔ Accepted
+  ✔ 45/45 cases passed (60 ms)
+  ✔ Your runtime beats 98.63 % of javascript submissions
+  ✔ Your memory usage beats 41.12 % of javascript submissions (33.7 MB)
+</pre>
+</details>
+
+[[↑] 回到顶部](#awsome-interview-back-end)
+
+
+---
+
+1.       至少有K个重复字符的最长子串
 
 找到给定字符串（由小写字符组成）中的最长子串 T ， 要求 T 中的每一字符出现次数都不少于 k 。输出 T 的长度。
 
