@@ -10,7 +10,13 @@
  * @param {number} n
  * @return {void} Do not return anything, modify nums1 in-place instead.
  */
-var merge = function(nums1, m, nums2, n) {
-    
+var merge = function (nums1, m, nums2, n) {
+    nums1.splice(m)
+    nums2.splice(n)
+    for (let i in nums2) {
+        nums1.splice(m + i, 0, nums2[i])
+    }
+    return nums1.sort((a, b) => {
+        return a - b
+    })
 };
-

@@ -3303,7 +3303,73 @@ var climbStairs = function (n) {
 
 ---
 
-1.       至少有K个重复字符的最长子串
+
+
+
+88. 合并两个有序数组
+
+给定两个有序整数数组 nums1 和 nums2，将 nums2 合并到 nums1 中，使得 num1 成为一个有序数组。
+
+说明:
+```
+初始化 nums1 和 nums2 的元素数量分别为 m 和 n。
+你可以假设 nums1 有足够的空间（空间大小大于或等于 m + n）来保存 nums2 中的元素。
+```
+示例:
+```
+输入:
+nums1 = [1,2,3,0,0,0], m = 3
+nums2 = [2,5,6],       n = 3
+
+输出: [1,2,2,3,5,6]
+```
+<details><summary><b>答案</b></summary>
+
+1. 必须要更改数组本身，所以只能用splice和sort，而不能用slice和concat等api
+
+
+2. sort要指定升序
+<pre>
+
+/*
+ * @lc app=leetcode.cn id=88 lang=javascript
+ *
+ * [88] 合并两个有序数组
+ */
+/**
+ * @param {number[]} nums1
+ * @param {number} m
+ * @param {number[]} nums2
+ * @param {number} n
+ * @return {void} Do not return anything, modify nums1 in-place instead.
+ */
+var merge = function (nums1, m, nums2, n) {
+    nums1.splice(m)
+    nums2.splice(n)
+    for (let i in nums2) {
+        nums1.splice(m + i, 0, nums2[i])
+    }
+    return nums1.sort((a, b) => {
+        return a - b
+    })
+};
+</pre>
+
+<pre>
+✔ Accepted
+  ✔ 59/59 cases passed (92 ms)
+  ✔ Your runtime beats 42.32 % of javascript submissions
+  ✔ Your memory usage beats 7.67 % of javascript submissions (35.2 MB)
+</pre>
+</details>
+
+[[↑] 回到顶部](#awsome-interview-back-end)
+
+
+---
+
+
+395. 至少有K个重复字符的最长子串
 
 找到给定字符串（由小写字符组成）中的最长子串 T ， 要求 T 中的每一字符出现次数都不少于 k 。输出 T 的长度。
 
