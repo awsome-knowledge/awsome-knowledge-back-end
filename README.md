@@ -3369,6 +3369,96 @@ var merge = function (nums1, m, nums2, n) {
 ---
 
 
+
+
+
+100. 相同的树
+
+
+给定两个二叉树，编写一个函数来检验它们是否相同。
+
+如果两个树在结构上相同，并且节点具有相同的值，则认为它们是相同的。
+
+示例 1:
+```
+输入:       1         1
+          / \       / \
+         2   3     2   3
+
+        [1,2,3],   [1,2,3]
+
+输出: true
+```
+示例 2:
+```
+输入:      1          1
+          /           \
+         2             2
+
+        [1,2],     [1,null,2]
+
+输出: false
+```
+示例 3:
+```
+输入:       1         1
+          / \       / \
+         2   1     1   2
+
+        [1,2,1],   [1,1,2]
+
+输出: false
+```
+<details><summary><b>答案</b></summary>
+
+根据题意得知，底层已经实现了TreeNode,只要判断是否是相同的树
+
+1. 如果两者都为空，那么返回true
+
+2. 如果两者有一者为空或者值不相同，那么返回false
+
+3. 迭代每一层分支
+<pre>
+/*
+ * @lc app=leetcode.cn id=100 lang=javascript
+ *
+ * [100] 相同的树
+ */
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} p
+ * @param {TreeNode} q
+ * @return {boolean}
+ */
+var isSameTree = function (p, q) {
+    if (!p && !q) return true
+    if (!p || !q || p.val !== q.val) return false
+    return isSameTree(p.left, q.left) && isSameTree(p.right, q.right)
+};
+
+</pre>
+
+<pre>
+✔ Accepted
+  ✔ 57/57 cases passed (76 ms)
+  ✔ Your runtime beats 72.47 % of javascript submissions
+  ✔ Your memory usage beats 39.77 % of javascript submissions (33.7 MB)
+</pre>
+</details>
+
+[[↑] 回到顶部](#awsome-interview-back-end)
+
+
+---
+
+
+
 395. 至少有K个重复字符的最长子串
 
 找到给定字符串（由小写字符组成）中的最长子串 T ， 要求 T 中的每一字符出现次数都不少于 k 。输出 T 的长度。
