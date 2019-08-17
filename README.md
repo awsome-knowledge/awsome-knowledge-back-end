@@ -3459,7 +3459,81 @@ var isSameTree = function (p, q) {
 
 
 
-395. 至少有K个重复字符的最长子串
+100. 对称二叉树
+
+给定一个二叉树，检查它是否是镜像对称的。
+
+例如，二叉树 [1,2,2,3,4,4,3] 是对称的。
+```
+    1
+   / \
+  2   2
+ / \ / \
+3  4 4  3
+```
+但是下面这个 [1,2,2,null,3,null,3] 则不是镜像对称的:
+```
+    1
+   / \
+  2   2
+   \   \
+   3    3
+```
+说明:
+
+如果你可以运用递归和迭代两种方法解决这个问题，会很加分。
+<details><summary><b>答案</b></summary>
+
+根据题意得知，底层已经实现了TreeNode,只要判断是否是对称树
+
+迭代
+
+1. 需要迭代每一层p和q，判断p的left和q的right是否相同
+
+
+2. 迭代中p和q其中只有一个为空，那肯定就是不对称
+<pre>
+/*
+ * @lc app=leetcode.cn id=101 lang=javascript
+ *
+ * [101] 对称二叉树
+ */
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {boolean}
+ */
+var isSymmetric = function (root) {
+    function middle(p, q) {
+        if (p == null && q == null) return true
+        if (p == null || q == null) return false
+        return p.val == q.val && middle(p.left, q.right) && middle(p.right, q.left)
+    }
+    return middle(root, root)
+};
+</pre>
+
+<pre>
+√ Accepted
+  √ 195/195 cases passed (88 ms)
+  √ Your runtime beats 74.55 % of javascript submissions
+  √ Your memory usage beats 38.91 % of javascript submissions (35.5 MB)
+</pre>
+</details>
+
+[[↑] 回到顶部](#awsome-interview-back-end)
+
+
+---
+
+
+395.   至少有K个重复字符的最长子串
 
 找到给定字符串（由小写字符组成）中的最长子串 T ， 要求 T 中的每一字符出现次数都不少于 k 。输出 T 的长度。
 
