@@ -3533,6 +3533,75 @@ var isSymmetric = function (root) {
 ---
 
 
+
+
+104. 二叉树的最大深度
+
+给定一个二叉树，找出其最大深度。
+
+二叉树的深度为根节点到最远叶子节点的最长路径上的节点数。
+
+说明: 叶子节点是指没有子节点的节点。
+
+示例：
+给定二叉树 [3,9,20,null,null,15,7]，
+```
+    3
+   / \
+  9  20
+    /  \
+   15   7
+```
+返回它的最大深度 3 。
+<details><summary><b>答案</b></summary>
+
+根据题意得知，底层已经实现了TreeNode,只要计算二叉树的最大深度
+
+迭代
+
+1. 需要迭代每一层root，如果root的left和right没定义或者为空，则返回0
+
+2. 在每次迭代过程中，取出左边或者右边的最大值，然后加上1
+<pre>
+/*
+ * @lc app=leetcode.cn id=104 lang=javascript
+ *
+ * [104] 二叉树的最大深度
+ */
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var maxDepth = function (root) {
+    if (root === undefined || root === null) {
+        return 0
+    }
+    return Math.max(maxDepth(root.left), maxDepth(root.right)) + 1
+};
+
+</pre>
+
+<pre>
+√ Accepted
+  √ 39/39 cases passed (96 ms)
+  √ Your runtime beats 54.83 % of javascript submissions
+  √ Your memory usage beats 12.78 % of javascript submissions (37.4 MB)
+</pre>
+</details>
+
+[[↑] 回到顶部](#awsome-interview-back-end)
+
+
+---
+
+
 395.   至少有K个重复字符的最长子串
 
 找到给定字符串（由小写字符组成）中的最长子串 T ， 要求 T 中的每一字符出现次数都不少于 k 。输出 T 的长度。
