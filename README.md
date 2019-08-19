@@ -1,7 +1,6 @@
 # awsome-knowledge-back-end
 
-## 面试题
-### 算法
+## 算法
 
 1. 两数之和
 
@@ -842,7 +841,7 @@ var isMatch = function (s, p) {
 
 说明：你不能倾斜容器，且 n 的值至少为 2。
 
-![avatar](./11.jpg)
+![avatar](./picture/11.jpg)
 
 图中垂直线代表输入数组 [1,8,6,2,5,4,8,3,7]。在此情况下，容器能够容纳水（表示为蓝色部分）的最大值为 49。
 
@@ -1374,7 +1373,7 @@ var threeSumClosest = function (nums, target) {
 
 给出数字到字母的映射如下（与电话按键相同）。注意 1 不对应任何字母。
 
-![avatar](./17.png)
+![avatar](./picture/17.png)
 
 示例:
 
