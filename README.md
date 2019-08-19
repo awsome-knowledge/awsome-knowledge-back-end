@@ -3602,7 +3602,109 @@ var maxDepth = function (root) {
 ---
 
 
-395.   至少有K个重复字符的最长子串
+
+107. 二叉树的层次遍历 II
+
+给定一个二叉树，返回其节点值自底向上的层次遍历。 （即按从叶子节点所在层到根节点所在的层，逐层从左向右遍历）
+
+例如：
+给定二叉树 [3,9,20,null,null,15,7],
+```
+    3
+   / \
+  9  20
+    /  \
+   15   7
+```
+返回其自底向上的层次遍历为：
+```
+[
+  [15,7],
+  [9,20],
+  [3]
+]
+```
+<details><summary><b>答案</b></summary>
+
+1. 先定义queue存储root节点，循环queue的长度，长度为0停止，每次循环，从queue底部出来一个节点crt，将crt放进stack中
+
+2. 如果crt左和右的节点还有值，那就覆盖。
+
+3. 第二个循环stack长度，crt是stack头部出来的值
+
+4. 定义的maxLevel是最大层数，定义maxLevel长度的result数组，将crt值到塞进result
+
+<pre>
+/*
+ * @lc app=leetcode.cn id=107 lang=javascript
+ *
+ * [107] 二叉树的层次遍历 II
+ */
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[][]}
+ */
+var levelOrderBottom = function(root) {
+    
+    var queue = [ {node : root, level : 0} ],
+        crt,
+        stack = [],
+        maxLevel,
+        result = [];
+    
+    if(!root)
+        return result;
+        
+    while(queue.length > 0) {
+        crt = queue.shift(); // dequeue()
+        
+        stack.push(crt);
+        
+        if(crt.node.right)
+            queue.push( { node : crt.node.right, level : crt.level + 1 } );
+            
+        if(crt.node.left)
+            queue.push( { node : crt.node.left, level : crt.level + 1 });
+        
+      maxLevel = crt.level + 1;
+    }
+    
+    while(stack.length > 0) {
+        crt = stack.pop();
+        if(crt.level < maxLevel) {
+            result.push([]);
+            maxLevel--;
+        }
+        result[result.length - 1].push(crt.node.val);
+        
+    }
+    
+    return result;
+};
+
+</pre>
+
+<pre>
+✔ Accepted
+  ✔ 34/34 cases passed (92 ms)
+  ✔ Your runtime beats 32.74 % of javascript submissions
+  ✔ Your memory usage beats 5.59 % of javascript submissions (35.6 MB)
+</pre>
+</details>
+
+[[↑] 回到顶部](#awsome-interview-back-end)
+
+
+---
+
+1.     至少有K个重复字符的最长子串
 
 找到给定字符串（由小写字符组成）中的最长子串 T ， 要求 T 中的每一字符出现次数都不少于 k 。输出 T 的长度。
 
