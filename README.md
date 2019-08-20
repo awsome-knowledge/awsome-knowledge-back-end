@@ -3703,7 +3703,83 @@ var levelOrderBottom = function(root) {
 
 ---
 
-1.     至少有K个重复字符的最长子串
+
+
+118. 杨辉三角
+
+给定一个非负整数 numRows，生成杨辉三角的前 numRows 行。
+
+![avatar](./picture/118.png)
+
+
+在杨辉三角中，每个数是它左上方和右上方的数的和。
+
+示例:
+
+输入: 5
+输出:
+```
+[
+     [1],
+    [1,1],
+   [1,2,1],
+  [1,3,3,1],
+ [1,4,6,4,1]
+]
+```
+<details><summary><b>答案</b></summary>
+
+1. 先申明一个最终数组
+
+2. 这肯定是需要二重循环，分别是行和列
+
+3. 每一行的头和尾是1,其余的每个位置上的数是前一行的这个位置减一加上这个位置
+   
+</pre>
+/*
+ * @lc app=leetcode.cn id=118 lang=javascript
+ *
+ * [118] 杨辉三角
+ */
+/**
+ * @param {number} numRows
+ * @return {number[][]}
+ */
+var generate = function (numRows) {
+    if (numRows === 0) {
+        return []
+    }
+    let resArr = []
+    for (let i = 0; i < numRows; i++) {
+        let currRow = []
+        for (j = 0; j <= i; j++) {
+            if (j === 0 || j === i) {
+                currRow.push(1)
+            } else {
+                currRow.push(resArr[i - 1][j - 1] + resArr[i - 1][j])
+            }
+        }
+        resArr.push(currRow)
+    }
+    return resArr
+};
+</pre>
+
+<pre>
+✔ Accepted
+  ✔ 15/15 cases passed (72 ms)
+  ✔ Your runtime beats 84.63 % of javascript submissions
+  ✔ Your memory usage beats 23.41 % of javascript submissions (33.8 MB)
+</pre>
+</details>
+
+[[↑] 回到顶部](#awsome-interview-back-end)
+
+
+---
+
+
+395.     至少有K个重复字符的最长子串
 
 找到给定字符串（由小写字符组成）中的最长子串 T ， 要求 T 中的每一字符出现次数都不少于 k 。输出 T 的长度。
 
