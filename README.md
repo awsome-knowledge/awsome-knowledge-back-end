@@ -1,5 +1,18 @@
 # awsome-knowledge-back-end
 
+## 必备基础知识
+
+### 迭代
+
+迭代是重复反馈过程的活动，其目的通常是为了逼近所需目标或结果。每一次对过程的重复称为一次“迭代”，而每一次迭代得到的结果会作为下一次迭代的初始值。
+重复执行一系列运算步骤，从前面的量依次求出后面的量的过程。此过程的每一次结果，都是由对前一次所得结果施行相同的运算步骤得到的。例如利用迭代法*求某一数学问题的解。
+对计算机特定程序中需要反复执行的子程序*(一组指令)，进行一次重复，即重复执行程序中的循环，直到满足某条件为止，亦称为迭代。
+
+### 递归
+
+程序调用自身的编程技巧称为递归（ recursion）。递归做为一种算法在程序设计语言中广泛应用。 一个过程或函数在其定义或说明中有直接或间接调用自身的一种方法，它通常把一个大型复杂的问题层层转化为一个与原问题相似的规模较小的问题来求解，递归策略只需少量的程序就可描述出解题过程所需要的多次重复计算，大大地减少了程序的代码量。递归的能力在于用有限的语句来定义对象的无限集合。一般来说，递归需要有边界条件、递归前进段和递归返回段。当边界条件不满足时，递归前进；当边界条件满足时，递归返回。
+
+
 ## 数据结构
 
 数据结构(data structure)是带有结构特性的数据元素的集合，它研究的是数据的逻辑结构和数据的物理结构以及它们之间的相互关系，并对这种结构定义相适应的运算，设计出相应的算法，并确保经过这些运算以后所得到的新结构仍保持原来的结构类型。简而言之，数据结构是相互之间存在一种或多种特定关系的数据元素的集合，即带“结构”的数据元素的集合。“结构”就是指数据元素之间存在的关系，分为逻辑结构和存储结构。 
@@ -151,6 +164,54 @@
    console.log(t.getNode(5, t.root));
 ```
 
+```
+{ root:
+   { data: 3,
+     left:
+      { data: 1,
+        left: { data: 0, left: null, right: null },
+        right: { data: 2, left: null, right: null } },
+     right:
+      { data: 8,
+        left:
+         { data: 5,
+           left: null,
+           right:
+            { data: 7,
+              left: { data: 6, left: null, right: null },
+              right: null } },
+        right: null } } }
+
+0
+1
+2
+3
+5
+6
+7
+8
+{ data: 0, left: null, right: null } { data: 8,
+  left:
+   { data: 5,
+     left: null,
+     right:
+      { data: 7,
+        left: { data: 6, left: null, right: null },
+        right: null } },
+  right: null }
+5
+{ data: 5,
+  left: null,
+  right:
+   { data: 7,
+     left: { data: 6, left: null, right: null },
+     right: null } 
+```
+
+![avatar](http://images.qiufeihong.top/tree.jpg)
+
+
+
 上述的查找运用了二分查找
 
 ##### 二分查找
@@ -180,7 +241,85 @@ console.log(binarySearch(1, arr, 0, arr.length-1));
 
 #### LeetCode
 
-100. 相同的树
+##### 94. 二叉树的中序遍历
+
+给定一个二叉树，返回它的中序 遍历。
+
+示例:
+```
+输入: [1,null,2,3]
+   1
+    \
+     2
+    /
+   3
+
+输出: [1,3,2]
+```
+进阶: 递归算法很简单，你可以通过迭代算法完成吗？
+
+<details><summary><b>答案</b></summary>
+
+迭代：
+
+1. root或者stack不为空，循环不停止
+2. 如果root不为空，root塞进stack，root被root的左分支替换
+3. 如果root为空，root被stack中的最后一个元素,root的值塞进res数组
+4. root被root右分支替换
+5. 最后返回res
+<pre>
+/*
+ * @lc app=leetcode.cn id=94 lang=javascript
+ *
+ * [94] 二叉树的中序遍历
+ */
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+var inorderTraversal = function (root) {
+    const stack = [];
+    const res = [];
+  
+    while (root || stack.length) {
+      if (root) {
+        stack.push(root);
+        root = root.left;
+      } else {
+        root = stack.pop();
+        res.push(root.val);
+        root = root.right;
+      }
+    }
+  
+    return res;
+};
+
+
+</pre>
+
+<pre>
+✔ Accepted
+  ✔ 68/68 cases passed (88 ms)
+  ✔ Your runtime beats 26.11 % of javascript submissions
+  ✔ Your memory usage beats 41.05 % of javascript submissions (33.7 MB)
+</pre>
+</details>
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+
+---
+
+
+##### 100. 相同的树
 
 
 给定两个二叉树，编写一个函数来检验它们是否相同。
@@ -267,7 +406,7 @@ var isSameTree = function (p, q) {
 
 
 
-101. 对称二叉树
+##### 101. 对称二叉树
 
 给定一个二叉树，检查它是否是镜像对称的。
 
@@ -343,7 +482,7 @@ var isSymmetric = function (root) {
 
 
 
-104. 二叉树的最大深度
+##### 104. 二叉树的最大深度
 
 给定一个二叉树，找出其最大深度。
 
@@ -411,7 +550,7 @@ var maxDepth = function (root) {
 
 
 
-107. 二叉树的层次遍历 II
+##### 107. 二叉树的层次遍历 II
 
 给定一个二叉树，返回其节点值自底向上的层次遍历。 （即按从叶子节点所在层到根节点所在的层，逐层从左向右遍历）
 
@@ -523,7 +662,7 @@ var levelOrderBottom = function(root) {
 
 
 
-2. 两数相加
+##### 2. 两数相加
 
 
 给出两个 非空 的链表用来表示两个非负的整数。其中，它们各自的位数是按照 逆序 的方式存储的，并且它们的每个节点只能存储 一位 数字。
@@ -601,7 +740,7 @@ var addTwoNumbers = function (l1, l2) {
 
 
 
-19. 删除链表的倒数第N个节点
+##### 19. 删除链表的倒数第N个节点
 
 给定一个链表，删除链表的倒数第 n 个节点，并且返回链表的头结点。
 
@@ -694,7 +833,7 @@ var removeNthFromEnd = function(head, n) {
 
 
 
-1. 两数之和
+##### 1. 两数之和
 
 给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。
 
@@ -735,7 +874,7 @@ var twoSum = function (nums, target) {
 
 
 
-4. 寻找两个有序数组的中位数
+##### 4. 寻找两个有序数组的中位数
 
 给定两个大小为 m 和 n 的有序数组 nums1 和 nums2。
 
@@ -805,7 +944,7 @@ var findMedianSortedArrays = function (nums1, nums2) {
 
 ---
 
-11. 盛最多水的容器
+##### 11. 盛最多水的容器
 
 给定 n 个非负整数 a1，a2，...，an，每个数代表坐标中的一个点 (i, ai) 。在坐标内画 n 条垂直线，垂直线 i 的两个端点分别为 (i, ai) 和 (i, 0)。找出其中的两条线，使得它们与 x 轴共同构成的容器可以容纳最多的水。
 
@@ -892,7 +1031,7 @@ var maxArea = function (height) {
 ---
 
 
-15. 三数之和
+##### 15. 三数之和
 给定一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？找出所有满足条件且不重复的三元组。
 
 注意：答案中不可以包含重复的三元组。
@@ -979,7 +1118,7 @@ var threeSum = function (nums) {
 ---
 
 
-16. 最接近的三数之和
+##### 16. 最接近的三数之和
 
 给定一个包括 n 个整数的数组 nums 和 一个目标值 target。找出 nums 中的三个整数，使得它们的和与 target 最接近。返回这三个数的和。假定每组输入只存在唯一答案。
 
@@ -1081,7 +1220,7 @@ var threeSumClosest = function (nums, target) {
 
 ---
 
-18. 四数之和
+##### 18. 四数之和
 
 给定一个包含 n 个整数的数组 nums 和一个目标值 target，判断 nums 中是否存在四个元素 a，b，c 和 d ，使得 a + b + c + d 的值与 target 相等？找出所有满足条件且不重复的四元组。
 
@@ -1227,7 +1366,7 @@ var fourSum = function (nums, target) {
 
 ---
 
-26. 删除排序数组中的重复项
+##### 26. 删除排序数组中的重复项
 
 给定一个排序数组，你需要在原地删除重复出现的元素，使得每个元素只出现一次，返回移除后数组的新长度。
 
@@ -1318,7 +1457,7 @@ var removeDuplicates = function(nums) {
 
 
 
-27. 移除元素
+##### 27. 移除元素
 
 给定一个数组 nums 和一个值 val，你需要原地移除所有数值等于 val 的元素，返回移除后数组的新长度。
 
@@ -1415,7 +1554,7 @@ var removeElement = function(nums, val) {
 
 
 
-33. 搜索旋转排序数组
+##### 33. 搜索旋转排序数组
 假设按照升序排序的数组在预先未知的某个点上进行了旋转。
 
 ( 例如，数组 [0,1,2,4,5,6,7] 可能变为 [4,5,6,7,0,1,2] )。
@@ -1462,7 +1601,7 @@ var search = function(nums, target) {
 ---
 
 
-34. 在排序数组中查找元素的第一个和最后一个位置
+##### 34. 在排序数组中查找元素的第一个和最后一个位置
     
 给定一个按照升序排列的整数数组 nums，和一个目标值 target。找出给定目标值在数组中的开始位置和结束位置。
 
@@ -1517,7 +1656,7 @@ var searchRange = function(nums, target) {
 ---
 
 
-35. 搜索插入位置
+##### 35. 搜索插入位置
  给定一个排序数组和一个目标值，在数组中找到目标值，并返回其索引。如果目标值不存在于数组中，返回它将会被按顺序插入的位置。
 
 你可以假设数组中无重复元素。
@@ -1579,7 +1718,7 @@ var searchInsert = function (nums, target) {
 
 ---
 
-39. 组合总和
+##### 39. 组合总和
 
 给定一个无重复元素的数组 candidates 和一个目标数 target ，找出 candidates 中所有可以使数字和为 target 的组合。
 
@@ -1653,7 +1792,7 @@ var combinationSum = function (candidates, target) {
 ---
 
 
-53. 最大子序和
+##### 53. 最大子序和
 
 给定一个整数数组 nums ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。
 
@@ -1763,7 +1902,7 @@ var divide = function(nums, l, r) {
 
 
 
-66. 加一
+##### 66. 加一
 给定一个由整数组成的非空数组所表示的非负整数，在该数的基础上加一。
 
 最高位数字存放在数组的首位， 数组中每个元素只存储单个数字。
@@ -1864,7 +2003,7 @@ var plusOne = function (digits) {
 
 
 
-88. 合并两个有序数组
+##### 88. 合并两个有序数组
 
 给定两个有序整数数组 nums1 和 nums2，将 nums2 合并到 nums1 中，使得 num1 成为一个有序数组。
 
@@ -1927,7 +2066,7 @@ var merge = function (nums1, m, nums2, n) {
 ---
 
 
-118. 杨辉三角
+##### 118. 杨辉三角
 
 给定一个非负整数 numRows，生成杨辉三角的前 numRows 行。
 
@@ -2030,7 +2169,7 @@ var generate = function (numRows) {
 给定表M，存在函数f(key)，对任意给定的关键字值key，代入函数后若能得到包含该关键字的记录在表中的地址，则称表M为哈希(Hash）表，函数f(key)为哈希(Hash) 函数。
 
 
-3. 无重复字符的最长子串
+##### 3. 无重复字符的最长子串
 
 给定一个字符串，请你找出其中不含有重复字符的 最长子串 的长度。
 
@@ -2084,7 +2223,7 @@ var lengthOfLongestSubstring = function (s) {
 
 ---
 
-36. 有效的数独
+##### 36. 有效的数独
 判断一个 9x9 的数独是否有效。只需要根据以下规则，验证已经填入的数字是否有效即可。
 
 数字 1-9 在每一行只能出现一次。
@@ -2204,7 +2343,7 @@ var isValidSudoku = function (board) {
 字符串主要用于编程，概念说明、函数解释、用法详述见正文，这里补充一点：字符串在存储上类似字符数组，所以它每一位的单个元素都是可以提取的，如s=“abcdefghij”，则s[1]=“b”，s[9]="j"，而字符串的零位正是它的长度，如s[0]=10（※上述功能Ansistring没有。），这可以给我们提供很多方便，如高精度运算时每一位都可以转化为数字存入数组。
 
 
-5. 最长回文子串
+##### 5. 最长回文子串
 
 给定一个字符串 s，找到 s 中最长的回文子串。你可以假设 s 的最大长度为 1000。
 
@@ -2296,7 +2435,7 @@ var longestPalindrome = function(s) {
 ---
 
 
-6. Z 字形变换
+##### 6. Z 字形变换
 
 将一个给定字符串根据给定的行数，以从上往下、从左到右进行 Z 字形排列。
 
@@ -2399,7 +2538,7 @@ console.log(convert('LEETCODEISHIRING',4))
 
 
 
-8. 字符串转换整数 (atoi)
+##### 8. 字符串转换整数 (atoi)
 
 请你来实现一个 atoi 函数，使其能将字符串转换成整数。
 
@@ -2486,7 +2625,7 @@ var myAtoi = function (str) {
 ---
 
 
-10.  正则表达式匹配
+##### 10.  正则表达式匹配
 给你一个字符串 s 和一个字符规律 p，请你来实现一个支持 '.' 和 '*' 的正则表达式匹配。
 ```
 '.' 匹配任意单个字符
@@ -2588,7 +2727,7 @@ var isMatch = function (s, p) {
 
 
 
-14.  最长公共前缀
+##### 14.  最长公共前缀
 
 
 编写一个函数来查找字符串数组中的最长公共前缀。
@@ -2717,7 +2856,7 @@ var lengthOfLastWord = function (s) {
 ---
 
 
-17. 电话号码的字母组合
+##### 17. 电话号码的字母组合
 
 给定一个仅包含数字 2-9 的字符串，返回所有它能表示的字母组合。
 
@@ -2805,7 +2944,7 @@ var letterCombinations = function (digits) {
 
 ---
 
-20. 有效的括号
+##### 20. 有效的括号
 
 给定一个只包括 '('，')'，'{'，'}'，'['，']' 的字符串，判断字符串是否有效。
 
@@ -2895,7 +3034,7 @@ var isValid = function(s) {
 ---
 
 
-22. 括号生成
+##### 22. 括号生成
 
 给出 n 代表生成括号的对数，请你写出一个函数，使其能够生成所有可能的并且有效的括号组合。
 
@@ -2942,7 +3081,7 @@ var generateParenthesis = function(n) {
 
 ---
 
-28. 实现strStr()
+##### 28. 实现strStr()
 实现 strStr() 函数。
 
 给定一个 haystack 字符串和一个 needle 字符串，在 haystack 字符串中找出 needle 字符串出现的第一个位置 (从0开始)。如果不存在，则返回  -1。
@@ -2991,7 +3130,7 @@ var strStr = function (haystack, needle) {
 
 ---
 
-38. 报数
+##### 38. 报数
 报数序列是一个整数序列，按照其中的整数的顺序进行报数，得到下一个数。其前五项如下：
 
 ```js
@@ -3086,7 +3225,7 @@ var countAndSay = function (n) {
 从n个不同元素中任取m（m≤n）个元素，按照一定的顺序排列起来，叫做从n个不同元素中取出m个元素的一个排列。当m=n时所有的排列情况叫全排列。
 公式：全排列数f(n)=n!(定义0!=1)
 
-46. 全排列
+##### 46. 全排列
 给定一个没有重复数字的序列，返回其所有可能的全排列。
 
 示例:
@@ -3184,7 +3323,7 @@ lowbit(a)为2^(a的二进制表示末尾0的个数)。
 <details>
 
 
-7. 整数反转
+##### 7. 整数反转
 
 给出一个 32 位的有符号整数，你需要将这个整数中每位上的数字进行反转。
 
@@ -3260,7 +3399,7 @@ var reverse = function (x) {
 ---
 
 
-9. 回文数
+##### 9. 回文数
 
 判断一个整数是否是回文数。回文数是指正序（从左向右）和倒序（从右向左）读都是一样的整数。
 
@@ -3401,7 +3540,7 @@ var isPalindrome = function(x) {
 ---
 
 
-12. 整数转罗马数字
+##### 12. 整数转罗马数字
 罗马数字包含以下七种字符： I， V， X， L，C，D 和 M。
 ```
 字符          数值
@@ -3496,7 +3635,7 @@ var intToRoman = function (num) {
 
 ---
 
-13. 罗马数字转整数
+##### 13. 罗马数字转整数
 罗马数字包含以下七种字符： I， V， X， L，C，D 和 M。
 ```
 字符          数值
@@ -3596,7 +3735,7 @@ var romanToInt = function (s) {
 ---
 
 
-29. 两数相除
+##### 29. 两数相除
 给定两个整数，被除数 dividend 和除数 divisor。将两数相除，要求不使用乘法、除法和 mod 运算符。
 
 返回被除数 dividend 除以除数 divisor 得到的商。
@@ -3743,7 +3882,7 @@ var divide = function (dividend, divisor) {
 
 
 
-67. 二进制求和
+##### 67. 二进制求和
 
 给定两个二进制字符串，返回他们的和（用二进制表示）。
 
@@ -3864,7 +4003,7 @@ var addBinary = function (a, b) {
 ---
 
 
-69. x 的平方根
+##### 69. x 的平方根
 
 
 实现 int sqrt(int x) 函数。
@@ -4076,7 +4215,7 @@ var mySqrt = function (x) {
 动态规划(dynamic programming)是运筹学的一个分支，是求解决策过程(decision process)最优化的数学方法。20世纪50年代初美国数学家R.E.Bellman等人在研究多阶段决策过程(multistep decision process)的优化问题时，提出了著名的最优化原理(principle of optimality)，把多阶段过程转化为一系列单阶段问题，利用各阶段之间的关系，逐个求解，创立了解决这类过程优化问题的新方法——动态规划。1957年出版了他的名著《Dynamic Programming》，这是该领域的第一本著作。
 
 
-70. 爬楼梯
+##### 70. 爬楼梯
 
 
 假设你正在爬楼梯。需要 n 阶你才能到达楼顶。
@@ -4288,7 +4427,7 @@ var climbStairs = function (n) {
 
 <details>
 
-395. 至少有K个重复字符的最长子串
+##### 395. 至少有K个重复字符的最长子串
 
 找到给定字符串（由小写字符组成）中的最长子串 T ， 要求 T 中的每一字符出现次数都不少于 k 。输出 T 的长度。
 
