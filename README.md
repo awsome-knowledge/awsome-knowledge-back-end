@@ -264,7 +264,7 @@ console.log(binarySearch(1, arr, 0, arr.length-1));
 
 1. root或者stack不为空，循环不停止
 2. 如果root不为空，root塞进stack，root被root的左分支替换
-3. 如果root为空，root被stack中的最后一个元素,root的值塞进res数组
+3. 如果root为空，root等于stack中的最后一个元素,root的值塞进res数组
 4. root被root右分支替换
 5. 最后返回res
 <pre>
@@ -644,6 +644,121 @@ var levelOrderBottom = function(root) {
   ✔ Your runtime beats 32.74 % of javascript submissions
   ✔ Your memory usage beats 5.59 % of javascript submissions (35.6 MB)
 </pre>
+</details>
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+
+---
+
+##### 114. 二叉树的前序遍历
+
+给定一个二叉树，返回它的 前序 遍历。
+
+ 示例:
+```
+输入: [1,null,2,3]  
+   1
+    \
+     2
+    /
+   3 
+
+输出: [1,2,3]
+```
+进阶: 递归算法很简单，你可以通过迭代算法完成吗？
+
+<details><summary><b>答案</b></summary>
+
+递归算法
+
+<pre>
+/*
+ * @lc app=leetcode.cn id=144 lang=javascript
+ *
+ * [144] 二叉树的前序遍历
+ */
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+var preorderTraversal = function (root, res = []) {
+    if (root) {
+        res.push(root.val)
+        preorderTraversal(root.left, res)
+        preorderTraversal(root.right, res)
+    }
+    return res
+};
+</pre>
+
+<pre>
+√ Accepted
+  √ 68/68 cases passed (76 ms)
+  √ Your runtime beats 71.5 % of javascript submissions
+  √ Your memory usage beats 46.63 % of javascript submissions (33.7 MB)
+</pre>
+
+
+迭代算法
+
+1. 定义res和tmp数组
+
+2. 目标节点进入res和tmp
+
+3. 左孩子进入res和tmp，直到左边结束
+
+4. 将tmp中的值出栈，右孩子进入，再执行2，3，4
+
+<pre>
+/*
+ * @lc app=leetcode.cn id=144 lang=javascript
+ *
+ * [144] 二叉树的前序遍历
+ */
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+var preorderTraversal = function (root) {
+    let res = [],
+        tmp = []
+    let current = root
+    while (current || tmp.length > 0) {
+        while (current) {
+            res.push(current.val)
+            tmp.push(current)
+            current = current.left
+        }
+        current = tmp.pop()
+        current = current.right
+    }
+    return res
+};
+</pre>
+
+<pre>
+√ Accepted
+  √ 68/68 cases passed (84 ms)
+  √ Your runtime beats 37.76 % of javascript submissions
+  √ Your memory usage beats 40.42 % of javascript submissions (33.7 MB)
+</pre>
+
+
 </details>
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
