@@ -241,6 +241,87 @@ console.log(binarySearch(1, arr, 0, arr.length-1));
 
 #### LeetCode
 
+
+##### 105. 从前序与中序遍历序列构造二叉树
+
+根据一棵树的前序遍历与中序遍历构造二叉树。
+
+注意:
+你可以假设树中没有重复的元素。
+
+例如，给出
+```
+前序遍历 preorder = [3,9,20,15,7]
+中序遍历 inorder = [9,3,15,20,7]
+```
+返回如下的二叉树：
+```
+    3
+   / \
+  9  20
+    /  \
+   15   7
+```
+<details><summary><b>答案</b></summary>
+前序遍历：根左右
+后序遍历：左根右
+
+![avatar](http://images.qiufeihong.top/105.jpg)
+
+<pre>
+
+/*
+ * @lc app=leetcode.cn id=105 lang=javascript
+ *
+ * [105] 从前序与中序遍历序列构造二叉树
+ */
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {number[]} preorder
+ * @param {number[]} inorder
+ * @return {TreeNode}
+ */
+var buildTree = function(preorder, inorder) {
+    p = i = 0
+    build = function(stop) {
+        if (inorder[i] != stop) {
+            var root = new TreeNode(preorder[p++])
+            root.left = build(root.val)
+            i++
+            root.right = build(stop)
+            return root
+        }
+        return null
+    }
+    return build()
+};
+
+
+</pre>
+
+<pre>
+✔ Accepted
+  ✔ 203/203 cases passed (108 ms)
+  ✔ Your runtime beats 86.27 % of javascript submissions
+  ✔ Your memory usage beats 91.53 % of javascript submissions (35.9 MB)
+</pre>
+</details>
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+
+---
+
+
+
+
+
 ##### 94. 二叉树的中序遍历
 
 给定一个二叉树，返回它的中序 遍历。
