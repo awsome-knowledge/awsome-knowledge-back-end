@@ -26,6 +26,9 @@
 树状图是一种数据结构，它是由n（n>=1）个有限结点组成一个具有层次关系的集合。把它叫做“树”是因为它看起来像一棵倒挂的树，也就是说它是根朝上，而叶朝下的。它具有以下的特点：
 每个结点有零个或多个子结点；没有父结点的结点称为根结点；每一个非根结点有且只有一个父结点；除了根结点外，每个子结点可以分为多个不相交的子树；
 
+
+
+
 #### 规律：
 
 ##### 完全二叉树的公式
@@ -238,6 +241,79 @@ var arr = [0, 1, 1, 1, 1, 1, 4, 6, 7, 8]
 console.log(binarySearch(1, arr, 0, arr.length-1));
 
 ```
+
+##### 求二叉树的遍历
+给定一棵二叉树的前序遍历和中序遍历，求其后序遍历
+
+输入描述:
+
+两个字符串，其长度n均小于等于26。 第一行为前序遍历，第二行为中序遍历。 二叉树中的结点名称以大写字母表示：A，B，C....最多26个结点。
+
+输出描述:
+
+输入样例可能有多组，对于每组测试样例， 输出一行，为后序遍历的字符串。
+
+样例：
+```
+输入
+ABC
+BAC
+FDXEAG
+XDEFAG
+
+输出
+BCA
+XEDGAF
+```
+<details><summary><b>答案</b></summary>
+和上面题目的思路基本相同
+
+1. 前序遍历找到根结点root
+
+2. 找到root在中序遍历的位置 -> 左子树的长度和右子树的长度
+
+3. 截取左子树的中序遍历、右子树的中序遍历
+
+4. 截取左子树的前序遍历、右子树的前序遍历
+
+5. 递归拼接二叉树的后序遍历
+
+<pre>
+
+let pre;
+let vin;
+ 
+while((pre = readline())!=null){
+    vin = readline();
+    print(getHRD(pre,vin));
+}
+ 
+    function getHRD(pre, vin) {
+      if (!pre) {
+        return '';
+      }
+      if (pre.length === 1) {
+        return pre;
+      }
+      const head = pre[0];
+      const splitIndex = vin.indexOf(head);
+      const vinLeft = vin.substring(0, splitIndex);
+      const vinRight = vin.substring(splitIndex + 1);
+      const preLeft = pre.substring(1, splitIndex + 1);
+      const preRight = pre.substring(splitIndex + 1);
+      return getHRD(preLeft, vinLeft) + getHRD(preRight, vinRight) + head;
+    }
+#
+</pre>
+
+</details>
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+
+---
+
+
 
 #### LeetCode
 
