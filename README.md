@@ -1048,6 +1048,95 @@ var postorderTraversal = function (root) {
 
 ---
 
+##### 226. 翻转二叉树
+
+
+Category|Difficulty|Likes|Dislikes
+--|--|--|--
+algorithms|Easy (71.45%)|250|-
+
+Tags
+
+tree
+
+
+Companies
+
+Unknown
+
+
+翻转一棵二叉树。
+
+示例：
+
+输入：
+```
+     4
+   /   \
+  2     7
+ / \   / \
+1   3 6   9
+```
+输出：
+```
+     4
+   /   \
+  7     2
+ / \   / \
+9   6 3   1
+```
+备注:
+这个问题是受到 Max Howell 的 原问题 启发的 ：
+
+谷歌：我们90％的工程师使用您编写的软件(Homebrew)，但是您却无法在面试时在白板上写出翻转二叉树这道题，这太糟糕了。
+<details><summary><b>答案</b></summary>
+
+
+<pre>
+/*
+ * @lc app=leetcode.cn id=226 lang=javascript
+ *
+ * [226] 翻转二叉树
+ */
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {TreeNode}
+ */
+var invertTree = function (root) {
+  if(root){
+      let tmp=root.left
+      root.left=root.right
+      root.right=tmp
+      invertTree(root.left)
+      invertTree(root.right)
+  }
+  return root
+};
+
+</pre>
+
+<pre>
+✔ Accepted
+  ✔ 68/68 cases passed (80 ms)
+  ✔ Your runtime beats 52.46 % of javascript submissions
+  ✔ Your memory usage beats 26.63 % of javascript submissions (33.8 MB)
+</pre>
+
+
+</details>
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+
+---
+
 </details>
 
 ### 链表
@@ -4906,4 +4995,4 @@ var longestSubstring = function (s, k) {
 
 [vscode-leetcode](https://github.com/jdneo/vscode-leetcode/blob/master/docs/README_zh-CN.md)
 
-[前端该如何准备数据结构和算法？](https://juejin.im/post/5d5b307b5188253da24d3cd1)
+[awesome-coding-js](http://www.conardli.top/docs/dataStructure/%E4%BA%8C%E5%8F%89%E6%A0%91/%E9%87%8D%E5%BB%BA%E4%BA%8C%E5%8F%89%E6%A0%91.html#%E4%BB%A3%E7%A0%81)
