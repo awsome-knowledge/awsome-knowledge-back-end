@@ -1137,6 +1137,160 @@ var invertTree = function (root) {
 
 ---
 
+##### 230. 
+
+二叉搜索树中第K小的元素
+Category|Difficulty|Likes|Dislikes
+algorithms|Medium(65.90%)|92|-
+
+Tags
+
+binary-search | tree
+
+Companies
+
+bloomberg | google | uber
+
+给定一个二叉搜索树，编写一个函数 kthSmallest 来查找其中第 k 个最小的元素。
+
+说明：
+你可以假设 k 总是有效的，1 ≤ k ≤ 二叉搜索树元素个数。
+
+示例 1:
+```
+输入: root = [3,1,4,null,2], k = 1
+   3
+  / \
+ 1   4
+  \
+   2
+输出: 1
+```
+示例 2:
+
+输入: root = [5,3,6,2,4,null,null,1], k = 3
+```       5
+      / \
+     3   6
+    / \
+   2   4
+  /
+ 1
+输出: 3
+```
+进阶：
+如果二叉搜索树经常被修改（插入/删除操作）并且你需要频繁地查找第 k 小的值，你将如何优化 kthSmallest 函数？
+
+<details><summary><b>答案</b></summary>
+
+递归思路正确
+
+利用中序遍历生成数组，找到数组中第k小的数
+
+但是运行有误
+<pre>
+/*
+ * @lc app=leetcode.cn id=230 lang=javascript
+ *
+ * [230] 二叉搜索树中第K小的元素
+ */
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @param {number} k
+ * @return {number}
+ */
+function kthSmallest(root, k) {
+    let arr = []
+    middle(root, arr)
+
+    if (k > 0 && k <= arr.length) {
+        return arr[k - 1]
+    }
+        return null
+  
+};
+
+function middle(node, arr) {
+    if (node) {
+        middle(node.left, arr)
+        arr.push(node)
+        middle(node.right, arr)
+    }
+}
+</pre>
+
+<pre>
+✘ Wrong Answer
+  ✘ 0/91 cases passed (N/A)
+  ✘ testcase: '[3,1,4,null,2]\n1'
+  ✘ answer: NaN
+  ✘ expected_answer: 1
+  ✘ stdout:
+</pre>
+
+递归的正确方式
+
+
+<pre>
+/*
+ * @lc app=leetcode.cn id=230 lang=javascript
+ *
+ * [230] 二叉搜索树中第K小的元素
+ */
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @param {number} k
+ * @return {number}
+ */
+function kthSmallest(root, k) {
+    let res
+
+    function middle(node) {
+        if (node) {
+            middle(node.left)
+            if (--k === 0) {
+                res = node.val
+            }
+            middle(node.right)
+        }
+    }
+    middle(root)
+
+    return res
+};
+
+</pre>
+
+
+<pre>
+
+✔ Accepted
+  ✔ 91/91 cases passed (92 ms)
+  ✔ Your runtime beats 94.2 % of javascript submissions
+  ✔ Your memory usage beats 56.94 % of javascript submissions (39.2 MB)
+
+</pre>
+</details>
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+
+---
+
 </details>
 
 ### 链表
