@@ -661,11 +661,11 @@ var isSymmetric = function (root) {
 
 根据题意得知，底层已经实现了TreeNode,只要计算二叉树的最大深度
 
-迭代
+递归
 
-1. 需要迭代每一层root，如果root的left和right没定义或者为空，则返回0
+1. 需要递归每一层root，如果root的left和right没定义或者为空，则返回0
 
-2. 在每次迭代过程中，取出左边或者右边的最大值，然后加上1
+2. 在每次递归过程中，取出左边或者右边的最大值，然后加上1
 <pre>
 /*
  * @lc app=leetcode.cn id=104 lang=javascript
@@ -808,6 +808,90 @@ var levelOrderBottom = function(root) {
 
 ---
 
+
+##### 111. 二叉树的最小深度
+
+Category|Difficulty|Likes|Dislikes
+algorithms|Easy (39.81%)|148|-
+
+Tags
+
+tree | depth-first-search | breadth-first-search
+
+Companies
+
+Unknown
+
+给定一个二叉树，找出其最小深度。
+
+最小深度是从根节点到最近叶子节点的最短路径上的节点数量。
+
+说明: 叶子节点是指没有子节点的节点。
+
+示例:
+
+给定二叉树 [3,9,20,null,null,15,7],
+```
+    3
+   / \
+  9  20
+    /  \
+   15   7
+```
+返回它的最小深度  2.
+<details><summary><b>答案</b></summary>
+
+递归，分治，
+
+1. root为空则返回0
+2. 左孩子为空，则右孩子最小深度加1
+3. 右孩子为空，则左孩子最小深度加1
+4. 左右都有，那就是递归，重新执行1，2，3
+
+<pre>
+/*
+ * @lc app=leetcode.cn id=111 lang=javascript
+ *
+ * [111] 二叉树的最小深度
+ */
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var minDepth = function (root) {
+    if (!root) {
+        return 0
+    }
+    if (!root.left) {
+        return minDepth(root.right) + 1
+    }
+    if (!root.right) {
+        return minDepth(root.left) + 1
+    }
+    return Math.min(minDepth(root.left), minDepth(root.right)) + 1
+
+};
+</pre>
+
+<pre>
+✔ Accepted
+  ✔ 41/41 cases passed (88 ms)
+  ✔ Your runtime beats 84.4 % of javascript submissions
+  ✔ Your memory usage beats 78.39 % of javascript submissions (37 MB)
+</pre>
+</details>
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+
+---
 ##### 114. 二叉树的前序遍历
 
 给定一个二叉树，返回它的 前序 遍历。
@@ -1137,9 +1221,8 @@ var invertTree = function (root) {
 
 ---
 
-##### 230. 
+##### 230. 二叉搜索树中第K小的元素
 
-二叉搜索树中第K小的元素
 Category|Difficulty|Likes|Dislikes
 algorithms|Medium(65.90%)|92|-
 

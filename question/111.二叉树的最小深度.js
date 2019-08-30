@@ -15,9 +15,15 @@
  * @return {number}
  */
 var minDepth = function (root) {
-    if (root !== null || root !== undefined) {
-        return 2
+    if (!root) {
+        return 0
     }
-    return Math.max(minDepth(root.left), minDepth(root.right)) + 1
+    if (!root.left) {
+        return minDepth(root.right) + 1
+    }
+    if (!root.right) {
+        return minDepth(root.left) + 1
+    }
+    return Math.min(minDepth(root.left), minDepth(root.right)) + 1
+
 };
-console.log(minDepth([3,9,20,null,null,15,7]))
