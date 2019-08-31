@@ -809,6 +809,115 @@ var levelOrderBottom = function(root) {
 ---
 
 
+
+##### 110. 平衡二叉树
+Category|Difficulty|Likes|Dislikes
+algorithms|Easy (49.05%)|151|-
+
+Tags
+
+tree | depth-first-search
+
+Companies
+
+bloomberg
+
+给定一个二叉树，判断它是否是高度平衡的二叉树。
+
+本题中，一棵高度平衡二叉树定义为：
+
+一个二叉树每个节点 的左右两个子树的高度差的绝对值不超过1。
+
+示例 1:
+
+给定二叉树 [3,9,20,null,null,15,7]
+```
+    3
+   / \
+  9  20
+    /  \
+   15   7
+```
+返回 true 。
+
+示例 2:
+
+给定二叉树 [1,2,2,3,3,null,null,4,4]
+```
+       1
+      / \
+     2   2
+    / \
+   3   3
+  / \
+ 4   4
+```
+返回 false 。
+
+
+<details><summary><b>答案</b></summary>
+
+1. 递归
+
+2. 给一个中间函数
+
+3. 判断若是node为空，则返回0
+
+4. 左孩子和右孩子递归
+
+5. 如果左孩子右孩子和深度差大于1，则返回-1，否则返回二叉树的最大深度
+
+6. 最后递归结束，判断是否等于-1
+
+<pre>
+/*
+ * @lc app=leetcode.cn id=110 lang=javascript
+ *
+ * [110] 平衡二叉树
+ */
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {boolean}
+ */
+
+
+var isBalanced = function (root) {
+    function middle(node) {
+        if (!node) {
+            return 0
+        }
+        let left = middle(node.left)
+        let right = middle(node.right)
+        if (left == -1 || right == -1 || Math.abs(left - right) > 1) {
+            return -1
+        }
+        return Math.max(left, right) + 1
+    }
+    return middle(root) != -1
+};
+</pre>
+
+<pre>
+√ Accepted
+  √ 227/227 cases passed (108 ms)
+  √ Your runtime beats 49.74 % of javascript submissions
+  √ Your memory usage beats 66.34 % of javascript submissions (37.4 MB)
+</pre>
+</details>
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+
+---
+
+
 ##### 111. 二叉树的最小深度
 
 Category|Difficulty|Likes|Dislikes
@@ -4406,6 +4515,7 @@ M             1000
 输出: 1994
 解释: M = 1000, CM = 900, XC = 90, IV = 4.
 ```
+
 <details><summary><b>答案</b></summary>
 
 罗马数字转整数还是很简单的
