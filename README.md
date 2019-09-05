@@ -1693,6 +1693,83 @@ var removeNthFromEnd = function(head, n) {
 
 ---
 
+
+
+##### 206. 反转链表
+
+
+
+Category|Difficulty|Likes|Dislikes
+algorithms|Easy (63.67%)|553|-
+
+Tags
+
+linked-list
+
+Companies
+
+adobe | amazon | apple | bloomberg | facebook | microsoft | snapchat | twitter | uber | yahoo | yelp | zenefits
+
+反转一个单链表。
+
+示例:
+```
+输入: 1->2->3->4->5->NULL
+输出: 5->4->3->2->1->NULL
+```
+进阶:
+你可以迭代或递归地反转链表。你能否用两种方法解决这道题？
+
+<details><summary><b>答案</b></summary>
+迭代：
+
+1. 申明临时和最终列表
+2. 临时列表头部存放的是起始列表的目前head，而尾部存放的是最终列表
+
+<pre> 
+/*
+ * @lc app=leetcode.cn id=206 lang=javascript
+ *
+ * [206] 反转链表
+ */
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var reverseList = function (head) {
+    let tmp = null
+    let newHead = null
+    while (head !== null) {
+        tmp = head
+        head = head.next
+        tmp.next = newHead
+        newHead = tmp
+    }
+    return newHead
+};
+</pre> 
+
+<pre> 
+√ Accepted
+  √ 27/27 cases passed (92 ms)
+  √ Your runtime beats 40.17 % of javascript submissions
+  √ Your memory usage beats 52.52 % of javascript submissions (34.9 MB)
+</pre> 
+</details>
+
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+
+---
+
 </details>
 
 ### 数组
