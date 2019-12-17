@@ -1,44 +1,26 @@
 # awsome-knowledge-back-end
-
 ## 必备基础知识
-
 ### 迭代
-
 迭代是重复反馈过程的活动，其目的通常是为了逼近所需目标或结果。每一次对过程的重复称为一次“迭代”，而每一次迭代得到的结果会作为下一次迭代的初始值。
 重复执行一系列运算步骤，从前面的量依次求出后面的量的过程。此过程的每一次结果，都是由对前一次所得结果施行相同的运算步骤得到的。例如利用迭代法*求某一数学问题的解。
 对计算机特定程序中需要反复执行的子程序*(一组指令)，进行一次重复，即重复执行程序中的循环，直到满足某条件为止，亦称为迭代。
-
 ### 递归
-
 程序调用自身的编程技巧称为递归（ recursion）。递归做为一种算法在程序设计语言中广泛应用。 一个过程或函数在其定义或说明中有直接或间接调用自身的一种方法，它通常把一个大型复杂的问题层层转化为一个与原问题相似的规模较小的问题来求解，递归策略只需少量的程序就可描述出解题过程所需要的多次重复计算，大大地减少了程序的代码量。递归的能力在于用有限的语句来定义对象的无限集合。一般来说，递归需要有边界条件、递归前进段和递归返回段。当边界条件不满足时，递归前进；当边界条件满足时，递归返回。
-
 ## 数据结构
-
 数据结构(data structure)是带有结构特性的数据元素的集合，它研究的是数据的逻辑结构和数据的物理结构以及它们之间的相互关系，并对这种结构定义相适应的运算，设计出相应的算法，并确保经过这些运算以后所得到的新结构仍保持原来的结构类型。简而言之，数据结构是相互之间存在一种或多种特定关系的数据元素的集合，即带“结构”的数据元素的集合。“结构”就是指数据元素之间存在的关系，分为逻辑结构和存储结构。 
 数据的逻辑结构和物理结构是数据结构的两个密切相关的方面，同一逻辑结构可以对应不同的存储结构。算法的设计取决于数据的逻辑结构，而算法的实现依赖于指定的存储结构。
 数据结构的研究内容是构造复杂软件系统的基础，它的核心技术是分解与抽象。通过分解可以划分出数据的3个层次；再通过抽象，舍弃数据元素的具体内容，就得到逻辑结构。类似地，通过分解将处理要求划分成各种功能，再通过抽象舍弃实现细节，就得到运算的定义。上述两个方面的结合可以将问题变换为数据结构。这是一个从具体（即具体问题）到抽象（即数据结构）的过程。然后，通过增加对实现细节的考虑进一步得到存储结构和实现运算，从而完成设计任务。这是一个从抽象（即数据结构）到具体（即具体实现）的过程。 
-
 ### 树
-
-<details>
-
 树状图是一种数据结构，它是由n（n>=1）个有限结点组成一个具有层次关系的集合。把它叫做“树”是因为它看起来像一棵倒挂的树，也就是说它是根朝上，而叶朝下的。它具有以下的特点：
 每个结点有零个或多个子结点；没有父结点的结点称为根结点；每一个非根结点有且只有一个父结点；除了根结点外，每个子结点可以分为多个不相交的子树；
-
-#### 规律：
-
+#### 规律
 ##### 完全二叉树的公式
-
 1. 第n层的节点数最多为2<sup>n</sup>
-
 2. n层二叉树最多有2<sup>0</sup>+...+2<sup>n</sup>=2<sup>n+1</sup>-1个节点
-
 3. 第一个非叶子节点：length/2
-
 4. 一个节点的孩子节点：2n、2n+1
-
+   
 ##### 插入，遍历，深度，查找
-
 ```js
    function Node(data, left, right) {
        this.data = data;
@@ -209,12 +191,8 @@
 
 ![avatar](http://images.qiufeihong.top/tree.jpg)
 
-
-
 上述的查找运用了二分查找
-
 ##### 二分查找
-
 二分查找的条件是必须是有序的线性表。
 
 那目标值和线性表中的中点值进行比较，如果相等则返回他在表中的位置；如果小于，那线性表就要对折，起始不变，终点为线性表之前的中点；如果大于，那线性表就要对折，终点不变，起始为线性表之前的中点。依次迭代下去，如果找不到就返回-1
@@ -261,7 +239,7 @@ XDEFAG
 BCA
 XEDGAF
 ```
-<details><summary><b>答案</b></summary>
+
 和上面题目的思路基本相同
 
 1. 前序遍历找到根结点root
@@ -299,17 +277,13 @@ while((pre = readline())!=null){
       const preRight = pre.substring(splitIndex + 1);
       return getHRD(preLeft, vinLeft) + getHRD(preRight, vinRight) + head;
     }
-#
 </pre>
-
-</details>
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
 
 #### LeetCode
-
 ##### 105. 从前序与中序遍历序列构造二叉树
 
 根据一棵树的前序遍历与中序遍历构造二叉树。
@@ -331,7 +305,7 @@ while((pre = readline())!=null){
    15   7
 ```
 
-<details><summary><b>答案</b></summary>
+
 前序遍历：根左右
 后序遍历：左根右
 
@@ -380,7 +354,7 @@ var buildTree = function(preorder, inorder) {
   ✔ Your runtime beats 86.27 % of javascript submissions
   ✔ Your memory usage beats 91.53 % of javascript submissions (35.9 MB)
 </pre>
-</details>
+
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
@@ -404,7 +378,7 @@ var buildTree = function(preorder, inorder) {
 ```
 进阶: 递归算法很简单，你可以通过迭代算法完成吗？
 
-<details><summary><b>答案</b></summary>
+
 
 迭代：
 
@@ -413,6 +387,7 @@ var buildTree = function(preorder, inorder) {
 3. 如果root为空，root等于stack中的最后一个元素,root的值塞进res数组
 4. root被root右分支替换
 5. 最后返回res
+
 <pre>
 /*
  * @lc app=leetcode.cn id=94 lang=javascript
@@ -457,7 +432,7 @@ var inorderTraversal = function (root) {
   ✔ Your runtime beats 26.11 % of javascript submissions
   ✔ Your memory usage beats 41.05 % of javascript submissions (33.7 MB)
 </pre>
-</details>
+
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
@@ -502,15 +477,14 @@ var inorderTraversal = function (root) {
 
 输出: false
 ```
-<details><summary><b>答案</b></summary>
+
 
 根据题意得知，底层已经实现了TreeNode,只要判断是否是相同的树
 
 1. 如果两者都为空，那么返回true
-
 2. 如果两者有一者为空或者值不相同，那么返回false
-
 3. 迭代每一层分支
+
 <pre>
 /*
  * @lc app=leetcode.cn id=100 lang=javascript
@@ -534,7 +508,6 @@ var isSameTree = function (p, q) {
     if (!p || !q || p.val !== q.val) return false
     return isSameTree(p.left, q.left) && isSameTree(p.right, q.right)
 };
-
 </pre>
 
 <pre>
@@ -543,14 +516,11 @@ var isSameTree = function (p, q) {
   ✔ Your runtime beats 72.47 % of javascript submissions
   ✔ Your memory usage beats 39.77 % of javascript submissions (33.7 MB)
 </pre>
-</details>
+
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
-
 ---
-
-
 
 ##### 101. 对称二叉树
 
@@ -575,16 +545,15 @@ var isSameTree = function (p, q) {
 说明:
 
 如果你可以运用递归和迭代两种方法解决这个问题，会很加分。
-<details><summary><b>答案</b></summary>
+
 
 根据题意得知，底层已经实现了TreeNode,只要判断是否是对称树
 
 迭代
 
 1. 需要迭代每一层p和q，判断p的left和q的right是否相同
-
-
 2. 迭代中p和q其中只有一个为空，那肯定就是不对称
+
 <pre>
 /*
  * @lc app=leetcode.cn id=101 lang=javascript
@@ -618,15 +587,11 @@ var isSymmetric = function (root) {
   √ Your runtime beats 74.55 % of javascript submissions
   √ Your memory usage beats 38.91 % of javascript submissions (35.5 MB)
 </pre>
-</details>
+
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
-
 ---
-
-
-
 
 ##### 104. 二叉树的最大深度
 
@@ -646,16 +611,17 @@ var isSymmetric = function (root) {
    15   7
 ```
 返回它的最大深度 3 。
-<details><summary><b>答案</b></summary>
+
 
 根据题意得知，底层已经实现了TreeNode,只要计算二叉树的最大深度
 
 递归
 
 1. 需要递归每一层root，如果root的left和right没定义或者为空，则返回0
-
 2. 在每次递归过程中，取出左边或者右边的最大值，然后加上1
+
 <pre>
+
 /*
  * @lc app=leetcode.cn id=104 lang=javascript
  *
@@ -687,7 +653,7 @@ var maxDepth = function (root) {
   √ Your runtime beats 54.83 % of javascript submissions
   √ Your memory usage beats 12.78 % of javascript submissions (37.4 MB)
 </pre>
-</details>
+
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
@@ -717,7 +683,7 @@ var maxDepth = function (root) {
   [3]
 ]
 ```
-<details><summary><b>答案</b></summary>
+
 
 1. 先定义queue存储root节点，循环queue的长度，长度为0停止，每次循环，从queue底部出来一个节点crt，将crt放进stack中
 
@@ -790,14 +756,11 @@ var levelOrderBottom = function(root) {
   ✔ Your runtime beats 32.74 % of javascript submissions
   ✔ Your memory usage beats 5.59 % of javascript submissions (35.6 MB)
 </pre>
-</details>
+
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
-
 ---
-
-
 
 ##### 110. 平衡二叉树
 Category|Difficulty|Likes|Dislikes
@@ -844,7 +807,7 @@ bloomberg
 返回 false 。
 
 
-<details><summary><b>答案</b></summary>
+
 
 1. 递归
 
@@ -858,7 +821,7 @@ bloomberg
 
 6. 最后递归结束，判断是否等于-1
 
-<pre>
+```js
 /*
  * @lc app=leetcode.cn id=110 lang=javascript
  *
@@ -891,7 +854,7 @@ var isBalanced = function (root) {
     }
     return middle(root) != -1
 };
-</pre>
+```
 
 <pre>
 √ Accepted
@@ -899,14 +862,10 @@ var isBalanced = function (root) {
   √ Your runtime beats 49.74 % of javascript submissions
   √ Your memory usage beats 66.34 % of javascript submissions (37.4 MB)
 </pre>
-</details>
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
-
 ---
-
-
 ##### 111. 二叉树的最小深度
 
 Category|Difficulty|Likes|Dislikes
@@ -937,7 +896,7 @@ Unknown
    15   7
 ```
 返回它的最小深度  2.
-<details><summary><b>答案</b></summary>
+
 
 递归，分治，
 
@@ -946,7 +905,7 @@ Unknown
 3. 右孩子为空，则左孩子最小深度加1
 4. 左右都有，那就是递归，重新执行1，2，3
 
-<pre>
+
 /*
  * @lc app=leetcode.cn id=111 lang=javascript
  *
@@ -978,13 +937,13 @@ var minDepth = function (root) {
 };
 </pre>
 
-<pre>
+
 ✔ Accepted
   ✔ 41/41 cases passed (88 ms)
   ✔ Your runtime beats 84.4 % of javascript submissions
   ✔ Your memory usage beats 78.39 % of javascript submissions (37 MB)
 </pre>
-</details>
+
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
@@ -1007,11 +966,11 @@ var minDepth = function (root) {
 ```
 进阶: 递归算法很简单，你可以通过迭代算法完成吗？
 
-<details><summary><b>答案</b></summary>
+
 
 递归算法
 
-<pre>
+
 /*
  * @lc app=leetcode.cn id=144 lang=javascript
  *
@@ -1038,7 +997,7 @@ var preorderTraversal = function (root, res = []) {
 };
 </pre>
 
-<pre>
+
 √ Accepted
   √ 68/68 cases passed (76 ms)
   √ Your runtime beats 71.5 % of javascript submissions
@@ -1056,7 +1015,7 @@ var preorderTraversal = function (root, res = []) {
 
 4. 将tmp中的值出栈，右孩子进入，再执行2，3，4
 
-<pre>
+
 /*
  * @lc app=leetcode.cn id=144 lang=javascript
  *
@@ -1090,7 +1049,7 @@ var preorderTraversal = function (root) {
 };
 </pre>
 
-<pre>
+
 √ Accepted
   √ 68/68 cases passed (84 ms)
   √ Your runtime beats 37.76 % of javascript submissions
@@ -1098,7 +1057,7 @@ var preorderTraversal = function (root) {
 </pre>
 
 
-</details>
+
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
@@ -1122,11 +1081,11 @@ var preorderTraversal = function (root) {
 ```
 进阶: 递归算法很简单，你可以通过迭代算法完成吗？
 
-<details><summary><b>答案</b></summary>
+
 
 递归算法
 
-<pre>
+
 /*
  * @lc app=leetcode.cn id=145 lang=javascript
  *
@@ -1155,7 +1114,7 @@ var postorderTraversal = function (root, res = []) {
 };
 </pre>
 
-<pre>
+
 √ Accepted
   √ 68/68 cases passed (88 ms)
   √ Your runtime beats 24.38 % of javascript submissions
@@ -1172,7 +1131,7 @@ var postorderTraversal = function (root, res = []) {
 
 3. 栈顶节点的右节点不为空且未被访问，以右孩子为目标节点，再依次执行1、2、3
 
-<pre>
+
 /*
  * @lc app=leetcode.cn id=145 lang=javascript
  *
@@ -1223,7 +1182,7 @@ var postorderTraversal = function (root) {
 </pre>
 
 
-</details>
+
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
@@ -1271,7 +1230,7 @@ Unknown
 这个问题是受到 Max Howell 的 原问题 启发的 ：
 
 谷歌：我们90％的工程师使用您编写的软件(Homebrew)，但是您却无法在面试时在白板上写出翻转二叉树这道题，这太糟糕了。
-<details><summary><b>答案</b></summary>
+
 
 
 <pre>
@@ -1312,7 +1271,7 @@ var invertTree = function (root) {
 </pre>
 
 
-</details>
+
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
@@ -1362,7 +1321,7 @@ bloomberg | google | uber
 进阶：
 如果二叉搜索树经常被修改（插入/删除操作）并且你需要频繁地查找第 k 小的值，你将如何优化 kthSmallest 函数？
 
-<details><summary><b>答案</b></summary>
+
 
 递归思路正确
 
@@ -1465,18 +1424,18 @@ function kthSmallest(root, k) {
   ✔ Your memory usage beats 56.94 % of javascript submissions (39.2 MB)
 
 </pre>
-</details>
+
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 
 ---
 
-</details>
+
 
 ### 链表
 
-<details>
+
 
 链表是一种物理存储单元上非连续、非顺序的存储结构，数据元素的逻辑顺序是通过链表中的指针链接次序实现的。链表由一系列结点（链表中每一个元素称为结点）组成，结点可以在运行时动态生成。每个结点包括两个部分：一个是存储数据元素的数据域，另一个是存储下一个结点地址的指针域。 相比于线性表顺序结构，操作复杂。由于不必须按顺序存储，链表在插入的时候可以达到O(1)的复杂度，比另一种线性表顺序快得多，但是查找一个节点或者访问特定编号的节点则需要O(n)的时间，而线性表和顺序表相应的时间复杂度分别是O(logn)和O(1)。
 使用链表结构可以克服数组链表需要预先知道数据大小的缺点，链表结构可以充分利用计算机内存空间，实现灵活的内存动态管理。但是链表失去了数组随机读取的优点，同时链表由于增加了结点的指针域，空间开销比较大。链表最明显的好处就是，常规数组排列关联项目的方式可能不同于这些数据项目在记忆体或磁盘上顺序，数据的存取往往要在不同的排列顺序中转换。链表允许插入和移除表上任意位置上的节点，但是不允许随机存取。链表有很多种不同的类型：单向链表，双向链表以及循环链表。链表可以在多种编程语言中实现。像Lisp和Scheme这样的语言的内建数据类型中就包含了链表的存取和操作。程序语言或面向对象语言，如C,C++和Java依靠易变工具来生成链表。
@@ -1487,7 +1446,7 @@ function kthSmallest(root, k) {
 
 输入一个链表，按链表值从尾到头的顺序返回一个ArrayList
 
-<details><summary><b>答案</b></summary>
+
 要了解链表的数据结构：
 
 val属性存储当前的值，next属性存储下一个节点的引用。
@@ -1513,7 +1472,7 @@ function printListFromTailToHead(head)
 }
 
 </pre> 
-</details>
+
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
@@ -1538,7 +1497,7 @@ function printListFromTailToHead(head)
 原因：342 + 465 = 807
 
 
-<details><summary><b>答案</b></summary>
+
 这道题的思路本身也不太难，主要考察的是对链表的操作，要理解链表的组成方式，增删查的方式。另一个就是按位进行加法计算，需要考虑进位（数a+数b+进位cin，返回数c和新的进位cin）。 
 
 <pre> 
@@ -1592,7 +1551,7 @@ var addTwoNumbers = function (l1, l2) {
     return List.next;
 };
 </pre> 
-</details>
+
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
@@ -1619,7 +1578,7 @@ var addTwoNumbers = function (l1, l2) {
 你能尝试使用一趟扫描实现吗？
 
 
-<details><summary><b>答案</b></summary>
+
 
 
 <pre> 
@@ -1673,7 +1632,7 @@ var removeNthFromEnd = function(head, n) {
     return head
 }
 </pre> 
-</details>
+
 
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
@@ -1708,7 +1667,7 @@ adobe | amazon | apple | bloomberg | facebook | microsoft | snapchat | twitter |
 进阶:
 你可以迭代或递归地反转链表。你能否用两种方法解决这道题？
 
-<details><summary><b>答案</b></summary>
+
 迭代：
 
 1. 申明临时和最终列表
@@ -1750,7 +1709,7 @@ var reverseList = function (head) {
   √ Your runtime beats 40.17 % of javascript submissions
   √ Your memory usage beats 52.52 % of javascript submissions (34.9 MB)
 </pre> 
-</details>
+
 
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
@@ -1758,20 +1717,20 @@ var reverseList = function (head) {
 
 ---
 
-</details>
+
 
 ### 数组
 
-<details>
+
 
 所谓数组，是有序的元素序列。若将有限个类型相同的变量的集合命名，那么这个名称为数组名。组成数组的各个变量称为数组的分量，也称为数组的元素，有时也称为下标变量。用于区分数组的各个元素的数字编号称为下标。数组是在程序设计中，为了处理方便， 把具有相同类型的若干元素按无序的形式组织起来的一种形式。这些无序排列的同类数据元素的集合称为数组。
 数组是用于储存多个相同类型数据的集合。
 
 ##### 100万个成员的数组取第一个和最后一个是否有性能差距
 
-<details><summary><b>答案</b></summary>
+
 答案显然是没有,因为数组是一块线性连续的内存,我们可以通过寻址公式一步取出对应的成员,这跟成员的位置没有关系.
-</details>
+
 
 
 ##### 1. 两数之和（字节跳动）
@@ -1787,7 +1746,7 @@ var reverseList = function (head) {
 因为 nums[0] + nums[1] = 2 + 7 = 9
 所以返回 [0, 1]
 
-<details><summary><b>答案</b></summary>
+
 我的思路很简单，先给一个空对象，再遍历数组中的每一个数字，让目标值和每个值做差，然后判断对象中是否有差，如果有则返回对象的该差的value和i，没有则将该下标对应的值和该下标作为key和value塞进对象中
 <pre> 
 /**
@@ -1868,7 +1827,7 @@ function getNum(arr, sum) {
     return null;
 }
 </pre>
-</details>
+
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
@@ -1898,7 +1857,7 @@ nums2 = [3, 4]
 ```
 则中位数是 (2 + 3)/2 = 2.5
 
-<details><summary><b>答案</b></summary>
+
 这道题的思路本身也不太难，主要是看看你对数组的api熟不熟，比如常见的push，sort等。
 
 1. 先将两个数组塞进第三个数组中，这个数组进行正排或逆排，然后筛选中位数
@@ -1939,7 +1898,7 @@ var findMedianSortedArrays = function (nums1, nums2) {
     return medianVal
 };
 </pre> 
-</details>   
+   
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
@@ -1963,7 +1922,7 @@ var findMedianSortedArrays = function (nums1, nums2) {
 输入: [1,8,6,2,5,4,8,3,7]
 输出: 49
 ```
-<details><summary><b>答案</b></summary>
+
 Math.min() 返回零个或更多个数值的最小值。
 
 Math.max() 返回零个或更多个数值的最大值。
@@ -2024,7 +1983,7 @@ var maxArea = function (height) {
     return maxArea
 };
 </pre> 
-</details>   
+   
 
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
@@ -2047,7 +2006,7 @@ var maxArea = function (height) {
 ]
 ```
 
-<details><summary><b>答案</b></summary>
+
 
 1. 先判断数组长度，小于3则返回空数组
 
@@ -2112,7 +2071,7 @@ var threeSum = function (nums) {
     return arr
 };
 </pre> 
-</details>
+
 
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
@@ -2129,7 +2088,7 @@ var threeSum = function (nums) {
 
 与 target 最接近的三个数的和为 2. (-1 + 2 + 1 = 2).
 ```
-<details><summary><b>答案</b></summary>
+
 方法有点笨
 
 - a1:原数组三数值和所有可能值的数组
@@ -2214,7 +2173,7 @@ var threeSumClosest = function (nums, target) {
 
 };
 </pre> 
-</details>
+
 
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
@@ -2242,7 +2201,7 @@ var threeSumClosest = function (nums, target) {
 ]
 ```
 
-<details><summary><b>答案</b></summary>
+
 
 <pre> 
 /*
@@ -2361,7 +2320,7 @@ var fourSum = function (nums, target) {
     return arr
 };
 </pre> 
-</details>
+
 
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
@@ -2408,7 +2367,7 @@ for (int i = 0; i < len; i++) {
     print(nums[i]);
 }
 ```
-<details><summary><b>答案</b></summary>
+
 读题:内部操作十分关键
 
 无需再return
@@ -2450,7 +2409,7 @@ var removeDuplicates = function(nums) {
 
 
 </pre> 
-</details>
+
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
@@ -2502,7 +2461,7 @@ for (int i = 0; i < len; i++) {
     print(nums[i]);
 }
 ```
-<details><summary><b>答案</b></summary>
+
 读题:内部操作十分关键
 
 无需再return
@@ -2546,7 +2505,7 @@ var removeElement = function(nums, val) {
 
 
 </pre> 
-</details>
+
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
@@ -2577,7 +2536,7 @@ var removeElement = function(nums, val) {
 输入: nums = [4,5,6,7,0,1,2], target = 3
 输出: -1
 ```
-<details><summary><b>答案</b></summary>
+
 indexOf这个方法正好用的上,返回目标值在数组中的索引
 <pre> 
 /*
@@ -2596,7 +2555,7 @@ var search = function(nums, target) {
 
 
 </pre> 
-</details>
+
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
@@ -2621,7 +2580,7 @@ var search = function(nums, target) {
 输入: nums = [5,7,7,8,8,10], target = 6
 输出: [-1,-1]
 ```
-<details><summary><b>答案</b></summary>
+
 indexOf这个方法正好用的上,返回目标值在数组中的索引
 
 lastIndexOf()从后往前找目标值,与indexOf()恰好相反
@@ -2651,7 +2610,7 @@ var searchRange = function(nums, target) {
   ✔ Your runtime beats 79.6 % of javascript submissions
   ✔ Your memory usage beats 64.12 % of javascript submissions (34.9 MB)
 </pre> 
-</details>
+
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
@@ -2683,7 +2642,7 @@ var searchRange = function(nums, target) {
 输入: [1,3,5,6], 0
 输出: 0
 ```
-<details><summary><b>答案</b></summary>
+
 indexOf这个方法正好用的上,返回目标值在数组中的索引
 
 如果有则返回索引，否则就插入目标值排序返回索引
@@ -2714,7 +2673,7 @@ var searchInsert = function (nums, target) {
   √ Your runtime beats 24.06 % of javascript submissions
   √ Your memory usage beats 5.32 % of javascript submissions (35.9 MB)
 </pre> 
-</details>
+
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
@@ -2750,7 +2709,7 @@ candidates 中的数字可以无限制重复被选取。
   [3,5]
 ]
 ```
-<details><summary><b>答案</b></summary>
+
 1. 迭代 内置search方法，循环start值
 <pre> 
 /*
@@ -2786,7 +2745,7 @@ var combinationSum = function (candidates, target) {
   ✔ Your runtime beats 55.49 % of javascript submissions
   ✔ Your memory usage beats 99.12 % of javascript submissions (35.8 MB)
 </pre> 
-</details>
+
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
@@ -2807,7 +2766,7 @@ var combinationSum = function (candidates, target) {
 进阶:
 
 如果你已经实现复杂度为 O(n) 的解法，尝试使用更为精妙的分治法求解。
-<details><summary><b>答案</b></summary>
+
 1. 最小数是最大值的负数，就是-Number.MAX_VALUE，现将该值赋值给max、
 
 
@@ -2894,7 +2853,7 @@ var divide = function(nums, l, r) {
   return Math.max(lmax, Math.max(rmax, mmax));
 };
 </pre> 
-</details>
+
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
@@ -2923,7 +2882,7 @@ var divide = function(nums, l, r) {
 输出: [4,3,2,2]
 解释: 输入数组表示数字 4321。
 ```
-<details><summary><b>答案</b></summary>
+
 
 <pre> 
 /*
@@ -2996,7 +2955,7 @@ var plusOne = function (digits) {
   √ Your memory usage beats 41.65 % of javascript submissions (33.7 MB)
   
 </pre>
-</details>
+
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
@@ -3022,7 +2981,7 @@ nums2 = [2,5,6],       n = 3
 
 输出: [1,2,2,3,5,6]
 ```
-<details><summary><b>答案</b></summary>
+
 
 1. 必须要更改数组本身，所以只能用splice和sort，而不能用slice和concat等api
 
@@ -3060,7 +3019,7 @@ var merge = function (nums1, m, nums2, n) {
   ✔ Your runtime beats 42.32 % of javascript submissions
   ✔ Your memory usage beats 7.67 % of javascript submissions (35.2 MB)
 </pre>
-</details>
+
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
@@ -3090,7 +3049,7 @@ var merge = function (nums1, m, nums2, n) {
  [1,4,6,4,1]
 ]
 ```
-<details><summary><b>答案</b></summary>
+
 
 1. 先申明一个最终数组
 
@@ -3134,7 +3093,7 @@ var generate = function (numRows) {
   ✔ Your runtime beats 84.63 % of javascript submissions
   ✔ Your memory usage beats 23.41 % of javascript submissions (33.8 MB)
 </pre>
-</details>
+
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
@@ -3142,30 +3101,30 @@ var generate = function (numRows) {
 ---
 
 
-</details>
+
 
 
 ### 栈
 
-<details>
+
 
 栈（stack）又名堆栈，它是一种运算受限的线性表。限定仅在表尾进行插入和删除操作的线性表。这一端被称为栈顶，相对地，把另一端称为栈底。向一个栈插入新元素又称作进栈、入栈或压栈，它是把新元素放到栈顶元素的上面，使之成为新的栈顶元素；从一个栈删除元素又称作出栈或退栈，它是把栈顶元素删除掉，使其相邻的元素成为新的栈顶元素。
 
-</details>
+
 
 
 ### 队列
 
-<details>
+
 
 队列是一种特殊的线性表，特殊之处在于它只允许在表的前端（front）进行删除操作，而在表的后端（rear）进行插入操作，和栈一样，队列是一种操作受限制的线性表。进行插入操作的端称为队尾，进行删除操作的端称为队头。
 
-</details>
+
 
 
 ### 哈希表
 
-<details>
+
 
 散列表（Hash table，也叫哈希表），是根据关键码值(Key value)而直接进行访问的数据结构。也就是说，它通过把关键码值映射到表中一个位置来访问记录，以加快查找的速度。这个映射函数叫做散列函数，存放记录的数组叫做散列表。
 给定表M，存在函数f(key)，对任意给定的关键字值key，代入函数后若能得到包含该关键字的记录在表中的地址，则称表M为哈希(Hash）表，函数f(key)为哈希(Hash) 函数。
@@ -3192,7 +3151,7 @@ var generate = function (numRows) {
 解释: 因为无重复字符的最长子串是 "wke"，所以其长度为 3。
      请注意，你的答案必须是 子串 的长度，"pwke" 是一个子序列，不是子串。
 
-<details><summary><b>答案</b></summary>
+
 <pre> 
 /*
  * @lc app=leetcode.cn id=3 lang=javascript
@@ -3219,7 +3178,7 @@ var lengthOfLongestSubstring = function (s) {
     }, 0)
 };
 </pre> 
-</details>   
+   
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
@@ -3278,7 +3237,7 @@ var lengthOfLongestSubstring = function (s) {
 只需要根据以上规则，验证已经填入的数字是否有效即可。
 给定数独序列只包含数字 1-9 和字符 '.' 。
 给定数独永远是 9x9 形式的。
-<details><summary><b>答案</b></summary>
+
 从简单入手，每行和每列判断是颠倒下i和j就行了。最难的是九宫格判断，前提时i和j是以3，6，9分割。
 
 举个例子：当i=0；j=4时，此时的board取得是'6'，而不是'.'或者'8',`Math.floor(i/3)*3+Math.floor(j/3)`就是`Math.floor(0/3)*3+Math.floor(4/3)`等于'1',`(i%3)*3+j%3`就是`(0%3)*3+4%3`等于0，那么取得就是board[1][0],就是'6'
@@ -3318,7 +3277,7 @@ var isValidSudoku = function (board) {
   √ Your runtime beats 29.53 % of javascript submissions
   √ Your memory usage beats 96.77 % of javascript submissions (37.2 MB)
 </pre> 
-</details>
+
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
@@ -3326,21 +3285,21 @@ var isValidSudoku = function (board) {
 ---
 
 
-</details>
+
 
 
 ### 堆
 
-<details>
+
 
 堆(Heap)是计算机科学中一类特殊的数据结构的统称。堆通常是一个可以被看做一棵完全二叉树的数组对象。
 
-</details>
+
 
 
 ### 字符串
 
-<details>
+
 
 字符串主要用于编程，概念说明、函数解释、用法详述见正文，这里补充一点：字符串在存储上类似字符数组，所以它每一位的单个元素都是可以提取的，如s=“abcdefghij”，则s[1]=“b”，s[9]="j"，而字符串的零位正是它的长度，如s[0]=10（※上述功能Ansistring没有。），这可以给我们提供很多方便，如高精度运算时每一位都可以转化为数字存入数组。
 
@@ -3361,7 +3320,7 @@ var isValidSudoku = function (board) {
 输入: "cbbd"
 输出: "bb"
 ```
-<details><summary><b>答案</b></summary>
+
 遍历字符串s
 
 初始化left
@@ -3430,7 +3389,7 @@ var longestPalindrome = function(s) {
   };
 
 </pre> 
-</details>   
+   
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
@@ -3469,7 +3428,7 @@ E   O E   I I
 E C   I H   N
 T     S     G
 ```
-<details><summary><b>答案</b></summary>
+
 如果行数等于1或者字符串长度小于行数，那就返回字符串
 
 申明行数、变换、翻转、计数
@@ -3532,7 +3491,7 @@ var convert = function(s, numRows) {
 
 console.log(convert('LEETCODEISHIRING',4))
 </pre> 
-</details>   
+   
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
@@ -3590,7 +3549,7 @@ console.log(convert('LEETCODEISHIRING',4))
 解释: 数字 "-91283472332" 超过 32 位有符号整数范围。 
      因此返回 INT_MIN (−231) 。
 ```
-<details><summary><b>答案</b></summary>
+
 Math.min() 返回零个或更多个数值的最小值。
 
 Math.max() 返回零个或更多个数值的最大值。
@@ -3620,7 +3579,7 @@ var myAtoi = function (str) {
     return Math.max(minStr, -2147483648)
 };
 </pre> 
-</details>   
+   
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
@@ -3679,7 +3638,7 @@ s = "mississippi"
 p = "mis*is*p*."
 输出: false
 ```
-<details><summary><b>答案</b></summary>
+
 [正则表达式匹配](https://blog.csdn.net/softwareX4/article/details/90761502)
 [正则表达式匹配](https://www.cnblogs.com/wangshaowei/p/11015383.html)
 
@@ -3720,22 +3679,16 @@ var isMatch = function (s, p) {
 };
 
 </pre> 
-</details>
+
 
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
 
-
-
 ##### 14.  最长公共前缀
-
-
 编写一个函数来查找字符串数组中的最长公共前缀。
-
 如果不存在公共前缀，返回空字符串 ""。
-
 示例 1:
 ```
 输入: ["flower","flow","flight"]
@@ -3748,17 +3701,15 @@ var isMatch = function (s, p) {
 解释: 输入不存在公共前缀。
 ```
 说明:
-
 所有输入只包含小写字母 a-z 。
-<details><summary><b>答案</b></summary>
+
 - reduce：这个方法对数组中的每个元素执行一个自定义的函数，并将结果汇总
 - slice：这个方法对字符串截取
 
 1. 使用reduce方法对字符串数组进行遍历
-
 2. 判断前后字符串每个位子上的值是否相等，循环中相等i+1,否则跳出循环
-
 3. slice按照索引截取公共前缀
+   
 <pre> 
 /*
  * @lc app=leetcode.cn id=14 lang=javascript
@@ -3784,15 +3735,11 @@ var longestCommonPrefix = function (strs) {
     })
 };
 </pre> 
-</details>
-
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
-
-
-58. 最后一个单词的长度
+1.  最后一个单词的长度
 给定一个仅包含大小写字母和空格 ' ' 的字符串，返回其最后一个单词的长度。
 
 如果不存在最后一个单词，请返回 0 。
@@ -3804,21 +3751,14 @@ var longestCommonPrefix = function (strs) {
 输入: "Hello World"
 输出: 5
 ```
-<details><summary><b>答案</b></summary>
 关键就是切分字符串
 
 1. 判断字符串是否为空，空的就为0
-
-
 2. 分割字符串
-
-
 3. 过滤字符串数组，空的丢弃
-
-
 4. 取字符串最后一个单词，如果index小于0，返回0，否则返回最后一个字符串长度。因为" "，中间有空格的是还没去掉。
-<pre> 
 
+```
 /*
  * @lc app=leetcode.cn id=58 lang=javascript
  *
@@ -3843,29 +3783,21 @@ var lengthOfLastWord = function (s) {
         return 0
     }
 };
-
-
+```
+<pre>
 √ Accepted
   √ 59/59 cases passed (64 ms)
   √ Your runtime beats 98.61 % of javascript submissions
   √ Your memory usage beats 21.66 % of javascript submissions (33.8 MB)
 </pre> 
-</details>
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
-
 ---
-
-
 ##### 17. 电话号码的字母组合
-
 给定一个仅包含数字 2-9 的字符串，返回所有它能表示的字母组合。
-
 给出数字到字母的映射如下（与电话按键相同）。注意 1 不对应任何字母。
-
 ![avatar](./picture/17.png)
-
 示例:
 
 ```
@@ -3876,33 +3808,21 @@ var lengthOfLastWord = function (s) {
 说明:
 尽管上面的答案是按字典序排列的，但是你可以任意选择答案输出的顺序。
 
-<details><summary><b>答案</b></summary>
-
 - substr() 方法返回一个字符串中从指定位置开始到指定字符数的字符。
-
 - split() 方法使用指定的分隔符字符串将一个String对象分割成字符串数组，以将字符串分隔为子字符串，以确定每个拆分的位置。 
-
 - concat() 方法用于合并两个或多个数组。此方法不会更改现有数组，而是返回一个新数组。
-
 - undefined 一个声明未定义的变量的初始值，或没有实际参数的形式参数。
-
 - Map 对象保存键值对。任何值(对象或者原始值) 都可以作为一个键或一个值。
 
 1. 首先用map映射出电话号码和字母
-
 2. 将第一个字符串的字母放进数组arr
-
 3. 原字符串去掉第一个
-
 4. 将字符串分割成字符串数组,并对该数组遍历
-
 5. 根据每一个字符串digit,从map取出对应的字母数组,并对字母数组遍历
-
 6. 遍历arr,返回其中的item拼接letter的值
-
 7. 然后用t合并所有的返回值数组
-
 8. 最后返回arr
+
 <pre> 
 /*
  * @lc app=leetcode.cn id=17 lang=javascript
@@ -3938,22 +3858,14 @@ var letterCombinations = function (digits) {
     return arr === undefined ? [] : arr;
 };
 </pre> 
-</details>
-
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
-
 ---
-
 ##### 20. 有效的括号
-
 给定一个只包括 '('，')'，'{'，'}'，'['，']' 的字符串，判断字符串是否有效。
-
 有效字符串需满足：
-
 1. 左括号必须用相同类型的右括号闭合。
-
 2. 左括号必须以正确的顺序闭合。
 
 注意空字符串可被认为是有效字符串。
@@ -3980,29 +3892,13 @@ var letterCombinations = function (digits) {
 输入: "{[]}"
 输出: true
 ```
-
-<details><summary><b>答案</b></summary>
-
 1. 先申明一个空的临时数组tmp
-
-
 2. 循环s
-
-
 3. 如果在“({[]})”中有的话进入下一个判断，并记下位置i
-
-
 4. 如果在tmp中的最后一个数加上i等于5的话，tmp中长度-1
-
-
 5. 否则将i塞进tmp中
-
-
 6. 最后判断tmp的长度，等于0则为有效括号，返回true
-
-
 7. 如果是有效括号，那么前面push进去的，后面都能消掉。这就是这个算法的神奇之处。
-
 
 <pre> 
 /*
@@ -4027,19 +3923,15 @@ var isValid = function(s) {
 };
 
 </pre> 
-</details>
+
 
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
-
 ---
 
-
 ##### 22. 括号生成
-
 给出 n 代表生成括号的对数，请你写出一个函数，使其能够生成所有可能的并且有效的括号组合。
-
 例如，给出 n = 3，生成结果为：
 ```
 [
@@ -4050,7 +3942,7 @@ var isValid = function(s) {
   "()()()"
 ]
 ```
-<details><summary><b>答案</b></summary>
+
 
 <pre> 
 /*
@@ -4076,18 +3968,15 @@ var generateParenthesis = function(n) {
   };
   
 </pre> 
-</details>
+
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
-
 
 ---
 
 ##### 28. 实现strStr()
 实现 strStr() 函数。
-
 给定一个 haystack 字符串和一个 needle 字符串，在 haystack 字符串中找出 needle 字符串出现的第一个位置 (从0开始)。如果不存在，则返回  -1。
-
 示例 1:
 ```
 输入: haystack = "hello", needle = "ll"
@@ -4103,7 +3992,7 @@ var generateParenthesis = function(n) {
 当 needle 是空字符串时，我们应当返回什么值呢？这是一个在面试中很好的问题。
 
 对于本题而言，当 needle 是空字符串时我们应当返回 0 。这与C语言的 strstr() 以及 Java的 indexOf() 定义相符。
-<details><summary><b>答案</b></summary>
+
 很简单的,调用indexOf就行了
 <pre> 
 /*
@@ -4126,7 +4015,6 @@ var strStr = function (haystack, needle) {
 };
 
 </pre> 
-</details>
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
@@ -4163,15 +4051,10 @@ var strStr = function (haystack, needle) {
 输入: 4
 输出: "1211"
 ```
-<details><summary><b>答案</b></summary>
 1. 申明start存储来作为返回值，result为过渡值，tmp计算重复值
-
 2. 双层循环，外层遍历n-1,内层遍历start值
-
 3. 判断start字符串中前后值是否相等，如果相等那么tmp+1,如果不等那么result=result+tmp+start循环上的值
-
 4. 最后循环结束得出start值 
-
 
 <pre> 
 /*
@@ -4208,25 +4091,13 @@ var countAndSay = function (n) {
   ✔ Your runtime beats 82.46 % of javascript submissions
   ✔ Your memory usage beats 40.19 % of javascript submissions (35.5 MB)
 </pre> 
-</details>
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
-
 ---
-
-
-</details>
-
-
 ### 全排列
-
-<details>
-
-
 从n个不同元素中任取m（m≤n）个元素，按照一定的顺序排列起来，叫做从n个不同元素中取出m个元素的一个排列。当m=n时所有的排列情况叫全排列。
 公式：全排列数f(n)=n!(定义0!=1)
-
 ##### 46. 全排列
 给定一个没有重复数字的序列，返回其所有可能的全排列。
 
@@ -4244,7 +4115,6 @@ var countAndSay = function (n) {
   [3,2,1]
 ]
 ```
-<details><summary><b>答案</b></summary>
 <pre> 
 /*
  * @lc app=leetcode.cn id=46 lang=javascript
@@ -4279,19 +4149,11 @@ var permute = function (nums) {
   ✔ Your runtime beats 90.73 % of javascript submissions
   ✔ Your memory usage beats 24.34 % of javascript submissions (37.3 MB)
 </pre> 
-</details>
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
-
-</details>
-
-
 ### 二进制索引树
-
-<details>
-
 树状数组是一个优美小巧的数据结构，在很多时候可以代替线段树。一句话概括就是，凡是树状数组可以解决的问题，线段树都可以解决，反过来线段树可以解决的问题，树状数组不一定能解决。
 
 树状数组英文名称为Binary Index Tree，直译过来就是二进制索引树，我觉得二进制索引树更能说明其本质。树状数组的本质就是一种通过二进制位来维护一个序列前i和的数据结构。
@@ -4299,36 +4161,12 @@ var permute = function (nums) {
 对于维护的序列A，定义C[i]=A[j+1]+...+A[i]，其中j为i的二进制表示中把最右边的1换成0的值。j的值可以通过lowbit求出，即i-lowbit(i)。
 
 lowbit(a)为2^(a的二进制表示末尾0的个数)。
-
-</details>
-
-
 ### 几何
-
-<details>
-
 几何，就是研究空间结构及性质的一门学科。它是数学中最基本的研究内容之一，与分析、代数等等具有同样重要的地位，并且关系极为密切。几何学发展历史悠长，内容丰富。它和代数、分析、数论等等关系极其密切。几何思想是数学中最重要的一类思想。暂时的数学各分支发展都有几何化趋向，即用几何观点及思想方法去探讨各数学理论。常见定理有勾股定理，欧拉定理，斯图尔特定理等。
-
-</details>
-
-
 ### 图表
-
-<details>
-
-
-</details>
-
-
 ### 数学
-
-<details>
-
-
 ##### 7. 整数反转
-
 给出一个 32 位的有符号整数，你需要将这个整数中每位上的数字进行反转。
-
 示例 1:
 ```
 输入: 123
@@ -4347,7 +4185,7 @@ lowbit(a)为2^(a的二进制表示末尾0的个数)。
 注意:
 
 假设我们的环境只能存储得下 32 位的有符号整数，则其数值范围为 [−231,  231 − 1]。请根据这个假设，如果反转后整数溢出那么就返回 0。
-<details><summary><b>答案</b></summary>
+
 如果行数等于1或者字符串长度小于行数，那就返回字符串
 
 
@@ -4365,8 +4203,6 @@ lowbit(a)为2^(a的二进制表示末尾0的个数)。
 如果计数等于行数-1或者计数等于0，则翻转真假替换
 
 reduce() 方法对数组中的每个元素执行一个由您提供的reducer函数(升序执行)，将其结果汇总为单个返回值。
-
-
 <pre> 
 /*
  * @lc app=leetcode.cn id=7 lang=javascript
@@ -4394,17 +4230,12 @@ var reverse = function (x) {
 
 
 </pre> 
-</details>   
-
+   
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
-
-
 ##### 9. 回文数
-
 判断一个整数是否是回文数。回文数是指正序（从左向右）和倒序（从右向左）读都是一样的整数。
-
 示例 1:
 ```
 输入: 121
@@ -4423,54 +4254,23 @@ var reverse = function (x) {
 解释: 从右向左读, 为 01 。因此它不是一个回文数。
 ```
 进阶:
-
 你能不将整数转为字符串来解决这个问题吗？
-<details><summary><b>答案</b></summary>
 初级版：
-
 1. 将整数转化为字符串
-
 2. 将字符串分割成数组
-
-
 3. 将数组反转
-
-
 4. 将数组变为字符串
-
-
 5. 比较前后字符串
-
-
-
 进阶版：
-
 Math.pow(10, i)：返回10的i次幂
-
 1. 小于0和10的先判断
-
-
 2. length是整数长度
-
-
 3. isLengthOdd整数长度是否为奇数
-
-
 4. halfIndex是整数长度除于二
-
-
 5. maxIndex是整数的长度减一
-
-
 6. calcX是整数截取后还剩的部分
-
-
 7. currentNum从头取
-
-
 8. result是正确的回文数
-
-
 9.  result和x比对
 
 <pre> 
@@ -4535,13 +4335,10 @@ var isPalindrome = function(x) {
 // 121 length = 3，isLengthOdd = true, max = 2, half = 1, first loop edge = 100, first loop currentNum = parseInt(121 / 100) = 1
 // 121 = 1 * 10 ** 2 + 1 * 10 ** 0 + 2 * 10 ** 1
 </pre>
-</details>   
-
+  
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
-
-
 ##### 12. 整数转罗马数字
 罗马数字包含以下七种字符： I， V， X， L，C，D 和 M。
 ```
@@ -4590,7 +4387,7 @@ M             1000
 输出: "MCMXCIV"
 解释: M = 1000, CM = 900, XC = 90, IV = 4.
 ```
-<details><summary><b>答案</b></summary>
+
 整数转罗马数字，千万不要一个个if/else去判断，要学聪明。
 
 1. 将关键节点列出来，分别是整数数组和罗马数组，做到一一映射
@@ -4630,13 +4427,10 @@ var intToRoman = function (num) {
     return valRoman
 };
 </pre> 
-</details>   
-
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
-
 ##### 13. 罗马数字转整数
 罗马数字包含以下七种字符： I， V， X， L，C，D 和 M。
 ```
@@ -4685,17 +4479,10 @@ M             1000
 输出: 1994
 解释: M = 1000, CM = 900, XC = 90, IV = 4.
 ```
-
-<details><summary><b>答案</b></summary>
-
 罗马数字转整数还是很简单的
-
 1. 将s遍历，去跟罗马数字匹配，找到对应的索引
-
 2. 将索引对应的整数相加
-
 3. 但是要减去多加的部分，根据规律发现：只要前者比后者小，那就是多加的，而且还要减去2倍
-
 
 <pre> 
 /*
@@ -4727,17 +4514,11 @@ var romanToInt = function (s) {
     }
     return res
 };
-
 </pre> 
-</details>   
-
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
-
 ---
-
-
 ##### 29. 两数相除
 给定两个整数，被除数 dividend 和除数 divisor。将两数相除，要求不使用乘法、除法和 mod 运算符。
 
@@ -4758,7 +4539,7 @@ var romanToInt = function (s) {
 被除数和除数均为 32 位有符号整数。
 除数不为 0。
 假设我们的环境只能存储 32 位有符号整数，其数值范围是 [−231,  231 − 1]。本题中，如果除法结果溢出，则返回 231 − 1。
-<details><summary><b>答案</b></summary>
+
 方法一:
 
 最蠢的方法,也就是用上除法运算符了,但是能解决问题,判断除数和被除数的正负,对其做绝对值,然后就是除法,最后考虑边界
@@ -4874,23 +4655,14 @@ var divide = function (dividend, divisor) {
     if (!isPositive) result = -result;
     return result;
 };
-
-
 </pre> 
-</details>
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
-
-
-
 ##### 67. 二进制求和
-
 给定两个二进制字符串，返回他们的和（用二进制表示）。
-
 输入为非空字符串且只包含数字 1 和 0。
-
 示例 1:
 ```
 输入: a = "11", b = "1"
@@ -4901,8 +4673,6 @@ var divide = function (dividend, divisor) {
 输入: a = "1010", b = "1011"
 输出: "10101"
 ```
-<details><summary><b>答案</b></summary>
-
 <pre> 
 /*
  * @lc app=leetcode.cn id=67 lang=javascript
@@ -4941,23 +4711,13 @@ var addBinary = function (a, b) {
 console.log(addBinary("10100000100100110110010000010101111011011001101110111111111101000000101111001110001111100001101", "110101001011101110001111100110001010100001101011101010000011011011001011101111001100000011011110011"))
 </pre> 
 提供的API当数字过大时，精度出错
-
-
 正确方法：
-
 前提:字符串必须转化为数字
-
-
 1. 将a和b都倒置
-
 2. 取出两者中的最长长度
-
 3. 申明一个空数组
-
 4. 循环最长长度,当前a和b和res之和等于一个当前值
-
 5. 如果当前值大于等于2,取模,该位置清0,res最后塞进1,否则res当前位置上的值就等于当前值
-
 6. 跳出循环,返回倒置之后的2进制数
 
 <pre>
@@ -4991,48 +4751,33 @@ var addBinary = function (a, b) {
     return res.reverse().join('')
 };
 </pre>
-
 <pre>
 ✔ Accepted
   ✔ 294/294 cases passed (104 ms)
   ✔ Your runtime beats 48.91 % of javascript submissions
   ✔ Your memory usage beats 50.21 % of javascript submissions (35.7 MB)
 </pre>
-</details>
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
-
 ---
-
-
 ##### 69. x 的平方根
-
-
 实现 int sqrt(int x) 函数。
-
 计算并返回 x 的平方根，其中 x 是非负整数。
-
 由于返回类型是整数，结果只保留整数的部分，小数部分将被舍去。
-
 示例 1:
 ```
 输入: 4
 输出: 2
 ```
 示例 2:
-
 ```
 输入: 8
 输出: 2
 说明: 8 的平方根是 2.82842..., 
      由于返回类型是整数，小数部分将被舍去。
 ```
-
-<details><summary><b>答案</b></summary>
-
 耗时太长,千万不要这要弄
-
 <pre> 
 /*
  * @lc app=leetcode.cn id=69 lang=javascript
@@ -5067,8 +4812,6 @@ console.log(mySqrt('1978959248'))
 </pre> 
 
 采用二分法才是王道
-
-
 1.  定义两个边界left和right,right就是x的一半加一,结果值为mid
 
 2.  左边小于右边一直循环
@@ -5119,114 +4862,35 @@ var mySqrt = function (x) {
   ✔ Your runtime beats 5.25 % of javascript submissions
   ✔ Your memory usage beats 32.03 % of javascript submissions (35.7 MB)
 </pre>
-</details>
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
-
 ---
-
-
-</details>
-
-
 ### 线段树
-
-<details>
-
 线段树是一种二叉搜索树，与区间树相似，它将一个区间划分成一些单元区间，每个单元区间对应线段树中的一个叶结点。
 使用线段树可以快速的查找某一个节点在若干条线段中出现的次数，时间复杂度为O(logN)。而未优化的空间复杂度为2N，实际应用时一般还要开4N的数组以免越界，因此有时需要离散化让空间压缩。
-
-</details>
-
-
 ### 前缀树
-
-<details>
-
-
 又称单词查找树，Trie树，是一种树形结构，是一种哈希树的变种。典型应用是用于统计，排序和保存大量的字符串（但不仅限于字符串），所以经常被搜索引擎系统用于文本词频统计。它的优点是：利用字符串的公共前缀来减少查询时间，最大限度地减少无谓的字符串比较，查询效率比哈希树高。
-
-
-</details>
-
-
 ## 算法
-
 算法（Algorithm）是指解题方案的准确而完整的描述，是一系列解决问题的清晰指令，算法代表着用系统的方法描述解决问题的策略机制。也就是说，能够对一定规范的输入，在有限时间内获得所要求的输出。如果一个算法有缺陷，或不适合于某个问题，执行这个算法将不会解决这个问题。不同的算法可能用不同的时间、空间或效率来完成同样的任务。一个算法的优劣可以用空间复杂度与时间复杂度来衡量。
 算法中的指令描述的是一个计算，当其运行时能从一个初始状态和（可能为空的）初始输入开始，经过一系列有限而清晰定义的状态，最终产生输出并停止于一个终态。一个状态到另一个状态的转移不一定是确定的。随机化算法在内的一些算法，包含了一些随机输入。
-
 ### 排序
-
-<details>
-
 排序是计算机内经常进行的一种操作，其目的是将一组“无序”的记录序列调整为“有序”的记录序列。分内部排序和外部排序，若整个排序过程不需要访问外存便能完成，则称此类排序问题为内部排序。反之，若参加排序的记录数量很大，整个序列的排序过程不可能在内存中完成，则称此类排序问题为外部排序。内部排序的过程是一个逐步扩大记录的有序序列长度的过程。
-
-</details>
-
-
 ### 二分查找
-
-
-<details>
-
 二分查找也称折半查找（Binary Search），它是一种效率较高的查找方法。但是，折半查找要求线性表必须采用顺序存储结构，而且表中元素按关键字有序排列。
-
-</details>
-
-
 ### 递归
-
-<details>
-
 程序调用自身的编程技巧称为递归（ recursion）。递归做为一种算法在程序设计语言中广泛应用。 一个过程或函数在其定义或说明中有直接或间接调用自身的一种方法，它通常把一个大型复杂的问题层层转化为一个与原问题相似的规模较小的问题来求解，递归策略只需少量的程序就可描述出解题过程所需要的多次重复计算，大大地减少了程序的代码量。递归的能力在于用有限的语句来定义对象的无限集合。一般来说，递归需要有边界条件、递归前进段和递归返回段。当边界条件不满足时，递归前进；当边界条件满足时，递归返回。
-
-</details>
-
-
 ### 广度优先搜索
-
-
-<details>
-
 宽度优先搜索算法（又称广度优先搜索）是最简便的图的搜索算法之一，这一算法也是很多重要的图的算法的原型。Dijkstra单源最短路径算法和Prim最小生成树算法都采用了和宽度优先搜索类似的思想。其别名又叫BFS，属于一种盲目搜寻法，目的是系统地展开并检查图中的所有节点，以找寻结果。换句话说，它并不考虑结果的可能位置，彻底地搜索整张图，直到找到结果为止。
-
-</details>
-
-
 ### 深度优先搜索
-
-<details>
-
 深度优先搜索是一种在开发爬虫早期使用较多的方法。它的目的是要达到被搜索结构的叶结点(即那些不包含任何超链的HTML文件) 。在一个HTML文件中，当一个超链被选择后，被链接的HTML文件将执行深度优先搜索，即在搜索其余的超链结果之前必须先完整地搜索单独的一条链。深度优先搜索沿着HTML文件上的超链走到不能再深入为止，然后返回到某一个HTML文件，再继续选择该HTML文件中的其他超链。当不再有其他超链可选择时，说明搜索已经结束。
-
-</details>
-
-
 ### 回溯
-
-<details>
-
-
-</details>
-
-
 ### 动态规划
-
-<details>
-
 动态规划(dynamic programming)是运筹学的一个分支，是求解决策过程(decision process)最优化的数学方法。20世纪50年代初美国数学家R.E.Bellman等人在研究多阶段决策过程(multistep decision process)的优化问题时，提出了著名的最优化原理(principle of optimality)，把多阶段过程转化为一系列单阶段问题，利用各阶段之间的关系，逐个求解，创立了解决这类过程优化问题的新方法——动态规划。1957年出版了他的名著《Dynamic Programming》，这是该领域的第一本著作。
-
-
 ##### 70. 爬楼梯
-
-
 假设你正在爬楼梯。需要 n 阶你才能到达楼顶。
-
 每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？
-
 注意：给定 n 是一个正整数。
-
 示例 1：
 ```
 输入： 2
@@ -5244,9 +4908,6 @@ var mySqrt = function (x) {
 2.  1 阶 + 2 阶
 3.  2 阶 + 1 阶
 ```
-<details><summary><b>答案</b></summary>
-
-
 <pre> 
 /*
  * @lc app=leetcode.cn id=70 lang=javascript
@@ -5272,10 +4933,7 @@ var climbStairs = function (n) {
 RangeError: Maximum call stack size exceeded
 </pre> 
 这种方法，虽然也是递归但是爆栈了
-
-
 正确如下：
-
 1. 递归方法
 
 2. 结果值就等于前两者相加
@@ -5283,6 +4941,7 @@ RangeError: Maximum call stack size exceeded
 3. 最初始值给定，并申明一个数组存放结果，递归的中产生的值放入数组就不会爆栈，最后返回数组中的n位置上的值。
 
 4. 如果递归调用出现问题，可以考虑采取循环的方式来解决，将需要的数据在关键的调用点保存下来使用。简 单的说，就是用自己的数据保存方法来代替系统递归调用产生的堆栈数据。
+
 <pre>
 /*
  * @lc app=leetcode.cn id=70 lang=javascript
@@ -5312,124 +4971,30 @@ var climbStairs = function (n) {
   ✔ Your runtime beats 98.63 % of javascript submissions
   ✔ Your memory usage beats 41.12 % of javascript submissions (33.7 MB)
 </pre>
-</details>
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
-
 ---
-
-
-</details>
-
-
 ### 贪心算法
-
-<details>
-
 贪心算法（又称贪婪算法）是指，在对问题求解时，总是做出在当前看来是最好的选择。也就是说，不从整体最优上加以考虑，他所做出的是在某种意义上的局部最优解。
 贪心算法不是对所有问题都能得到整体最优解，关键是贪心策略的选择，选择的贪心策略必须具备无后效性，即某个状态以前的过程不会影响以后的状态，只与当前状态有关。
-
-</details>
-
-
 ### 位操纵
-
-<details>
-
 位操作是程序设计中对位模式按位或二进制数的一元和二元操作. 在许多古老的微处理器上, 位运算比加减运算略快, 通常位运算比乘除法运算要快很多. 在现代架构中, 情况并非如此:位运算的运算速度通常与加法运算相同（仍然快于乘法运算）。
-
-</details>
-
-
 ### 脑筋急转弯
-
-<details>
-</details>
-
-
 ### 设计
-
-<details>
-</details>
-
-
 ### 分而治之
-
-<details>
-</details>
-
-
 ### 扫描线
-
-<details>
-</details>
-
-
 ### 记忆化
-
-<details>
-</details>
-
-
 ### 极小化极大
-
-<details>
-</details>
-
-
 ### 有序地图
-
-<details>
-</details>
-
-
 ### 随机
-
-<details>
-</details>
-
-
 ### 拒绝采样
-
-<details>
-</details>
-
-
 ### 蓄水池采样
-
-<details>
-</details>
-
-
 ### 滑动窗口
-
-<details>
-</details>
-
-
 ### 拓扑排序
-
-<details>
-</details>
-
-
 ### 两个指针
-
-<details>
-</details>
-
 ### 并查集
-
-<details>
-
-
-</details>
-
 ### 未知 
-
-<details>
-
 ##### 395. 至少有K个重复字符的最长子串
 
 找到给定字符串（由小写字符组成）中的最长子串 T ， 要求 T 中的每一字符出现次数都不少于 k 。输出 T 的长度。
@@ -5454,7 +5019,7 @@ s = "ababbc", k = 2
 
 最长子串为 "ababb" ，其中 'a' 重复了 2 次， 'b' 重复了 3 次。
 ```
-<details><summary><b>答案</b></summary>
+
 
 <pre> 
 /*
@@ -5492,18 +5057,11 @@ var longestSubstring = function (s, k) {
     })
     return total
 };
-
 </pre> 
-</details>
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
-
 ---
-
-</details>
-
-
 ## 参考
 
 [vscode-leetcode](https://github.com/jdneo/vscode-leetcode/blob/master/docs/README_zh-CN.md)
