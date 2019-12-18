@@ -243,13 +243,9 @@ XEDGAF
 和上面题目的思路基本相同
 
 1. 前序遍历找到根结点root
-
 2. 找到root在中序遍历的位置 -> 左子树的长度和右子树的长度
-
 3. 截取左子树的中序遍历、右子树的中序遍历
-
 4. 截取左子树的前序遍历、右子树的前序遍历
-
 5. 递归拼接二叉树的后序遍历
 
 <pre>
@@ -282,10 +278,8 @@ while((pre = readline())!=null){
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
-
 #### LeetCode
 ##### 105. 从前序与中序遍历序列构造二叉树
-
 根据一棵树的前序遍历与中序遍历构造二叉树。
 
 注意:
@@ -312,7 +306,6 @@ while((pre = readline())!=null){
 ![avatar](http://images.qiufeihong.top/105.jpg)
 
 <pre>
-
 /*
  * @lc app=leetcode.cn id=105 lang=javascript
  *
@@ -355,14 +348,10 @@ var buildTree = function(preorder, inorder) {
   ✔ Your memory usage beats 91.53 % of javascript submissions (35.9 MB)
 </pre>
 
-
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
-
 ---
-
 ##### 94. 二叉树的中序遍历
-
 给定一个二叉树，返回它的中序 遍历。
 
 示例:
@@ -377,8 +366,6 @@ var buildTree = function(preorder, inorder) {
 输出: [1,3,2]
 ```
 进阶: 递归算法很简单，你可以通过迭代算法完成吗？
-
-
 
 迭代：
 
@@ -433,16 +420,10 @@ var inorderTraversal = function (root) {
   ✔ Your memory usage beats 41.05 % of javascript submissions (33.7 MB)
 </pre>
 
-
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
-
 ---
-
-
 ##### 100. 相同的树
-
-
 给定两个二叉树，编写一个函数来检验它们是否相同。
 
 如果两个树在结构上相同，并且节点具有相同的值，则认为它们是相同的。
@@ -477,8 +458,6 @@ var inorderTraversal = function (root) {
 
 输出: false
 ```
-
-
 根据题意得知，底层已经实现了TreeNode,只要判断是否是相同的树
 
 1. 如果两者都为空，那么返回true
@@ -521,9 +500,7 @@ var isSameTree = function (p, q) {
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
-
 ##### 101. 对称二叉树
-
 给定一个二叉树，检查它是否是镜像对称的。
 
 例如，二叉树 [1,2,2,3,4,4,3] 是对称的。
@@ -580,7 +557,6 @@ var isSymmetric = function (root) {
     return middle(root, root)
 };
 </pre>
-
 <pre>
 √ Accepted
   √ 195/195 cases passed (88 ms)
@@ -588,13 +564,10 @@ var isSymmetric = function (root) {
   √ Your memory usage beats 38.91 % of javascript submissions (35.5 MB)
 </pre>
 
-
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
-
 ##### 104. 二叉树的最大深度
-
 给定一个二叉树，找出其最大深度。
 
 二叉树的深度为根节点到最远叶子节点的最长路径上的节点数。
@@ -616,12 +589,10 @@ var isSymmetric = function (root) {
 根据题意得知，底层已经实现了TreeNode,只要计算二叉树的最大深度
 
 递归
-
 1. 需要递归每一层root，如果root的left和right没定义或者为空，则返回0
 2. 在每次递归过程中，取出左边或者右边的最大值，然后加上1
 
 <pre>
-
 /*
  * @lc app=leetcode.cn id=104 lang=javascript
  *
@@ -646,7 +617,6 @@ var maxDepth = function (root) {
 };
 
 </pre>
-
 <pre>
 √ Accepted
   √ 39/39 cases passed (96 ms)
@@ -654,18 +624,11 @@ var maxDepth = function (root) {
   √ Your memory usage beats 12.78 % of javascript submissions (37.4 MB)
 </pre>
 
-
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
-
 ---
-
-
-
 ##### 107. 二叉树的层次遍历 II
-
 给定一个二叉树，返回其节点值自底向上的层次遍历。 （即按从叶子节点所在层到根节点所在的层，逐层从左向右遍历）
-
 例如：
 给定二叉树 [3,9,20,null,null,15,7],
 ```
@@ -683,14 +646,9 @@ var maxDepth = function (root) {
   [3]
 ]
 ```
-
-
 1. 先定义queue存储root节点，循环queue的长度，长度为0停止，每次循环，从queue底部出来一个节点crt，将crt放进stack中
-
 2. 如果crt左和右的节点还有值，那就覆盖。
-
 3. 第二个循环stack长度，crt是stack头部出来的值
-
 4. 定义的maxLevel是最大层数，定义maxLevel长度的result数组，将crt值到塞进result
 
 <pre>
@@ -757,11 +715,9 @@ var levelOrderBottom = function(root) {
   ✔ Your memory usage beats 5.59 % of javascript submissions (35.6 MB)
 </pre>
 
-
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
-
 ##### 110. 平衡二叉树
 Category|Difficulty|Likes|Dislikes
 algorithms|Easy (49.05%)|151|-
@@ -806,19 +762,11 @@ bloomberg
 ```
 返回 false 。
 
-
-
-
 1. 递归
-
 2. 给一个中间函数
-
 3. 判断若是node为空，则返回0
-
 4. 左孩子和右孩子递归
-
 5. 如果左孩子右孩子和深度差大于1，则返回-1，否则返回二叉树的最大深度
-
 6. 最后递归结束，判断是否等于-1
 
 ```js
@@ -838,8 +786,6 @@ bloomberg
  * @param {TreeNode} root
  * @return {boolean}
  */
-
-
 var isBalanced = function (root) {
     function middle(node) {
         if (!node) {
@@ -867,7 +813,6 @@ var isBalanced = function (root) {
 
 ---
 ##### 111. 二叉树的最小深度
-
 Category|Difficulty|Likes|Dislikes
 algorithms|Easy (39.81%)|148|-
 
@@ -896,16 +841,13 @@ Unknown
    15   7
 ```
 返回它的最小深度  2.
-
-
 递归，分治，
-
 1. root为空则返回0
 2. 左孩子为空，则右孩子最小深度加1
 3. 右孩子为空，则左孩子最小深度加1
 4. 左右都有，那就是递归，重新执行1，2，3
 
-
+```js
 /*
  * @lc app=leetcode.cn id=111 lang=javascript
  *
@@ -935,22 +877,18 @@ var minDepth = function (root) {
     return Math.min(minDepth(root.left), minDepth(root.right)) + 1
 
 };
-</pre>
-
-
+```
+<pre>
 ✔ Accepted
   ✔ 41/41 cases passed (88 ms)
   ✔ Your runtime beats 84.4 % of javascript submissions
   ✔ Your memory usage beats 78.39 % of javascript submissions (37 MB)
 </pre>
 
-
 [[↑] 回到顶部](#awsome-knowledge-back-end)
-
 
 ---
 ##### 114. 二叉树的前序遍历
-
 给定一个二叉树，返回它的 前序 遍历。
 
  示例:
@@ -966,11 +904,9 @@ var minDepth = function (root) {
 ```
 进阶: 递归算法很简单，你可以通过迭代算法完成吗？
 
-
-
 递归算法
 
-
+```js
 /*
  * @lc app=leetcode.cn id=144 lang=javascript
  *
@@ -995,9 +931,8 @@ var preorderTraversal = function (root, res = []) {
     }
     return res
 };
-</pre>
-
-
+```
+<pre>
 √ Accepted
   √ 68/68 cases passed (76 ms)
   √ Your runtime beats 71.5 % of javascript submissions
@@ -1008,14 +943,11 @@ var preorderTraversal = function (root, res = []) {
 迭代算法
 
 1. 定义res和tmp数组
-
 2. 目标节点进入res和tmp
-
 3. 左孩子进入res和tmp，直到左边结束
-
 4. 将tmp中的值出栈，右孩子进入，再执行2，3，4
 
-
+```js
 /*
  * @lc app=leetcode.cn id=144 lang=javascript
  *
@@ -1047,25 +979,18 @@ var preorderTraversal = function (root) {
     }
     return res
 };
-</pre>
-
-
+```
+<pre>
 √ Accepted
   √ 68/68 cases passed (84 ms)
   √ Your runtime beats 37.76 % of javascript submissions
   √ Your memory usage beats 40.42 % of javascript submissions (33.7 MB)
 </pre>
 
-
-
-
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
-
 ---
-
 ##### 145. 二叉树的后序遍历
-
 给定一个二叉树，返回它的 后序 遍历。
 
 示例:
@@ -1081,11 +1006,9 @@ var preorderTraversal = function (root) {
 ```
 进阶: 递归算法很简单，你可以通过迭代算法完成吗？
 
-
-
 递归算法
 
-
+```js
 /*
  * @lc app=leetcode.cn id=145 lang=javascript
  *
@@ -1112,16 +1035,13 @@ var postorderTraversal = function (root, res = []) {
 
     return res
 };
-</pre>
-
-
+```
+<pre>
 √ Accepted
   √ 68/68 cases passed (88 ms)
   √ Your runtime beats 24.38 % of javascript submissions
   √ Your memory usage beats 38.52 % of javascript submissions (33.7 MB)
 </pre>
-
-
 迭代算法
 
 取跟节点为目标节点，开始遍历
@@ -1181,17 +1101,10 @@ var postorderTraversal = function (root) {
   √ Your memory usage beats 48.36 % of javascript submissions (33.7 MB)
 </pre>
 
-
-
-
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
-
 ---
-
 ##### 226. 翻转二叉树
-
-
 Category|Difficulty|Likes|Dislikes
 --|--|--|--
 algorithms|Easy (71.45%)|250|-
@@ -1230,9 +1143,6 @@ Unknown
 这个问题是受到 Max Howell 的 原问题 启发的 ：
 
 谷歌：我们90％的工程师使用您编写的软件(Homebrew)，但是您却无法在面试时在白板上写出翻转二叉树这道题，这太糟糕了。
-
-
-
 <pre>
 /*
  * @lc app=leetcode.cn id=226 lang=javascript
@@ -1270,16 +1180,10 @@ var invertTree = function (root) {
   ✔ Your memory usage beats 26.63 % of javascript submissions (33.8 MB)
 </pre>
 
-
-
-
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
-
 ---
-
 ##### 230. 二叉搜索树中第K小的元素
-
 Category|Difficulty|Likes|Dislikes
 algorithms|Medium(65.90%)|92|-
 
@@ -1321,14 +1225,12 @@ bloomberg | google | uber
 进阶：
 如果二叉搜索树经常被修改（插入/删除操作）并且你需要频繁地查找第 k 小的值，你将如何优化 kthSmallest 函数？
 
-
-
 递归思路正确
 
 利用中序遍历生成数组，找到数组中第k小的数
 
 但是运行有误
-<pre>
+```js
 /*
  * @lc app=leetcode.cn id=230 lang=javascript
  *
@@ -1364,7 +1266,7 @@ function middle(node, arr) {
         middle(node.right, arr)
     }
 }
-</pre>
+```
 
 <pre>
 ✘ Wrong Answer
@@ -1376,9 +1278,7 @@ function middle(node, arr) {
 </pre>
 
 递归的正确方式
-
-
-<pre>
+```js
 /*
  * @lc app=leetcode.cn id=230 lang=javascript
  *
@@ -1412,12 +1312,8 @@ function kthSmallest(root, k) {
 
     return res
 };
-
-</pre>
-
-
+```
 <pre>
-
 ✔ Accepted
   ✔ 91/91 cases passed (92 ms)
   ✔ Your runtime beats 94.2 % of javascript submissions
@@ -1425,23 +1321,13 @@ function kthSmallest(root, k) {
 
 </pre>
 
-
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
-
 ---
-
-
-
 ### 链表
-
-
-
 链表是一种物理存储单元上非连续、非顺序的存储结构，数据元素的逻辑顺序是通过链表中的指针链接次序实现的。链表由一系列结点（链表中每一个元素称为结点）组成，结点可以在运行时动态生成。每个结点包括两个部分：一个是存储数据元素的数据域，另一个是存储下一个结点地址的指针域。 相比于线性表顺序结构，操作复杂。由于不必须按顺序存储，链表在插入的时候可以达到O(1)的复杂度，比另一种线性表顺序快得多，但是查找一个节点或者访问特定编号的节点则需要O(n)的时间，而线性表和顺序表相应的时间复杂度分别是O(logn)和O(1)。
 使用链表结构可以克服数组链表需要预先知道数据大小的缺点，链表结构可以充分利用计算机内存空间，实现灵活的内存动态管理。但是链表失去了数组随机读取的优点，同时链表由于增加了结点的指针域，空间开销比较大。链表最明显的好处就是，常规数组排列关联项目的方式可能不同于这些数据项目在记忆体或磁盘上顺序，数据的存取往往要在不同的排列顺序中转换。链表允许插入和移除表上任意位置上的节点，但是不允许随机存取。链表有很多种不同的类型：单向链表，双向链表以及循环链表。链表可以在多种编程语言中实现。像Lisp和Scheme这样的语言的内建数据类型中就包含了链表的存取和操作。程序语言或面向对象语言，如C,C++和Java依靠易变工具来生成链表。
-
 ##### 从尾到头打印链表
-
 题目
 
 输入一个链表，按链表值从尾到头的顺序返回一个ArrayList
@@ -1456,7 +1342,6 @@ val属性存储当前的值，next属性存储下一个节点的引用。
 因为是从尾到头的顺序，使用一个队列来存储打印结果，每次从队列头部插入。
 
 <pre> 
-
 /*function ListNode(x){
     this.val = x;
     this.next = null;
@@ -1473,17 +1358,11 @@ function printListFromTailToHead(head)
 
 </pre> 
 
-
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
-
-
 #### leetcode
-
 ##### 2. 两数相加
-
-
 给出两个 非空 的链表用来表示两个非负的整数。其中，它们各自的位数是按照 逆序 的方式存储的，并且它们的每个节点只能存储 一位 数字。
 
 如果，我们将这两个数相加起来，则会返回一个新的链表来表示它们的和。
@@ -1495,8 +1374,6 @@ function printListFromTailToHead(head)
 输入：(2 -> 4 -> 3) + (5 -> 6 -> 4)
 输出：7 -> 0 -> 8
 原因：342 + 465 = 807
-
-
 
 这道题的思路本身也不太难，主要考察的是对链表的操作，要理解链表的组成方式，增删查的方式。另一个就是按位进行加法计算，需要考虑进位（数a+数b+进位cin，返回数c和新的进位cin）。 
 
@@ -1552,15 +1429,10 @@ var addTwoNumbers = function (l1, l2) {
 };
 </pre> 
 
-
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
-
-
-
 ##### 19. 删除链表的倒数第N个节点
-
 给定一个链表，删除链表的倒数第 n 个节点，并且返回链表的头结点。
 
 示例：
@@ -1576,10 +1448,6 @@ var addTwoNumbers = function (l1, l2) {
 进阶：
 
 你能尝试使用一趟扫描实现吗？
-
-
-
-
 
 <pre> 
 /*
@@ -1633,19 +1501,10 @@ var removeNthFromEnd = function(head, n) {
 }
 </pre> 
 
-
-
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
-
 ---
-
-
-
 ##### 206. 反转链表
-
-
-
 Category|Difficulty|Likes|Dislikes
 algorithms|Easy (63.67%)|553|-
 
@@ -1667,9 +1526,7 @@ adobe | amazon | apple | bloomberg | facebook | microsoft | snapchat | twitter |
 进阶:
 你可以迭代或递归地反转链表。你能否用两种方法解决这道题？
 
-
 迭代：
-
 1. 申明临时和最终列表
 2. 临时列表头部存放的是起始列表的目前head，而尾部存放的是最终列表
 
@@ -1710,31 +1567,15 @@ var reverseList = function (head) {
   √ Your memory usage beats 52.52 % of javascript submissions (34.9 MB)
 </pre> 
 
-
-
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
-
 ---
-
-
-
 ### 数组
-
-
-
 所谓数组，是有序的元素序列。若将有限个类型相同的变量的集合命名，那么这个名称为数组名。组成数组的各个变量称为数组的分量，也称为数组的元素，有时也称为下标变量。用于区分数组的各个元素的数字编号称为下标。数组是在程序设计中，为了处理方便， 把具有相同类型的若干元素按无序的形式组织起来的一种形式。这些无序排列的同类数据元素的集合称为数组。
 数组是用于储存多个相同类型数据的集合。
-
 ##### 100万个成员的数组取第一个和最后一个是否有性能差距
-
-
 答案显然是没有,因为数组是一块线性连续的内存,我们可以通过寻址公式一步取出对应的成员,这跟成员的位置没有关系.
-
-
-
 ##### 1. 两数之和（字节跳动）
-
 给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。
 
 你可以假设每种输入只会对应一个答案。但是，你不能重复利用这个数组中同样的元素。
@@ -1828,15 +1669,10 @@ function getNum(arr, sum) {
 }
 </pre>
 
-
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
-
-
-
 ##### 4. 寻找两个有序数组的中位数
-
 给定两个大小为 m 和 n 的有序数组 nums1 和 nums2。
 
 请你找出这两个有序数组的中位数，并且要求算法的时间复杂度为 O(log(m + n))。
@@ -1857,14 +1693,10 @@ nums2 = [3, 4]
 ```
 则中位数是 (2 + 3)/2 = 2.5
 
-
 这道题的思路本身也不太难，主要是看看你对数组的api熟不熟，比如常见的push，sort等。
 
 1. 先将两个数组塞进第三个数组中，这个数组进行正排或逆排，然后筛选中位数
-
-
 2. 再取数组长度，判断是偶数还是奇数，奇数则取最中间的数，偶数取最中间的两者的平均数
-
 
 <pre> 
 /*
@@ -1898,15 +1730,11 @@ var findMedianSortedArrays = function (nums1, nums2) {
     return medianVal
 };
 </pre> 
-   
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
-
 ---
-
 ##### 11. 盛最多水的容器
-
 给定 n 个非负整数 a1，a2，...，an，每个数代表坐标中的一个点 (i, ai) 。在坐标内画 n 条垂直线，垂直线 i 的两个端点分别为 (i, ai) 和 (i, 0)。找出其中的两条线，使得它们与 x 轴共同构成的容器可以容纳最多的水。
 
 说明：你不能倾斜容器，且 n 的值至少为 2。
@@ -1914,8 +1742,6 @@ var findMedianSortedArrays = function (nums1, nums2) {
 ![avatar](./picture/11.jpg)
 
 图中垂直线代表输入数组 [1,8,6,2,5,4,8,3,7]。在此情况下，容器能够容纳水（表示为蓝色部分）的最大值为 49。
-
- 
 
 示例:
 ```
@@ -1930,18 +1756,13 @@ Math.max() 返回零个或更多个数值的最大值。
 有图可知，必须两头往中间走，取出最大的面积
 
 1. 定义i和j
-
 2. i从头开始往后走
-
 3. j从后往前走
-
 4. 如果i < j，则可以继续运行
-
 5. 取height[i]和height[j]中的最小值和距离乘
-
 6. 与之前的面积比较，取最大值
-
 7. 判断height[i]和height[j]的大小，哪个大则另一个往大的靠，相等则一起走
+
 <pre> 
 /*
  * @lc app=leetcode.cn id=11 lang=javascript
@@ -1984,14 +1805,9 @@ var maxArea = function (height) {
 };
 </pre> 
    
-
-
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
-
 ---
-
-
 ##### 15. 三数之和
 给定一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？找出所有满足条件且不重复的三元组。
 
@@ -2006,22 +1822,13 @@ var maxArea = function (height) {
 ]
 ```
 
-
-
 1. 先判断数组长度，小于3则返回空数组
-
 2. 对数组排序（升序）
-
 3. 对数组进行遍历，索引为i变量，如果每个值都大于0，则也返回空数组；
-
 4. 对数组遍历，索引为j变量，是i的后一位，索引为k变量，是数组的最后一位，保持j小于k
-
 5. 如果第i，j，k个值之和为0，则返回i，j，k的数组，然后继续找，j向后移，k向前移
-
 6. 当j小于k并且第j和j-1个值相等，往后移一位
-
 7. 当j小于k并且第k和k+1个值相等，往前移一位
-
 8. 如果之和大于0，则k往前移，否则j往后移 
 
 <pre> 
@@ -2072,15 +1879,10 @@ var threeSum = function (nums) {
 };
 </pre> 
 
-
-
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
-
-
 ##### 16. 最接近的三数之和
-
 给定一个包括 n 个整数的数组 nums 和 一个目标值 target。找出 nums 中的三个整数，使得它们的和与 target 最接近。返回这三个数的和。假定每组输入只存在唯一答案。
 
 ```
@@ -2097,25 +1899,15 @@ var threeSum = function (nums) {
 - a4:a1的模板
 
 1. 先判断数组长度，小于3则直接返回数组和
-
 2. 对数组排序（升序）
-
 3. 双重循环:最外层对数组进行遍历，索引为i变量;最内层对数组遍历，索引为j变量，是i的后一位，索引为k变量，是数组的最后一位，保持j小于k
-
 4. 如果第i，j，k个值之和为target，则返回target
-
 5. 如果第i，j，k个值之和大于target，则和值push进a1,并且k往前移一位
-
 6. 如果第i，j，k个值之和小于target，则和值还是push进a1,并且j往后移一位
-
 7. 然后a1遍历,每个值与target做差和绝对值,获取的值放进a2和a4
-
 8. a3是a2排序后的结果(升序)
-
 9. 在a4中取a3最小值的索引位
-
 10. 最后返回a1中的值  
-
 
 <pre> 
 /*
@@ -2174,13 +1966,9 @@ var threeSumClosest = function (nums, target) {
 };
 </pre> 
 
-
-
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
-
 ---
-
 ##### 18. 四数之和
 
 给定一个包含 n 个整数的数组 nums 和一个目标值 target，判断 nums 中是否存在四个元素 a，b，c 和 d ，使得 a + b + c + d 的值与 target 相等？找出所有满足条件且不重复的四元组。
@@ -2200,8 +1988,6 @@ var threeSumClosest = function (nums, target) {
   [-2,  0, 0, 2]
 ]
 ```
-
-
 
 <pre> 
 /*
@@ -2321,14 +2107,10 @@ var fourSum = function (nums, target) {
 };
 </pre> 
 
-
-
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
-
 ##### 26. 删除排序数组中的重复项
-
 给定一个排序数组，你需要在原地删除重复出现的元素，使得每个元素只出现一次，返回移除后数组的新长度。
 
 不要使用额外的数组空间，你必须在原地修改输入数组并在使用 O(1) 额外空间的条件下完成。
@@ -2406,20 +2188,12 @@ var removeDuplicates = function(nums) {
         }
     }
 };
-
-
 </pre> 
-
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
-
 ---
-
-
-
 ##### 27. 移除元素
-
 给定一个数组 nums 和一个值 val，你需要原地移除所有数值等于 val 的元素，返回移除后数组的新长度。
 
 不要使用额外的数组空间，你必须在原地修改输入数组并在使用 O(1) 额外空间的条件下完成。
@@ -2483,7 +2257,7 @@ var removeDuplicates = function(nums) {
 ```
 
 找到val值，splice去除，后面的值跟上
-<pre> 
+```js
 /*
  * @lc app=leetcode.cn id=27 lang=javascript
  *
@@ -2502,19 +2276,11 @@ var removeElement = function(nums, val) {
         }
     }
 };
-
-
-</pre> 
-
+```
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
-
-
-
-
-
 ##### 33. 搜索旋转排序数组
 假设按照升序排序的数组在预先未知的某个点上进行了旋转。
 
@@ -2552,18 +2318,12 @@ indexOf这个方法正好用的上,返回目标值在数组中的索引
 var search = function(nums, target) {
     return nums.indexOf(target)
 };
-
-
 </pre> 
-
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
-
-
 ##### 34. 在排序数组中查找元素的第一个和最后一个位置
-    
 给定一个按照升序排列的整数数组 nums，和一个目标值 target。找出给定目标值在数组中的开始位置和结束位置。
 
 你的算法时间复杂度必须是 O(log n) 级别。
@@ -2584,7 +2344,7 @@ var search = function(nums, target) {
 indexOf这个方法正好用的上,返回目标值在数组中的索引
 
 lastIndexOf()从后往前找目标值,与indexOf()恰好相反
-<pre> 
+```js
 /*
  * @lc app=leetcode.cn id=34 lang=javascript
  *
@@ -2603,23 +2363,19 @@ var searchRange = function(nums, target) {
     arr.push(right)
     return arr
 };
-
-
+```
+<pre>
 ✔ Accepted
   ✔ 88/88 cases passed (80 ms)
   ✔ Your runtime beats 79.6 % of javascript submissions
   ✔ Your memory usage beats 64.12 % of javascript submissions (34.9 MB)
 </pre> 
 
-
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
-
-
 ##### 35. 搜索插入位置
  给定一个排序数组和一个目标值，在数组中找到目标值，并返回其索引。如果目标值不存在于数组中，返回它将会被按顺序插入的位置。
-
 你可以假设数组中无重复元素。
 
 示例 1:
@@ -2646,7 +2402,7 @@ var searchRange = function(nums, target) {
 indexOf这个方法正好用的上,返回目标值在数组中的索引
 
 如果有则返回索引，否则就插入目标值排序返回索引
-<pre> 
+```js
 /*
  * @lc app=leetcode.cn id=35 lang=javascript
  *
@@ -2666,21 +2422,18 @@ var searchInsert = function (nums, target) {
         return a-b
     }).indexOf(target)
 };
-
-
+```
+<pre>
 √ Accepted
   √ 62/62 cases passed (108 ms)
   √ Your runtime beats 24.06 % of javascript submissions
   √ Your memory usage beats 5.32 % of javascript submissions (35.9 MB)
 </pre> 
 
-
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
-
 ##### 39. 组合总和
-
 给定一个无重复元素的数组 candidates 和一个目标数 target ，找出 candidates 中所有可以使数字和为 target 的组合。
 
 candidates 中的数字可以无限制重复被选取。
@@ -2711,6 +2464,7 @@ candidates 中的数字可以无限制重复被选取。
 ```
 
 1. 迭代 内置search方法，循环start值
+
 <pre> 
 /*
  * @lc app=leetcode.cn id=39 lang=javascript
@@ -2746,17 +2500,11 @@ var combinationSum = function (candidates, target) {
   ✔ Your memory usage beats 99.12 % of javascript submissions (35.8 MB)
 </pre> 
 
-
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
-
 ---
-
-
 ##### 53. 最大子序和
-
 给定一个整数数组 nums ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。
-
 示例:
 ```
 输入: [-2,1,-3,4,-1,2,1,-5,4],
@@ -2768,28 +2516,14 @@ var combinationSum = function (candidates, target) {
 如果你已经实现复杂度为 O(n) 的解法，尝试使用更为精妙的分治法求解。
 
 1. 最小数是最大值的负数，就是-Number.MAX_VALUE，现将该值赋值给max、
-
-
 2. 申明sum
-
-
 3. 遍历nums
-
-
 4. 如果sum小于零，重置，因为一个数加上负数肯定变小
-
-
 5. sum加上nums数组中的每个值
-
-
 6. 判断max和sum取最大值赋值给max
-
-
 7. 循环结束返回max
 
-
-<pre> 
-
+```
 方法一：动态规划
 
 /*
@@ -2852,17 +2586,11 @@ var divide = function(nums, l, r) {
   
   return Math.max(lmax, Math.max(rmax, mmax));
 };
-</pre> 
-
+``` 
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
-
 ---
-
-
-
-
 ##### 66. 加一
 给定一个由整数组成的非空数组所表示的非负整数，在该数的基础上加一。
 
@@ -2882,9 +2610,7 @@ var divide = function(nums, l, r) {
 输出: [4,3,2,2]
 解释: 输入数组表示数字 4321。
 ```
-
-
-<pre> 
+```js
 /*
  * @lc app=leetcode.cn id=66 lang=javascript
  *
@@ -2900,7 +2626,8 @@ var plusOne = function (digits) {
     let arr=num.toString().split('')
     return arr
 };
-
+```
+<pre>
 × Wrong Answer
   × 69/109 cases passed (N/A)
   × testcase: '[6,1,4,5,3,9,0,1,9,5,1,8,6,7,0,5,5,4,3]'
@@ -2909,19 +2636,12 @@ var plusOne = function (digits) {
   × stdout:
 </pre> 
 parseInt当数字过大时，精度出错
-
 正确方法：
-
 1. 由于之前转数字错误的示范，这次就要改邪归正了
-
-
 2. 遍历数组，从尾到头，命中数字加1
-
-
 3. 和值如果大于等于10，该位置上清0，再来一遍循环，否则就返回目标值
-
-
 4. 循环结束，所有位置上都大于等于10，那么在目标值头部加1
+
 <pre>
 
 /*
@@ -2956,16 +2676,10 @@ var plusOne = function (digits) {
   
 </pre>
 
-
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
-
 ---
-
-
-
 ##### 88. 合并两个有序数组
-
 给定两个有序整数数组 nums1 和 nums2，将 nums2 合并到 nums1 中，使得 num1 成为一个有序数组。
 
 说明:
@@ -2982,13 +2696,10 @@ nums2 = [2,5,6],       n = 3
 输出: [1,2,2,3,5,6]
 ```
 
-
 1. 必须要更改数组本身，所以只能用splice和sort，而不能用slice和concat等api
-
-
 2. sort要指定升序
-<pre>
 
+<pre>
 /*
  * @lc app=leetcode.cn id=88 lang=javascript
  *
@@ -3020,19 +2731,13 @@ var merge = function (nums1, m, nums2, n) {
   ✔ Your memory usage beats 7.67 % of javascript submissions (35.2 MB)
 </pre>
 
-
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
-
 ---
-
-
 ##### 118. 杨辉三角
-
 给定一个非负整数 numRows，生成杨辉三角的前 numRows 行。
 
 ![avatar](./picture/118.png)
-
 
 在杨辉三角中，每个数是它左上方和右上方的数的和。
 
@@ -3050,11 +2755,8 @@ var merge = function (nums1, m, nums2, n) {
 ]
 ```
 
-
 1. 先申明一个最终数组
-
 2. 这肯定是需要二重循环，分别是行和列
-
 3. 每一行的头和尾是1,其余的每个位置上的数是前一行的这个位置减一加上这个位置
    
 </pre>
@@ -3094,44 +2796,17 @@ var generate = function (numRows) {
   ✔ Your memory usage beats 23.41 % of javascript submissions (33.8 MB)
 </pre>
 
-
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
-
 ---
-
-
-
-
-
 ### 栈
-
-
-
 栈（stack）又名堆栈，它是一种运算受限的线性表。限定仅在表尾进行插入和删除操作的线性表。这一端被称为栈顶，相对地，把另一端称为栈底。向一个栈插入新元素又称作进栈、入栈或压栈，它是把新元素放到栈顶元素的上面，使之成为新的栈顶元素；从一个栈删除元素又称作出栈或退栈，它是把栈顶元素删除掉，使其相邻的元素成为新的栈顶元素。
-
-
-
-
 ### 队列
-
-
-
 队列是一种特殊的线性表，特殊之处在于它只允许在表的前端（front）进行删除操作，而在表的后端（rear）进行插入操作，和栈一样，队列是一种操作受限制的线性表。进行插入操作的端称为队尾，进行删除操作的端称为队头。
-
-
-
-
 ### 哈希表
-
-
-
 散列表（Hash table，也叫哈希表），是根据关键码值(Key value)而直接进行访问的数据结构。也就是说，它通过把关键码值映射到表中一个位置来访问记录，以加快查找的速度。这个映射函数叫做散列函数，存放记录的数组叫做散列表。
 给定表M，存在函数f(key)，对任意给定的关键字值key，代入函数后若能得到包含该关键字的记录在表中的地址，则称表M为哈希(Hash）表，函数f(key)为哈希(Hash) 函数。
-
-
 ##### 3. 无重复字符的最长子串
-
 给定一个字符串，请你找出其中不含有重复字符的 最长子串 的长度。
 
 示例 1:
@@ -3150,7 +2825,6 @@ var generate = function (numRows) {
 输出: 3
 解释: 因为无重复字符的最长子串是 "wke"，所以其长度为 3。
      请注意，你的答案必须是 子串 的长度，"pwke" 是一个子序列，不是子串。
-
 
 <pre> 
 /*
@@ -3178,12 +2852,10 @@ var lengthOfLongestSubstring = function (s) {
     }, 0)
 };
 </pre> 
-   
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
-
 ##### 36. 有效的数独
 判断一个 9x9 的数独是否有效。只需要根据以下规则，验证已经填入的数字是否有效即可。
 
@@ -3242,7 +2914,7 @@ var lengthOfLongestSubstring = function (s) {
 
 举个例子：当i=0；j=4时，此时的board取得是'6'，而不是'.'或者'8',`Math.floor(i/3)*3+Math.floor(j/3)`就是`Math.floor(0/3)*3+Math.floor(4/3)`等于'1',`(i%3)*3+j%3`就是`(0%3)*3+4%3`等于0，那么取得就是board[1][0],就是'6'
 
-<pre> 
+```
 /*
  * @lc app=leetcode.cn id=36 lang=javascript
  *
@@ -3270,42 +2942,23 @@ var isValidSudoku = function (board) {
     }
     return true
 };
+```
 
-
+<pre> 
 √ Accepted
   √ 504/504 cases passed (148 ms)
   √ Your runtime beats 29.53 % of javascript submissions
   √ Your memory usage beats 96.77 % of javascript submissions (37.2 MB)
 </pre> 
 
-
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
-
 ---
-
-
-
-
-
 ### 堆
-
-
-
 堆(Heap)是计算机科学中一类特殊的数据结构的统称。堆通常是一个可以被看做一棵完全二叉树的数组对象。
-
-
-
-
 ### 字符串
-
-
-
 字符串主要用于编程，概念说明、函数解释、用法详述见正文，这里补充一点：字符串在存储上类似字符数组，所以它每一位的单个元素都是可以提取的，如s=“abcdefghij”，则s[1]=“b”，s[9]="j"，而字符串的零位正是它的长度，如s[0]=10（※上述功能Ansistring没有。），这可以给我们提供很多方便，如高精度运算时每一位都可以转化为数字存入数组。
-
-
 ##### 5. 最长回文子串
-
 给定一个字符串 s，找到 s 中最长的回文子串。你可以假设 s 的最大长度为 1000。
 
 示例 1：
@@ -3389,17 +3042,12 @@ var longestPalindrome = function(s) {
   };
 
 </pre> 
-   
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
-
-
 ##### 6. Z 字形变换
-
 将一个给定字符串根据给定的行数，以从上往下、从左到右进行 Z 字形排列。
-
 比如输入字符串为 "LEETCODEISHIRING" 行数为 3 时，排列如下：
 ```
 L   C   I   R
@@ -3445,8 +3093,6 @@ T     S     G
 如果计数等于行数-1或者计数等于0，则翻转真假替换
 
 reduce() 方法对数组中的每个元素执行一个由您提供的reducer函数(升序执行)，将其结果汇总为单个返回值。
-
-
 <pre> 
 /*
  * @lc app=leetcode.cn id=6 lang=javascript
@@ -3487,20 +3133,13 @@ var convert = function(s, numRows) {
         // put together converted string
         return rows.reduce((converted, cur) => converted + cur.join(''), '');
 };
-
-
 console.log(convert('LEETCODEISHIRING',4))
 </pre> 
    
-
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
-
-
-
 ##### 8. 字符串转换整数 (atoi)
-
 请你来实现一个 atoi 函数，使其能将字符串转换成整数。
 
 首先，该函数会根据需要丢弃无用的开头空格字符，直到寻找到第一个非空格的字符为止。
@@ -3512,11 +3151,8 @@ console.log(convert('LEETCODEISHIRING',4))
 注意：假如该字符串中的第一个非空格字符不是一个有效整数字符、字符串为空或字符串仅包含空白字符时，则你的函数不需要进行转换。
 
 在任何情况下，若函数不能进行有效的转换时，请返回 0。
-
 说明：
-
 假设我们的环境只能存储 32 位大小的有符号整数，那么其数值范围为 [−231,  231 − 1]。如果数值超过这个范围，qing返回  INT_MAX (231 − 1) 或 INT_MIN (−231) 。
-
 示例 1:
 ```
 输入: "42"
@@ -3549,19 +3185,13 @@ console.log(convert('LEETCODEISHIRING',4))
 解释: 数字 "-91283472332" 超过 32 位有符号整数范围。 
      因此返回 INT_MIN (−231) 。
 ```
-
 Math.min() 返回零个或更多个数值的最小值。
-
 Math.max() 返回零个或更多个数值的最大值。
 
-
 1. 我们要用parseInt取整过滤字符串
-
-
 2. 取不大于2^31 − 1的数
-
-
 3. 取不小于−2^31的数
+
 <pre> 
 /*
  * @lc app=leetcode.cn id=8 lang=javascript
@@ -3579,13 +3209,10 @@ var myAtoi = function (str) {
     return Math.max(minStr, -2147483648)
 };
 </pre> 
-   
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
-
-
 ##### 10.  正则表达式匹配
 给你一个字符串 s 和一个字符规律 p，请你来实现一个支持 '.' 和 '*' 的正则表达式匹配。
 ```
@@ -3593,11 +3220,11 @@ var myAtoi = function (str) {
 '*' 匹配零个或多个前面的那一个元素
 ```
 所谓匹配，是要涵盖 整个 字符串 s的，而不是部分字符串。
-
 说明:
 
 - s 可能为空，且只包含从 a-z 的小写字母。
 - p 可能为空，且只包含从 a-z 的小写字母，以及字符 . 和 *。
+  
 示例 1:
 ```
 输入:
@@ -3631,14 +3258,12 @@ p = "c*a*b"
 解释: 因为 '*' 表示零个或多个，这里 'c' 为 0 个, 'a' 被重复一次。因此可以匹配字符串 "aab"。
 ```
 示例 5:
-
 ```
 输入:
 s = "mississippi"
 p = "mis*is*p*."
 输出: false
 ```
-
 [正则表达式匹配](https://blog.csdn.net/softwareX4/article/details/90761502)
 [正则表达式匹配](https://www.cnblogs.com/wangshaowei/p/11015383.html)
 
@@ -3677,15 +3302,11 @@ var isMatch = function (s, p) {
         return map[idxS + ':' + idxP];
     }
 };
-
 </pre> 
-
-
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
-
 ##### 14.  最长公共前缀
 编写一个函数来查找字符串数组中的最长公共前缀。
 如果不存在公共前缀，返回空字符串 ""。
@@ -4115,7 +3736,7 @@ var countAndSay = function (n) {
   [3,2,1]
 ]
 ```
-<pre> 
+```js
 /*
  * @lc app=leetcode.cn id=46 lang=javascript
  *
@@ -4142,8 +3763,8 @@ var permute = function (nums) {
     permutations([], nums)
     return res
 };
-
-
+```
+<pre>
 ✔ Accepted
   ✔ 25/25 cases passed (96 ms)
   ✔ Your runtime beats 90.73 % of javascript submissions
@@ -4778,7 +4399,7 @@ var addBinary = function (a, b) {
      由于返回类型是整数，小数部分将被舍去。
 ```
 耗时太长,千万不要这要弄
-<pre> 
+```js
 /*
  * @lc app=leetcode.cn id=69 lang=javascript
  *
@@ -4809,24 +4430,18 @@ var mySqrt = function (x) {
 
 };
 console.log(mySqrt('1978959248'))
-</pre> 
+```
 
 采用二分法才是王道
 1.  定义两个边界left和right,right就是x的一半加一,结果值为mid
-
 2.  左边小于右边一直循环
-
 3.  mid等于left和right的一半
-
 4.  如果mid的平方大于x,那么right等于mid减一
-
 5.  如果小于x,那么left加一
-
 6.  否则,结果就是mid值
-
 7.  如果循环结束没有匹配到,那结果就是right值
 
-<pre>
+```js
 /*
  * @lc app=leetcode.cn id=69 lang=javascript
  *
@@ -4854,7 +4469,7 @@ var mySqrt = function (x) {
     }
     return right
 };
-</pre>
+```
 
 <pre>
 ✔ Accepted
@@ -4935,14 +4550,11 @@ RangeError: Maximum call stack size exceeded
 这种方法，虽然也是递归但是爆栈了
 正确如下：
 1. 递归方法
-
 2. 结果值就等于前两者相加
-
 3. 最初始值给定，并申明一个数组存放结果，递归的中产生的值放入数组就不会爆栈，最后返回数组中的n位置上的值。
-
 4. 如果递归调用出现问题，可以考虑采取循环的方式来解决，将需要的数据在关键的调用点保存下来使用。简 单的说，就是用自己的数据保存方法来代替系统递归调用产生的堆栈数据。
 
-<pre>
+```js
 /*
  * @lc app=leetcode.cn id=70 lang=javascript
  *
@@ -4962,8 +4574,7 @@ var climbStairs = function (n) {
     }
     return arr[n]
 }
-
-</pre>
+```
 
 <pre>
 ✔ Accepted
