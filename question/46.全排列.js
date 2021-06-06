@@ -17,6 +17,7 @@ var permute = function (nums) {
             for (let i = 0; i < remaining.length; i++) {
                 current.push(remaining[i])
                 permutations(current.slice(), remaining.slice(0, i).concat(remaining.slice(i + 1)))
+                // console.log(current)
                 current.pop()
             }
         }
@@ -24,3 +25,7 @@ var permute = function (nums) {
     permutations([], nums)
     return res
 };
+
+// 测试
+const numsArr=[1,2,3]
+console.log(permute(numsArr))
