@@ -23,3 +23,6 @@ var lengthOfLongestSubstring = function (s) {
     }, 0)
 };
 
+// const s = "abcabcbb"
+// const res = lengthOfLongestSubstring(s)
+// console.log(res)

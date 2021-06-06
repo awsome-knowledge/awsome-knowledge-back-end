@@ -38,6 +38,7 @@ var longestPalindrome = function(s) {
       for (var j = 0; j < 2; j++) {
         var left = i;
         var right = i + j;
+
         while (s[left] && s[left] === s[right]) {
           left--;
           right++;
@@ -49,3 +50,5 @@ var longestPalindrome = function(s) {
     }
     return max;
   };
+// const a = "babad"
+// console.log(longestPalindrome(a))
