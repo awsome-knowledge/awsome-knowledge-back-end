@@ -12,9 +12,13 @@ var twoSum = function (nums, target) {
     let map = {}
     for (let i = 0; i < nums.length; i++) {
         let tep = target - nums[i]
+        // 判断是否有该值
         let val = map.hasOwnProperty(tep)
         if (val) {
+            // 返回两者下标
             return [map[tep], i]
+            // 返回这两个数
+            // return [tep, nums[i]]
         }
         map[nums[i]] = i
     }
