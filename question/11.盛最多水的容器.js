@@ -24,13 +24,21 @@ var maxArea = function (height) {
     let maxArea = 0
     let i = 0
     let j = height.length - 1
+    // i>=j结束循环
     while (i < j) {
+        // 3件事
+        // 1. 取两端的最小值
+        // 2. 取出两个端点的距离
+        // 3. 面积和之前的面积比较取最大值
         maxArea = Math.max(maxArea, Math.min(height[i], height[j]) * (j - i))
         if (height[i] > height[j]) {
+            // 左边大，右边往左边靠
             j--
         } else if (height[i] < height[j]) {
+            // 右边大，左边往左边靠
             i++
         } else {
+            // 相等，两边一起往中间靠
             j--
             i++
         }
