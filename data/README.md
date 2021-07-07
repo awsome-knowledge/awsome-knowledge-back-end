@@ -1714,24 +1714,16 @@ nums2 = [3, 4]
  * @return {number}
  */
 var findMedianSortedArrays = function (nums1, nums2) {
-    var nums = new Array()
-    var medianVal
-    for (let i in nums1) {
-        nums.push(nums1[i])
-    }
-    for (let j in nums2) {
-        nums.push(nums2[j])
-    }
-    nums.sort(function (a, b) {
-        return a - b
-    })
-    var l = nums.length
-    if (l % 2 !== 0) {
-        medianVal = nums[(l - 1) / 2]
+    // sort内的排序函数不可以省略，且必须是从小到大
+    const arr = nums1.concat(nums2).sort((a, b) => a - b )
+    const n = arr.length
+    if (n % 2 == 0) {
+        // 偶数
+        return (arr[n / 2] + arr[n / 2 - 1]) / 2
     } else {
-        medianVal = (nums[l / 2 - 1] + nums[l / 2]) / 2
+        // 奇数
+        return arr[Math.floor(n / 2)]
     }
-    return medianVal
 };
 </pre> 
 

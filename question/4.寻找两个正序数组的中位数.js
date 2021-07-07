@@ -11,10 +11,9 @@
  * @return {number}
  */
 var findMedianSortedArrays = function (nums1, nums2) {
-    const n = nums1.length + nums2.length
-    console.log(n)
+    // sort内的排序函数不可以省略，且必须是从小到大
     const arr = nums1.concat(nums2).sort((a, b) => a - b )
-    console.log(arr)
+    const n = arr.length
     if (n % 2 == 0) {
         // 偶数
         return (arr[n / 2] + arr[n / 2 - 1]) / 2
