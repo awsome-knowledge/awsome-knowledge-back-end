@@ -1986,6 +1986,12 @@ var threeSumClosest = function (nums, target) {
   [-2,  0, 0, 2]
 ]
 ```
+解析：
+1. 老规矩——先排序（升序）
+2. 三层循环，最后两个标志c和k作为活动位，
+3. 如果四数之和等于目标值，找到这四个数push进arr
+4. 如果之和小于目标值，说明num[c]不够大，c往后一位
+5. 如果之和大于目标值，说明num[k]太大，k往前一位
 
 <pre> 
 /*
@@ -2104,6 +2110,13 @@ var fourSum = function (nums, target) {
     return arr
 };
 </pre> 
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
+##### 总结（三数四数之和问题）
+遇到这类问题不要怕，老规矩——先排序，将最后两位作为头尾摇摆位，三数之和两个循环，四数之和三个循环，大了，尾位往前移，小了头位往后移。
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
