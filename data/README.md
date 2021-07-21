@@ -2277,7 +2277,11 @@ var removeDuplicates = function(nums) {
 };
 ```
 
-找到val值，splice去除，后面的值跟上
+解题步骤：
+1. 遍历数组
+2. 判断当前值与目标值是否相等
+3. 相等则删除当前值
+4. 下一个值往前移重新判断当前下标的值
 ```js
 /*
  * @lc app=leetcode.cn id=27 lang=javascript
