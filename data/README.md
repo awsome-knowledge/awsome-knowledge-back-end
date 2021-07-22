@@ -2440,7 +2440,8 @@ console.log(nextPermutation([3, 2, 1]))
 输出: -1
 ```
 
-indexOf这个方法正好用的上,返回目标值在数组中的索引
+解题步骤：
+1. indexOf这个方法正好用的上,返回目标值在数组中的索引
 <pre> 
 /*
  * @lc app=leetcode.cn id=33 lang=javascript
