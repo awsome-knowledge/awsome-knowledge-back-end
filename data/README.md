@@ -2573,6 +2573,16 @@ var searchInsert = function (nums, target) {
 
 ---
 ##### 39. 组合总和
+```
+
+Category	Difficulty	Likes	Dislikes
+algorithms	Medium (72.52%)	1444	-
+Tags
+array | backtracking
+
+Companies
+snapchat | uber
+```
 给定一个无重复元素的数组 candidates 和一个目标数 target ，找出 candidates 中所有可以使数字和为 target 的组合。
 
 candidates 中的数字可以无限制重复被选取。
@@ -2601,9 +2611,43 @@ candidates 中的数字可以无限制重复被选取。
   [3,5]
 ]
 ```
+示例 3：
+```
+输入: candidates = [2], target = 1
+输出: []
+```
+示例 4：
+```
+输入: candidates = [1], target = 1
+输出: [[1]]
+```
+示例 5：
+```
+输入: candidates = [1], target = 2
+输出: [[1,1]]
+``` 
 
-1. 迭代 内置search方法，循环start值
+提示：
+```
+1 <= candidates.length <= 30
+1 <= candidates[i] <= 200
+candidate 中的每个元素都是独一无二的。
+1 <= target <= 500
+```
+注意是无重复元素的正整数数组
 
+解题步骤：
+1. 回溯三部曲
+- 递归函数参数
+定义两个全局变量，二维数组result存放结果集，数组path存放符合条件的结果。
+- 递归终止条件
+从叶子节点可以清晰看到，终止只有两种情况，sum大于target和sum等于target。
+
+sum等于target的时候，需要收集结果
+- 单层搜索的逻辑
+单层for循环依然是从startIndex开始，搜索candidates集合。
+1. 剪枝优化
+对总集合排序之后，如果下一层的sum（就是本层的 sum + candidates[i]）已经大于target，就可以结束本轮for循环的遍历。
 <pre> 
 /*
  * @lc app=leetcode.cn id=39 lang=javascript
