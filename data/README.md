@@ -2479,9 +2479,9 @@ var search = function(nums, target) {
 输出: [-1,-1]
 ```
 
-indexOf这个方法正好用的上,返回目标值在数组中的索引
-
-lastIndexOf()从后往前找目标值,与indexOf()恰好相反
+解题步骤：
+1. indexOf这个方法正好用的上,返回目标值在数组中的索引
+2. lastIndexOf()从后往前找目标值,与indexOf()恰好相反
 ```js
 /*
  * @lc app=leetcode.cn id=34 lang=javascript
