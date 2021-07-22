@@ -2536,10 +2536,11 @@ var searchRange = function(nums, target) {
 输入: [1,3,5,6], 0
 输出: 0
 ```
-
-indexOf这个方法正好用的上,返回目标值在数组中的索引
-
-如果有则返回索引，否则就插入目标值排序返回索引
+解题步骤：
+1. 使用indexOf()方法找到目标值在数组中的索引
+2. 如果有则返回索引，否则就插入目标值
+3. 按从小到大排序
+4. 返回目标值索引
 ```js
 /*
  * @lc app=leetcode.cn id=35 lang=javascript
