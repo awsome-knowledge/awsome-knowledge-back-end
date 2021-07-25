@@ -2990,6 +2990,101 @@ Your memory usage beats 74.09 % of javascript submissions (39.4 MB)
 
 ---
 
+##### 45.跳跃游戏 II
+```
+Category	Difficulty	Likes	Dislikes
+algorithms	Medium (41.66%)	1072	-
+Tags
+array | greedy
+
+Companies
+Unknown
+```
+给你一个非负整数数组 nums ，你最初位于数组的第一个位置。
+
+数组中的每个元素代表你在该位置可以跳跃的最大长度。
+
+你的目标是使用最少的跳跃次数到达数组的最后一个位置。
+
+假设你总是可以到达数组的最后一个位置。
+
+ 
+
+示例 1:
+```
+输入: nums = [2,3,1,1,4]
+输出: 2
+解释: 跳到最后一个位置的最小跳跃数是 2。
+     从下标为 0 跳到下标为 1 的位置，跳 1 步，然后跳 3 步到达数组的最后一个位置。
+```
+示例 2:
+```
+输入: nums = [2,3,0,1,4]
+输出: 2
+``` 
+
+提示:
+```
+1 <= nums.length <= 104
+0 <= nums[i] <= 1000
+```
+
+题目思路：
+
+>在思考这道题目的时候，我们首先会想，要先知道每一次都走当前可选范围的最大值，这样可能最快的走出去，所以我们要记录当前所走的步数能到达的最远距离，并且在可选范围中找到比这个值更大的最远距离，并且每次排查可选范围后，在走到最远距离时记录我们的步数。
+
+>首先需要循环这个数组，所以一定有一个变量 i 代表当前遍历的位置，我们定义一个变量 maxReach 代表遍历时所能触达的最远距离，因为题目需要输出的是步数，所以需要一个 step 变量来记录所走的步数，当找到当前可走范围的时候已经找到范围内的最远距离，我们就走到这里，其实第一次的 maxReach 就是这个范围的边界，然而由于在寻找范围内最远距离的过程中最远距离可能会更新，所以用一个 end 变量来记录
+
+
+```js
+/*
+ * @lc app=leetcode.cn id=45 lang=javascript
+ *
+ * [45] 跳跃游戏 II
+ */
+
+// @lc code=start
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var jump = function (nums) {
+    // 单步最大搜索长度
+    let maxReach = 0;
+    // 跳跃步数
+    let step = 0;
+    // 最远距离
+    let end = 0;
+    // 遍历数组
+    for (let i = 0; i < nums.length - 1; i++) {
+        // 单步最远距离=当前位置的值+下标
+        maxReach = Math.max(maxReach, nums[i] + i);
+        // console.log('maxReach====', maxReach)
+        // console.log('i====', i)
+        // 如果下标等于最远距离，往前再跳一个，步数+1
+        if (i === end) {
+            step++;
+            end = maxReach;
+            // console.log('end====', end)
+        }
+    }
+
+    return step;
+};
+// @lc code=end
+console.log(jump([2, 3, 0, 1, 4]))
+
+
+Accepted
+106/106 cases passed (80 ms)
+Your runtime beats 76.82 % of javascript submissions
+Your memory usage beats 54.84 % of javascript submissions (39.7 MB)
+``` 
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
 ##### 53. 最大子序和（快手）
 给定一个整数数组 nums ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。
 示例:
