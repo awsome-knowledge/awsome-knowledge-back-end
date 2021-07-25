@@ -2686,6 +2686,118 @@ var combinationSum = function (candidates, target) {
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
+
+##### 40. 组合总和 II
+```
+Category	Difficulty	Likes	Dislikes
+algorithms	Medium (63.44%)	636	-
+Tags
+array | backtracking
+
+Companies
+snapchat
+```
+给定一个数组 candidates 和一个目标数 target ，找出 candidates 中所有可以使数字和为 target 的组合。
+
+candidates 中的每个数字在每个组合中只能使用一次。
+
+注意：解集不能包含重复的组合。 
+
+ 
+
+示例 1:
+```
+输入: candidates = [10,1,2,7,6,1,5], target = 8,
+输出:
+[
+[1,1,6],
+[1,2,5],
+[1,7],
+[2,6]
+]
+```
+示例 2:
+```
+输入: candidates = [2,5,2,1,2], target = 5,
+输出:
+[
+[1,2,2],
+[5]
+]
+```
+
+提示:
+```
+1 <= candidates.length <= 100
+1 <= candidates[i] <= 50
+1 <= target <= 30
+```
+注意是无重复元素的正整数数组
+
+解题步骤：
+1. 回溯三部曲
+- 递归函数参数
+定义两个全局变量，二维数组result存放结果集，数组path存放符合条件的结果。
+- 递归终止条件
+从叶子节点可以清晰看到，终止只有两种情况，sum大于target和sum等于target。
+
+sum等于target的时候，需要收集结果
+- 单层搜索的逻辑
+单层for循环依然是从startIndex开始，搜索candidates集合。
+1. 剪枝优化
+对总集合排序之后，如果下一层的sum（就是本层的 sum + candidates[i]）已经大于target，就可以结束本轮for循环的遍历。
+<pre> 
+/*
+ * @lc app=leetcode.cn id=40 lang=javascript
+ *
+ * [40] 组合总和 II
+ */
+
+// @lc code=start
+/**
+ * @param {number[]} candidates
+ * @param {number} target
+ * @return {number[][]}
+ */
+var combinationSum2 = function (candidates, target) {
+    const res = [], path = [], len = candidates.length
+    candidates.sort()
+    backtracking(0, 0)
+    return res
+    function backtracking(sum, i) {
+        if (sum > target) return
+        if (sum === target) {
+            res.push(Array.from(path))
+            return
+        }
+        let f = -1
+        for (let j = i; j < len; j++) {
+            const n = candidates[j]
+            if (n > target - sum || n === f) continue
+            path.push(n)
+            sum += n
+            f = n
+            backtracking(sum, j + 1)
+            // 回溯
+            path.pop()
+            sum -= n
+        }
+
+    }
+};
+// @lc code=end
+
+
+
+Accepted
+175/175 cases passed (80 ms)
+Your runtime beats 92.19 % of javascript submissions
+Your memory usage beats 81.78 % of javascript submissions (39.4 MB)
+</pre> 
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
 ##### 53. 最大子序和（快手）
 给定一个整数数组 nums ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。
 示例:
