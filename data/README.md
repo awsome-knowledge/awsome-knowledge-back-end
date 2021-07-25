@@ -2895,6 +2895,101 @@ Your memory usage beats 5.03 % of javascript submissions (102 MB)
 
 ---
 
+##### 42.接雨水
+```
+Category	Difficulty	Likes	Dislikes
+algorithms	Hard (56.66%)	2515	-
+Tags
+array | two-pointers | stack
+
+Companies
+amazon | apple | bloomberg | google | twitter | zenefits
+```
+给定 n 个非负整数表示每个宽度为 1 的柱子的高度图，计算按此排列的柱子，下雨之后能接多少雨水。
+
+![avatar](./../picture/rainwatertrap42.png)
+
+示例 1：
+```
+输入：height = [0,1,0,2,1,0,1,3,2,1,2,1]
+输出：6
+解释：上面是由数组 [0,1,0,2,1,0,1,3,2,1,2,1] 表示的高度图，在这种情况下，可以接 6 个单位的雨水（蓝色部分表示雨水）。 
+```
+示例 2：
+```
+输入：height = [4,2,0,3,2,5]
+输出：9
+```
+
+提示：
+```
+n == height.length
+0 <= n <= 3 * 104
+0 <= height[i] <= 105
+```
+
+解题思路：
+
+当前位置的接水量=当前位置左边和右边的最小值-当前位置
+
+解题步骤：
+1. 遍历数组
+2. 遍历找到当前值左边的最大值
+3. 遍历找到当前值右边的最大值
+4. 左边和右边取出最小值必须大于当前值，否则不可能接雨水
+5. 当前位置接雨水量=最小值减去当前值
+
+```js
+/*
+ * @lc app=leetcode.cn id=42 lang=javascript
+ *
+ * [42] 接雨水
+ */
+
+// @lc code=start
+/**
+ * @param {number[]} height
+ * @return {number}
+ */
+var trap = function (height) {
+    let sum = 0
+    // 1.遍历数组
+    for (let i = 0; i < height.length; i++) {
+        // console.log('i====', i)
+        let leftMax = 0
+        let rightMax = 0
+        // 2.遍历找到当前值左边的最大值
+        for (let p = i - 1; p >= 0; p--) {
+            // console.log('p====', p)
+            leftMax = Math.max(leftMax, height[p])
+            // console.log('leftMax====', leftMax)
+        }
+        // 3.遍历找到当前值右边的最大值
+        for (let q = i + 1; q < height.length; q++) {
+            // console.log('q====', q)
+            rightMax = Math.max(rightMax, height[q])
+            // console.log('rightMax====', rightMax)
+        }
+        // console.log('sum====', sum)
+        // 4.左边和右边取出最小值必须大于当前值，否则不可能接雨水
+        if (Math.min(leftMax, rightMax) > height[i]) {
+            // 5.当前位置接雨水量=最小值减去当前值
+            sum += Math.min(leftMax, rightMax) - height[i]
+        }
+    }
+    return sum
+};
+
+Accepted
+320/320 cases passed (144 ms)
+Your runtime beats 12.07 % of javascript submissions
+Your memory usage beats 74.09 % of javascript submissions (39.4 MB)
+``` 
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
 ##### 53. 最大子序和（快手）
 给定一个整数数组 nums ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。
 示例:
