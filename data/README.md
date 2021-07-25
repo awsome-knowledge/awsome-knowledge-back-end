@@ -2798,6 +2798,103 @@ Your memory usage beats 81.78 % of javascript submissions (39.4 MB)
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
+
+##### 53. 缺失的第一个正数
+```
+Category	Difficulty	Likes	Dislikes
+algorithms	Hard (41.61%)	1141	-
+Tags
+array
+
+Companies
+Unknown
+```
+给你一个未排序的整数数组 nums ，请你找出其中没有出现的最小的正整数。
+
+请你实现时间复杂度为 O(n) 并且只使用常数级别额外空间的解决方案。
+ 
+
+示例 1：
+```
+输入：nums = [1,2,0]
+输出：3
+```
+示例 2：
+```
+输入：nums = [3,4,-1,1]
+输出：2
+```
+示例 3：
+```
+输入：nums = [7,8,9,11,12]
+输出：1
+```
+
+提示：
+```
+1 <= nums.length <= 5 * 105
+-231 <= nums[i] <= 231 - 1
+```
+
+在评论区看到有种解法甚是巧妙,按照他的思路我写下了答案。
+
+> 遍历一次数组把大于等于1的和小于数组大小的值放到原数组对应位置，然后再遍历一次数组查当前下标是否和值对应，如果不对应那这个下标就是答案，否则遍历完都没出现那么答案就是数组长度加1。
+
+解题步骤：
+1. 从小到大排序 
+2. 去重
+3. 过滤正整数
+4. 空数组返回1
+5. 遍历数组长度，判断下标是否等于该位置上的数值，若不等于就返回下标
+6. 没找到，则返回数组中最大值+1，也就是数组长度+1
+
+```js
+/*
+ * @lc app=leetcode.cn id=41 lang=javascript
+ *
+ * [41] 缺失的第一个正数
+ */
+
+// @lc code=start
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var firstMissingPositive = function (nums) {
+    // 1.从小到大排序 
+    nums.sort((a, b) => a - b)
+    // 2.去重
+    nums = [...new Set(nums)]
+    // 3.过滤正整数
+    nums = nums.filter(n => n > 0)
+    // 4.空数组返回1
+    if (nums.length === 0) {
+        return 1
+    }
+    // 5.遍历数组长度，判断下标是否等于该位置上的数值，若不等于就返回下标
+    for (let i = 0; i < nums.length; i++) {
+        if (i + 1 !== nums[i]) {
+            return i + 1
+        }
+    }
+    // 6.没找到，则返回数组中最大值+1，也就是数组长度+1
+    // return Math.max(...nums) + 1
+    return nums.length + 1
+};
+// @lc code=end
+
+console.log(firstMissingPositive([0, 2, 2, 1, 1]))
+
+Accepted
+171/171 cases passed (196 ms)
+Your runtime beats 8.1 % of javascript submissions
+Your memory usage beats 5.03 % of javascript submissions (102 MB)
+``` 
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
 ##### 53. 最大子序和（快手）
 给定一个整数数组 nums ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。
 示例:
