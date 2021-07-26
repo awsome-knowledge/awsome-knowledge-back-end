@@ -3173,7 +3173,178 @@ var divide = function(nums, l, r) {
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
+
+##### 56. 合并区间
+以数组 intervals 表示若干个区间的集合，其中单个区间为 intervals[i] = [starti, endi] 。请你合并所有重叠的区间，并返回一个不重叠的区间数组，该数组需恰好覆盖输入中的所有区间。
+
+ 
+
+示例 1：
+```
+输入：intervals = [[1,3],[2,6],[8,10],[15,18]]
+输出：[[1,6],[8,10],[15,18]]
+解释：区间 [1,3] 和 [2,6] 重叠, 将它们合并为 [1,6].
+```
+示例 2：
+```
+输入：intervals = [[1,4],[4,5]]
+输出：[[1,5]]
+解释：区间 [1,4] 和 [4,5] 可被视为重叠区间。
+```
+
+提示：
+```
+1 <= intervals.length <= 104
+intervals[i].length == 2
+0 <= starti <= endi <= 104
+```
+```js
+/*
+ * @lc app=leetcode.cn id=56 lang=javascript
+ *
+ * [56] 合并区间
+ */
+/**
+ * @param {number[][]} intervals
+ * @return {number[][]}
+ */
+ var merge = function (intervals) {
+    // 数组为空，返回空
+    if (intervals.length === 0) {
+        return []
+    }
+    // 数组首位进行从小到大排序
+    intervals.sort((a, b) => a[0] - b[0])
+    // 取出数组第一位
+    let pre = intervals[0]
+    let cur = []
+    let res = []
+    // 从第二位开始遍历数组
+    for (let i = 1; i < intervals.length; i++) {
+        // 取出第二位后的数据
+        cur = intervals[i]
+        // 如果前者的右端值>=后者的左端值
+        if (pre[1] >= cur[0]) {
+            // 前者的左端值不变，右端值取两者最大
+            pre[1] = Math.max(pre[1], cur[1])
+        } else {
+            // 不连续，就将前者塞入结果集
+            res.push(pre)
+            // 后者替上
+            pre = cur
+        }
+    }
+    // 将最后一个塞上
+    res.push(pre)
+    return res
+
+};
+
+``` 
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
+##### 57. 插入区间
+给你一个 无重叠的 ，按照区间起始端点排序的区间列表。
+
+在列表中插入一个新的区间，你需要确保列表中的区间仍然有序且不重叠（如果有必要的话，可以合并区间）。
+
+ 
+
+示例 1：
+```
+输入：intervals = [[1,3],[6,9]], newInterval = [2,5]
+输出：[[1,5],[6,9]]
+```
+示例 2：
+```
+输入：intervals = [[1,2],[3,5],[6,7],[8,10],[12,16]], newInterval = [4,8]
+输出：[[1,2],[3,10],[12,16]]
+解释：这是因为新的区间 [4,8] 与 [3,5],[6,7],[8,10] 重叠。
+```
+示例 3：
+```
+输入：intervals = [], newInterval = [5,7]
+输出：[[5,7]]
+```
+示例 4：
+```
+输入：intervals = [[1,5]], newInterval = [2,3]
+输出：[[1,5]]
+```
+示例 5：
+```
+输入：intervals = [[1,5]], newInterval = [2,7]
+输出：[[1,7]]
+```
+
+提示：
+```
+0 <= intervals.length <= 104
+intervals[i].length == 2
+0 <= intervals[i][0] <= intervals[i][1] <= 105
+intervals 根据 intervals[i][0] 按 升序 排列
+newInterval.length == 2
+0 <= newInterval[0] <= newInterval[1] <= 105
+```
+
+```js
+/*
+ * @lc app=leetcode.cn id=57 lang=javascript
+ *
+ * [57] 插入区间
+ */
+
+// @lc code=start
+/**
+ * @param {number[][]} intervals
+ * @param {number[]} newInterval
+ * @return {number[][]}
+ */
+ var insert = function (intervals, newInterval) {
+    intervals.push(newInterval)
+    // 数组为空，返回空
+    if (intervals.length === 0) {
+        return []
+    }
+    // 数组首位进行从小到大排序
+    intervals.sort((a, b) => a[0] - b[0])
+    // 取出数组第一位
+    let pre = intervals[0]
+    let cur = []
+    let res = []
+    // 从第二位开始遍历数组
+    for (let i = 1; i < intervals.length; i++) {
+        // 取出第二位后的数据
+        cur = intervals[i]
+        // 如果前者的右端值>=后者的左端值
+        if (pre[1] >= cur[0]) {
+            // 前者的左端值不变，右端值取两者最大
+            pre[1] = Math.max(pre[1], cur[1])
+        } else {
+            // 不连续，就将前者塞入结果集
+            res.push(pre)
+            // 后者替上
+            pre = cur
+        }
+    }
+    // 将最后一个塞上
+    res.push(pre)
+    return res
+};
+// @lc code=end
+
+
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
 ##### 66. 加一
+
 给定一个由整数组成的非空数组所表示的非负整数，在该数的基础上加一。
 
 最高位数字存放在数组的首位， 数组中每个元素只存储单个数字。
@@ -3261,6 +3432,131 @@ var plusOne = function (digits) {
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
+
+##### 75. 颜色分类
+给定一个包含红色、白色和蓝色，一共 n 个元素的数组，原地对它们进行排序，使得相同颜色的元素相邻，并按照红色、白色、蓝色顺序排列。
+
+此题中，我们使用整数 0、 1 和 2 分别表示红色、白色和蓝色。
+
+ 
+
+示例 1：
+```
+输入：nums = [2,0,2,1,1,0]
+输出：[0,0,1,1,2,2]
+```
+示例 2：
+```
+输入：nums = [2,0,1]
+输出：[0,1,2]
+```
+示例 3：
+```
+输入：nums = [0]
+输出：[0]
+```
+示例 4：
+```
+输入：nums = [1]
+输出：[1]
+```
+
+提示：
+```
+n == nums.length
+1 <= n <= 300
+nums[i] 为 0、1 或 2
+``` 
+
+进阶：
+
+你可以不使用代码库中的排序函数来解决这道题吗？
+你能想出一个仅使用常数空间的一趟扫描算法吗？
+
+```js
+/*
+ * @lc app=leetcode.cn id=75 lang=javascript
+ *
+ * [75] 颜色分类
+ */
+
+// @lc code=start
+/**
+ * @param {number[]} nums
+ * @return {void} Do not return anything, modify nums in-place instead.
+ */
+ var sortColors = function(nums) {
+    return nums.sort((a,b)=>a-b)
+    };
+// @lc code=end
+
+
+```
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
+##### 78. 子集
+给你一个整数数组 nums ，数组中的元素 互不相同 。返回该数组所有可能的子集（幂集）。
+
+解集 不能 包含重复的子集。你可以按 任意顺序 返回解集。
+
+ 
+
+示例 1：
+```
+输入：nums = [1,2,3]
+输出：[[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]
+```
+示例 2：
+```
+输入：nums = [0]
+输出：[[],[0]]
+```
+
+提示：
+```
+1 <= nums.length <= 10
+-10 <= nums[i] <= 10
+nums 中的所有元素 互不相同
+```
+```js
+/*
+ * @lc app=leetcode.cn id=78 lang=javascript
+ *
+ * [78] 子集
+ */
+
+// @lc code=start
+/**
+ * @param {number[]} nums
+ * @return {number[][]}
+ */
+ var subsets = function (nums) {
+    // 初始值是二维数组
+    let res = [
+        []
+    ]
+    // 遍历数组
+    for (let i = 0; i < nums.length; i++) {
+        let temp = []
+        // 遍历结果集
+        for (let j = 0; j < res.length; j++) {
+            // 结果集合并数组中的当前值，在塞进临时数组
+            temp.push(res[j].concat(nums[i]))
+        }
+       res= res.concat(temp)
+    }
+    return res
+};
+// @lc code=end
+
+
+```
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
 ##### 88. 合并两个有序数组
 给定两个有序整数数组 nums1 和 nums2，将 nums2 合并到 nums1 中，使得 num1 成为一个有序数组。
 
