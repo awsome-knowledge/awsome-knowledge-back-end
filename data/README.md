@@ -2746,7 +2746,7 @@ sum等于target的时候，需要收集结果
 单层for循环依然是从startIndex开始，搜索candidates集合。
 1. 剪枝优化
 对总集合排序之后，如果下一层的sum（就是本层的 sum + candidates[i]）已经大于target，就可以结束本轮for循环的遍历。
-<pre> 
+```
 /*
  * @lc app=leetcode.cn id=40 lang=javascript
  *
@@ -2793,7 +2793,7 @@ Accepted
 175/175 cases passed (80 ms)
 Your runtime beats 92.19 % of javascript submissions
 Your memory usage beats 81.78 % of javascript submissions (39.4 MB)
-</pre> 
+```
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
@@ -3781,37 +3781,220 @@ var majorityElement = function (nums) {
 
 ---
 
-##### 169. 多数元素
-给定一个大小为 n 的数组，找到其中的多数元素。多数元素是指在数组中出现次数 大于 ⌊ n/2 ⌋ 的元素。
+##### 217. 存在重复元素
+给定一个整数数组，判断是否存在重复元素。
 
-你可以假设数组是非空的，并且给定的数组总是存在多数元素。
+如果存在一值在数组中出现至少两次，函数返回 true 。如果数组中每个元素都不相同，则返回 false 。
+
+ 
+
+示例 1:
+
+输入: [1,2,3,1]
+输出: true
+示例 2:
+
+输入: [1,2,3,4]
+输出: false
+示例 3:
+
+输入: [1,1,1,3,3,4,3,2,4,2]
+输出: true
+
+```js
+/**
+ * @param {number[]} nums
+ * @return {boolean}
+ */
+var containsDuplicate = function (nums) {
+    // 用set去重
+    let newSet = new Set(nums)
+    // 原来的和现在的数组比较，判断长度是否一致
+    if (newSet.size === nums.length) {
+        return false
+    } else {
+        return true
+    }
+};
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
+##### 219. 存在重复元素 II
+给定一个整数数组和一个整数 k，判断数组中是否存在两个不同的索引 i 和 j，使得 nums [i] = nums [j]，并且 i 和 j 的差的 绝对值 至多为 k。
+
+ 
+
+示例 1:
+
+输入: nums = [1,2,3,1], k = 3
+输出: true
+示例 2:
+
+输入: nums = [1,0,1,1], k = 1
+输出: true
+示例 3:
+
+输入: nums = [1,2,3,1,2,3], k = 2
+输出: false
+
+```js
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {boolean}
+ */
+var containsNearbyDuplicate = function (nums, k) {
+    // 双层遍历
+    for (let i = 0; i < nums.length; i++) {
+        for (let j = i + 1; j < nums.length; j++) {
+            // 找到相同的值，判断绝对值至多为k
+            if (nums[i] === nums[j] && Math.abs(i - j) <= k) {
+                return true
+            }
+        }
+    }
+    return false
+};
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
+##### 228. 汇总区间
+给定一个无重复元素的有序整数数组 nums 。
+
+返回 恰好覆盖数组中所有数字 的 最小有序 区间范围列表。也就是说，nums 的每个元素都恰好被某个区间范围所覆盖，并且不存在属于某个范围但不属于 nums 的数字 x 。
+
+列表中的每个区间范围 [a,b] 应该按如下格式输出：
+
+"a->b" ，如果 a != b
+"a" ，如果 a == b
+ 
+
+示例 1：
+
+输入：nums = [0,1,2,4,5,7]
+输出：["0->2","4->5","7"]
+解释：区间范围是：
+[0,2] --> "0->2"
+[4,5] --> "4->5"
+[7,7] --> "7"
+示例 2：
+
+输入：nums = [0,2,3,4,6,8,9]
+输出：["0","2->4","6","8->9"]
+解释：区间范围是：
+[0,0] --> "0"
+[2,4] --> "2->4"
+[6,6] --> "6"
+[8,9] --> "8->9"
+示例 3：
+
+输入：nums = []
+输出：[]
+示例 4：
+
+输入：nums = [-1]
+输出：["-1"]
+示例 5：
+
+输入：nums = [0]
+输出：["0"]
+ 
+
+提示：
+
+0 <= nums.length <= 20
+-231 <= nums[i] <= 231 - 1
+nums 中的所有值都 互不相同
+nums 按升序排列
+
+```js
+/**
+ * @param {number[]} nums
+ * @return {string[]}
+ */
+var summaryRanges = function (nums) {
+    const len = nums.length
+    // 空数组返回
+    if (len === 0) {
+        return []
+    }
+    // 长度为1返回
+    if (len === 1) {
+        return [nums[0].toString()]
+    }
+    let res = []
+    // 双指针
+    let left = nums[0]
+    let right = nums[0]
+    // 遍历数组
+    for (let i = 0; i < len; i++) {
+        if (nums[i] + 1 === nums[i + 1]) {
+            // 最小递增为1
+            // 右指针为最大值
+            right = nums[i + 1]
+        } else if (left === right) {
+            //    左右指针相同
+            //    塞入最小值
+            res.push(left.toString())
+            left = nums[i + 1]
+            right = nums[i + 1]
+        } else {
+            // 否则，塞入左右指针
+            // 左右指针归位
+            res.push([left, '->', right].join(''))
+            left = nums[i + 1]
+            right = nums[i + 1]
+        }
+    }
+    return res
+};
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
+##### 229. 求众数 II
+给定一个大小为 n 的整数数组，找出其中所有出现超过 ⌊ n/3 ⌋ 次的元素。
+
+进阶：尝试设计时间复杂度为 O(n)、空间复杂度为 O(1)的算法解决此问题。
 
  
 
 示例 1：
 
 输入：[3,2,3]
-输出：3
-示例 2：
+输出：[3]
+示例 2：
 
-输入：[2,2,1,1,1,2,2]
-输出：2
+输入：nums = [1]
+输出：[1]
+示例 3：
+
+输入：[1,1,1,3,3,2,2,2]
+输出：[1,2]
  
 
-进阶：
+提示：
 
-尝试设计时间复杂度为 O(n)、空间复杂度为 O(1) 的算法解决此问题。
-
+1 <= nums.length <= 5 * 104
+-109 <= nums[i] <= 109
 ```js
 /**
  * @param {number[]} nums
- * @return {number}
+ * @return {number[]}
  */
 var majorityElement = function (nums) {
-    // map对象
-    const len = nums.length
+    let res = []
+    // 申请map对象
     let map = new Map()
-    // 遍历存储各个数字出现的次数
+    // 遍历数组,计算每个数字出现的次数
     for (let i = 0; i < nums.length; i++) {
         if (map.has(nums[i])) {
             map.set(nums[i], map.get(nums[i]) + 1)
@@ -3819,9 +4002,185 @@ var majorityElement = function (nums) {
             map.set(nums[i], 1)
         }
     }
-    // 遍历map找出数字
-    for (let [key, value] of map) {
-        if (value > len / 2) {
+    // 遍历map,找到符合条件的
+    for (let [key, val] of map) {
+        if (val > nums.length / 3) {
+            res.push(key)
+        }
+    }
+    return res
+};
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
+##### 238. 除自身以外数组的乘积
+给你一个长度为 n 的整数数组 nums，其中 n > 1，返回输出数组 output ，其中 output[i] 等于 nums 中除 nums[i] 之外其余各元素的乘积。
+
+ 
+
+示例:
+
+输入: [1,2,3,4]
+输出: [24,12,8,6]
+ 
+
+提示：题目数据保证数组之中任意元素的全部前缀元素和后缀（甚至是整个数组）的乘积都在 32 位整数范围内。
+
+说明: 请不要使用除法，且在 O(n) 时间复杂度内完成此题。
+
+进阶：
+你可以在常数空间复杂度内完成这个题目吗？（ 出于对空间复杂度分析的目的，输出数组不被视为额外空间。）
+
+```js
+/**
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+var productExceptSelf = function (nums) {
+    let res = []
+    // 每个值,除自身之外的乘积
+    let pro = 1
+    // 双层遍历数组
+    for (let i = 0; i < nums.length; i++) {
+        pro = 1
+        for (let j = 0; j < nums.length; j++) {
+            // 排除自身
+            if (j !== i) {
+                // 取得自身之外的乘积
+                pro *= nums[j]
+            }
+        }
+        res.push(pro)
+    }
+    return res
+};
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
+##### 268. 丢失的数字
+给定一个包含 [0, n] 中 n 个数的数组 nums ，找出 [0, n] 这个范围内没有出现在数组中的那个数。
+
+ 
+
+进阶：
+
+你能否实现线性时间复杂度、仅使用额外常数空间的算法解决此问题?
+ 
+
+示例 1：
+
+输入：nums = [3,0,1]
+输出：2
+解释：n = 3，因为有 3 个数字，所以所有的数字都在范围 [0,3] 内。2 是丢失的数字，因为它没有出现在 nums 中。
+示例 2：
+
+输入：nums = [0,1]
+输出：2
+解释：n = 2，因为有 2 个数字，所以所有的数字都在范围 [0,2] 内。2 是丢失的数字，因为它没有出现在 nums 中。
+示例 3：
+
+输入：nums = [9,6,4,2,3,5,7,0,1]
+输出：8
+解释：n = 9，因为有 9 个数字，所以所有的数字都在范围 [0,9] 内。8 是丢失的数字，因为它没有出现在 nums 中。
+示例 4：
+
+输入：nums = [0]
+输出：1
+解释：n = 1，因为有 1 个数字，所以所有的数字都在范围 [0,1] 内。1 是丢失的数字，因为它没有出现在 nums 中。
+ 
+
+提示：
+
+n == nums.length
+1 <= n <= 104
+0 <= nums[i] <= n
+nums 中的所有数字都 独一无二
+```js
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var missingNumber = function (nums) {
+    // 排序
+    let newNums = nums.sort((a,b)=>a-b)
+    // 遍历数组,判断当前下标是否等于当前值
+    for (let i = 0; i <= newNums.length; i++) {
+        // 不相等,就是答案
+        // 判断次数等于长度+1
+        if (i !== newNums[i]) {
+            return i
+        }
+    }
+};
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
+##### 287. 寻找重复数
+给定一个包含 n + 1 个整数的数组 nums ，其数字都在 1 到 n 之间（包括 1 和 n），可知至少存在一个重复的整数。
+
+假设 nums 只有 一个重复的整数 ，找出 这个重复的数 。
+
+你设计的解决方案必须不修改数组 nums 且只用常量级 O(1) 的额外空间。
+
+ 
+
+示例 1：
+
+输入：nums = [1,3,4,2,2]
+输出：2
+示例 2：
+
+输入：nums = [3,1,3,4,2]
+输出：3
+示例 3：
+
+输入：nums = [1,1]
+输出：1
+示例 4：
+
+输入：nums = [1,1,2]
+输出：1
+ 
+
+提示：
+
+1 <= n <= 105
+nums.length == n + 1
+1 <= nums[i] <= n
+nums 中 只有一个整数 出现 两次或多次 ，其余整数均只出现 一次
+ 
+
+进阶：
+
+如何证明 nums 中至少存在一个重复的数字?
+你可以设计一个线性级时间复杂度 O(n) 的解决方案吗？
+```js
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var findDuplicate = function (nums) {
+    let newNums = new Map()
+    // 遍历数组,统计所有数字出现的次数
+    for (let i = 0; i < nums.length; i++) {
+        if (newNums.has(nums[i])) {
+            newNums.set(nums[i], newNums.get(nums[i]) + 1)
+        } else {
+            newNums.set(nums[i], 1)
+        }
+    }
+    // 找到重复的数字返回
+    for (let [key, val] of newNums) {
+        if (val >= 2) {
             return key
         }
     }
@@ -3831,6 +4190,400 @@ var majorityElement = function (nums) {
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
+
+##### 414. 第三大的数
+给你一个非空数组，返回此数组中 第三大的数 。如果不存在，则返回数组中最大的数。
+
+ 
+
+示例 1：
+
+输入：[3, 2, 1]
+输出：1
+解释：第三大的数是 1 。
+示例 2：
+
+输入：[1, 2]
+输出：2
+解释：第三大的数不存在, 所以返回最大的数 2 。
+示例 3：
+
+输入：[2, 2, 3, 1]
+输出：1
+解释：注意，要求返回第三大的数，是指在所有不同数字中排第三大的数。
+此例中存在两个值为 2 的数，它们都排第二。在所有不同数字中排第三大的数为 1 。
+ 
+
+提示：
+
+1 <= nums.length <= 104
+-231 <= nums[i] <= 231 - 1
+```js
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var thirdMax = function (nums) {
+    let set = new Set(nums)
+    let arr = [...set]
+    arr.sort((a, b) => a - b)
+    if (arr[arr.length - 3] !== undefined) {
+        return arr[arr.length - 3]
+    } else {
+        return arr[arr.length - 1]
+    }
+};
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
+##### 448. 找到所有数组中消失的数字
+给你一个含 n 个整数的数组 nums ，其中 nums[i] 在区间 [1, n] 内。请你找出所有在 [1, n] 范围内但没有出现在 nums 中的数字，并以数组的形式返回结果。
+
+ 
+
+示例 1：
+
+输入：nums = [4,3,2,7,8,2,3,1]
+输出：[5,6]
+示例 2：
+
+输入：nums = [1,1]
+输出：[2]
+ 
+
+提示：
+
+n == nums.length
+1 <= n <= 105
+1 <= nums[i] <= n
+进阶：你能在不使用额外空间且时间复杂度为 O(n) 的情况下解决这个问题吗? 你可以假定返回的数组不算在额外空间内。
+
+
+```js
+/**
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+var findDisappearedNumbers = function (nums) {
+    let set = new Set(nums)
+    let res = []
+    for (let i = 1; i <= nums.length; i++) {
+        if (!set.has(i)) {
+            res.push(i)
+        }
+    }
+    return res
+};
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
+##### 485. 最大连续 1 的个数
+给定一个二进制数组， 计算其中最大连续 1 的个数。
+
+ 
+
+示例：
+
+输入：[1,1,0,1,1,1]
+输出：3
+解释：开头的两位和最后的三位都是连续 1 ，所以最大连续 1 的个数是 3.
+ 
+
+提示：
+
+输入的数组只包含 0 和 1 。
+输入数组的长度是正整数，且不超过 10,000。
+
+```js
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var findMaxConsecutiveOnes = function (nums) {
+    let max = 0,
+        sum = 0
+    for (let i = 0; i < nums.length; i++) {
+        if (nums[i] === 1) {
+            sum += 1
+        } else {
+            max = Math.max(max, sum)
+            sum = 0
+        }
+    }
+    max = Math.max(max, sum)
+    return max
+};
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
+##### 495. 提莫攻击
+在《英雄联盟》的世界中，有一个叫 “提莫” 的英雄，他的攻击可以让敌方英雄艾希（编者注：寒冰射手）进入中毒状态。现在，给出提莫对艾希的攻击时间序列和提莫攻击的中毒持续时间，你需要输出艾希的中毒状态总时长。
+
+你可以认为提莫在给定的时间点进行攻击，并立即使艾希处于中毒状态。
+
+ 
+
+示例1:
+
+输入: [1,4], 2
+输出: 4
+原因: 第 1 秒初，提莫开始对艾希进行攻击并使其立即中毒。中毒状态会维持 2 秒钟，直到第 2 秒末结束。
+第 4 秒初，提莫再次攻击艾希，使得艾希获得另外 2 秒中毒时间。
+所以最终输出 4 秒。
+示例2:
+
+输入: [1,2], 2
+输出: 3
+原因: 第 1 秒初，提莫开始对艾希进行攻击并使其立即中毒。中毒状态会维持 2 秒钟，直到第 2 秒末结束。
+但是第 2 秒初，提莫再次攻击了已经处于中毒状态的艾希。
+由于中毒状态不可叠加，提莫在第 2 秒初的这次攻击会在第 3 秒末结束。
+所以最终输出 3 。
+ 
+
+提示：
+
+你可以假定时间序列数组的总长度不超过 10000。
+你可以假定提莫攻击时间序列中的数字和提莫攻击的中毒持续时间都是非负整数，并且不超过 10,000,000。
+
+```js
+/**
+ * @param {number[]} timeSeries
+ * @param {number} duration
+ * @return {number}
+ */
+var findPoisonedDuration = function (timeSeries, duration) {
+    let sum = duration
+    let min = 0
+    for (let i = 1; i < timeSeries.length; i++) {
+        min = timeSeries[i] - timeSeries[i - 1]
+        if (min >= duration) {
+            sum += duration
+        } else {
+            sum += min
+        }
+    }
+    return sum
+};
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
+##### 561. 数组拆分 I
+给定长度为 2n 的整数数组 nums ，你的任务是将这些数分成 n 对, 例如 (a1, b1), (a2, b2), ..., (an, bn) ，使得从 1 到 n 的 min(ai, bi) 总和最大。
+
+返回该 最大总和 。
+
+ 
+
+示例 1：
+
+输入：nums = [1,4,3,2]
+输出：4
+解释：所有可能的分法（忽略元素顺序）为：
+1. (1, 4), (2, 3) -> min(1, 4) + min(2, 3) = 1 + 2 = 3
+2. (1, 3), (2, 4) -> min(1, 3) + min(2, 4) = 1 + 2 = 3
+3. (1, 2), (3, 4) -> min(1, 2) + min(3, 4) = 1 + 3 = 4
+所以最大总和为 4
+示例 2：
+
+输入：nums = [6,2,6,5,1,2]
+输出：9
+解释：最优的分法为 (2, 1), (2, 5), (6, 6). min(2, 1) + min(2, 5) + min(6, 6) = 1 + 2 + 6 = 9
+ 
+
+提示：
+
+1 <= n <= 104
+nums.length == 2 * n
+-104 <= nums[i] <= 104
+
+```js
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var arrayPairSum = function (nums) {
+    // 排序，然后将下标为 0、2、4 ... 个数相加即可。
+    let sum = 0
+    nums.sort((a, b) => a - b)
+    for (let i = 0; i < nums.length; i += 2) {
+        sum += nums[i]
+    }
+    return sum
+};
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
+##### 581. 最短无序连续子数组
+给你一个整数数组 nums ，你需要找出一个 连续子数组 ，如果对这个子数组进行升序排序，那么整个数组都会变为升序排序。
+
+请你找出符合题意的 最短 子数组，并输出它的长度。
+
+ 
+
+示例 1：
+
+输入：nums = [2,6,4,8,10,9,15]
+输出：5
+解释：你只需要对 [6, 4, 8, 10, 9] 进行升序排序，那么整个表都会变为升序排序。
+示例 2：
+
+输入：nums = [1,2,3,4]
+输出：0
+示例 3：
+
+输入：nums = [1]
+输出：0
+ 
+
+提示：
+
+1 <= nums.length <= 104
+-105 <= nums[i] <= 105
+
+```js
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var findUnsortedSubarray = function (nums) {
+    let newNums = nums.slice(0)
+    nums.sort((a, b) => a - b)
+    let left = 0
+    let right = 0
+    for (let i = 0; i < newNums.length; i++) {
+        if (nums[i] !== newNums[i]) {
+            left = i
+            break
+        }
+    }
+    for (let j = newNums.length; j > 0; j--) {
+        if (nums[j] !== newNums[j]) {
+            right = j
+            break
+        }
+    }
+    if (left || right) {
+        return right - left + 1
+    } else {
+        return 0
+    }
+};
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
+##### 628. 三个数的最大乘积
+给你一个整型数组 nums ，在数组中找出由三个数组成的最大乘积，并输出这个乘积。
+
+ 
+
+示例 1：
+
+输入：nums = [1,2,3]
+输出：6
+示例 2：
+
+输入：nums = [1,2,3,4]
+输出：24
+示例 3：
+
+输入：nums = [-1,-2,-3]
+输出：-6
+ 
+
+提示：
+
+3 <= nums.length <= 104
+-1000 <= nums[i] <= 1000
+```js
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var maximumProduct = function (nums) {
+    nums.sort((a, b) => b - a)
+    let product = 1
+    let len = nums.length
+    // 。因为负数必须要成双使用才会得正，所以要用最后两位相乘再乘以第1位得到的结果，与前三位相乘得到的结果对比。更大的值返回。
+    for (let i = 0; i < len; i++) {
+        if (i < 3) {
+            product *= nums[i]
+        }
+    }
+    if (len > 3) {
+        product = Math.max(product, nums[len - 1] * nums[len - 2] * nums[0])
+    }
+    return product
+};
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
+##### 643. 子数组最大平均数 I
+给定 n 个整数，找出平均数最大且长度为 k 的连续子数组，并输出该最大平均数。
+
+ 
+
+示例：
+
+输入：[1,12,-5,-6,50,3], k = 4
+输出：12.75
+解释：最大平均数 (12-5-6+50)/4 = 51/4 = 12.75
+ 
+
+提示：
+
+1 <= k <= n <= 30,000。
+所给数据范围 [-10,000，10,000]。
+
+```js
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number}
+ */
+var findMaxAverage = function (nums, k) {
+    let sum = 0
+    // 首部基础综合
+    for (let i = 0; i < nums.length; i++) {
+        if (i < k) {
+            sum += nums[i]
+        }
+    }
+    let result = sum
+    // 往后移，取最大
+    for (let i = k; i < nums.length; i++) {
+        // 加尾去头
+        sum += nums[i] - nums[i - k]
+        result = Math.max(result, sum)
+    }
+    return result / k
+};
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
 ### 栈
 栈（stack）又名堆栈，它是一种运算受限的线性表。限定仅在表尾进行插入和删除操作的线性表。这一端被称为栈顶，相对地，把另一端称为栈底。向一个栈插入新元素又称作进栈、入栈或压栈，它是把新元素放到栈顶元素的上面，使之成为新的栈顶元素；从一个栈删除元素又称作出栈或退栈，它是把栈顶元素删除掉，使其相邻的元素成为新的栈顶元素。
 ### 队列
