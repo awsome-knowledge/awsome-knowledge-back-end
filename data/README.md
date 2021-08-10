@@ -4584,6 +4584,812 @@ var findMaxAverage = function (nums, k) {
 
 ---
 
+##### 724. 寻找数组的中心下标
+给你一个整数数组 nums ，请计算数组的 中心下标 。
+
+数组 中心下标 是数组的一个下标，其左侧所有元素相加的和等于右侧所有元素相加的和。
+
+如果中心下标位于数组最左端，那么左侧数之和视为 0 ，因为在下标的左侧不存在元素。这一点对于中心下标位于数组最右端同样适用。
+
+如果数组有多个中心下标，应该返回 最靠近左边 的那一个。如果数组不存在中心下标，返回 -1 。
+
+ 
+
+示例 1：
+
+输入：nums = [1, 7, 3, 6, 5, 6]
+输出：3
+解释：
+中心下标是 3 。
+左侧数之和 sum = nums[0] + nums[1] + nums[2] = 1 + 7 + 3 = 11 ，
+右侧数之和 sum = nums[4] + nums[5] = 5 + 6 = 11 ，二者相等。
+示例 2：
+
+输入：nums = [1, 2, 3]
+输出：-1
+解释：
+数组中不存在满足此条件的中心下标。
+示例 3：
+
+输入：nums = [2, 1, -1]
+输出：0
+解释：
+中心下标是 0 。
+左侧数之和 sum = 0 ，（下标 0 左侧不存在元素），
+右侧数之和 sum = nums[1] + nums[2] = 1 + -1 = 0 。
+ 
+
+提示：
+
+1 <= nums.length <= 104
+-1000 <= nums[i] <= 1000
+
+```js
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var pivotIndex = function (nums) {
+    // 求和
+    let total = nums.reduce((pre, cur) => pre + cur)
+    let sum = 0
+    // 左边的两倍加上当前值就是总和
+    for (let i = 0; i < nums.length; i++) {
+        if (2 * sum + nums[i] === total) {
+            return i
+        }
+        sum += nums[i]
+    }
+    // 如果数组不存在中心下标，返回 -1 
+    return -1
+};
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
+##### 747. 至少是其他数字两倍的最大数
+给你一个整数数组 nums ，其中总是存在 唯一的 一个最大整数 。
+
+请你找出数组中的最大元素并检查它是否 至少是数组中每个其他数字的两倍 。如果是，则返回 最大元素的下标 ，否则返回 -1 。
+
+ 
+
+示例 1：
+
+输入：nums = [3,6,1,0]
+输出：1
+解释：6 是最大的整数，对于数组中的其他整数，6 大于数组中其他元素的两倍。6 的下标是 1 ，所以返回 1 。
+示例 2：
+
+输入：nums = [1,2,3,4]
+输出：-1
+解释：4 没有超过 3 的两倍大，所以返回 -1 。
+示例 3：
+
+输入：nums = [1]
+输出：0
+解释：因为不存在其他数字，所以认为现有数字 1 至少是其他数字的两倍。
+ 
+
+提示：
+
+1 <= nums.length <= 50
+0 <= nums[i] <= 100
+nums 中的最大元素是唯一的
+
+```js
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var dominantIndex = function (nums) {
+    if (nums.length === 1) {
+        return 0
+    }
+    // 找出最大值
+    let max = Math.max(...nums)
+    // 找出最大值的下标
+    let index = nums.findIndex(a => a === max)
+    // 过滤出数组中两倍大于最大值的数字
+    let num = nums.filter((n, i) => {
+        if (i !== index && n * 2 > max) {
+            return n
+        }
+    })
+    return num.length === 0 ? index : -1
+};
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
+##### 852. 山脉数组的峰顶索引   
+符合下列属性的数组 arr 称为 山脉数组 ：
+arr.length >= 3
+存在 i（0 < i < arr.length - 1）使得：
+arr[0] < arr[1] < ... arr[i-1] < arr[i]
+arr[i] > arr[i+1] > ... > arr[arr.length - 1]
+给你由整数组成的山脉数组 arr ，返回任何满足 arr[0] < arr[1] < ... arr[i - 1] < arr[i] > arr[i + 1] > ... > arr[arr.length - 1] 的下标 i 。
+
+ 
+
+示例 1：
+
+输入：arr = [0,1,0]
+输出：1
+示例 2：
+
+输入：arr = [0,2,1,0]
+输出：1
+示例 3：
+
+输入：arr = [0,10,5,2]
+输出：1
+示例 4：
+
+输入：arr = [3,4,5,1]
+输出：2
+示例 5：
+
+输入：arr = [24,69,100,99,79,78,67,36,26,19]
+输出：2
+ 
+
+提示：
+
+3 <= arr.length <= 104
+0 <= arr[i] <= 106
+题目数据保证 arr 是一个山脉数组
+ 
+
+进阶：很容易想到时间复杂度 O(n) 的解决方案，你可以设计一个 O(log(n)) 的解决方案吗？
+
+```js
+/**
+ * @param {number[]} arr
+ * @return {number}
+ */
+var peakIndexInMountainArray = function (arr) {
+    let max = Math.max(...arr)
+    let index = arr.findIndex(a => a === max)
+    return index
+};
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
+##### 905. 按奇偶排序数组 
+给定一个非负整数数组 A，返回一个数组，在该数组中， A 的所有偶数元素之后跟着所有奇数元素。
+
+你可以返回满足此条件的任何数组作为答案。
+
+ 
+
+示例：
+
+输入：[3,1,2,4]
+输出：[2,4,3,1]
+输出 [4,2,3,1]，[2,4,1,3] 和 [4,2,1,3] 也会被接受。
+ 
+
+提示：
+
+1 <= A.length <= 5000
+0 <= A[i] <= 5000
+
+```js
+/**
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+var sortArrayByParity = function (nums) {
+    let even = []
+    let odd = []
+    for (let i = 0; i < nums.length; i++) {
+        if (nums[i] % 2 === 0) {
+            even.push(nums[i])
+        } else {
+            odd.push(nums[i])
+        }
+    }
+    return even.concat(odd)
+};
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
+##### 941. 有效的山脉数组
+给定一个整数数组 arr，如果它是有效的山脉数组就返回 true，否则返回 false。
+
+让我们回顾一下，如果 A 满足下述条件，那么它是一个山脉数组：
+
+arr.length >= 3
+在 0 < i < arr.length - 1 条件下，存在 i 使得：
+arr[0] < arr[1] < ... arr[i-1] < arr[i]
+arr[i] > arr[i+1] > ... > arr[arr.length - 1]
+ 
+
+![avatar](./../picture/941.png)
+
+ 
+
+示例 1：
+
+输入：arr = [2,1]
+输出：false
+示例 2：
+
+输入：arr = [3,5,5]
+输出：false
+示例 3：
+
+输入：arr = [0,3,2,1]
+输出：true
+ 
+
+提示：
+
+1 <= arr.length <= 104
+0 <= arr[i] <= 104
+
+```js
+/**
+ * @param {number[]} arr
+ * @return {boolean}
+ */
+var validMountainArray = function (arr) {
+    let len = arr.length
+    let left = 0
+    let right = len - 1
+    while (arr[left] < arr[left + 1]) {
+        left++
+    }
+    while (arr[right] < arr[right - 1]) {
+        right--
+    }
+    return left && right && left === right && right !== len - 1 ? true : false
+};
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
+##### 977. 有序数组的平方
+给你一个按 非递减顺序 排序的整数数组 nums，返回 每个数字的平方 组成的新数组，要求也按 非递减顺序 排序。
+
+ 
+
+示例 1：
+
+输入：nums = [-4,-1,0,3,10]
+输出：[0,1,9,16,100]
+解释：平方后，数组变为 [16,1,0,9,100]
+排序后，数组变为 [0,1,9,16,100]
+示例 2：
+
+输入：nums = [-7,-3,2,3,11]
+输出：[4,9,9,49,121]
+ 
+
+提示：
+
+1 <= nums.length <= 104
+-104 <= nums[i] <= 104
+nums 已按 非递减顺序 排序
+ 
+
+进阶：
+
+请你设计时间复杂度为 O(n) 的算法解决本问题
+
+```js
+/**
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+var sortedSquares = function (nums) {
+    let newNums = []
+    nums.forEach(item => {
+        newNums.push(item * item)
+    })
+    return newNums.sort((a, b) => a - b)
+};
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
+##### 1287. 有序数组中出现次数超过25%的元素
+给你一个非递减的 有序 整数数组，已知这个数组中恰好有一个整数，它的出现次数超过数组元素总数的 25%。
+
+请你找到并返回这个整数
+
+ 
+
+示例：
+
+输入：arr = [1,2,2,6,6,6,6,7,10]
+输出：6
+ 
+
+提示：
+
+1 <= arr.length <= 10^4
+0 <= arr[i] <= 10^5
+
+```js
+/**
+ * @param {number[]} arr
+ * @return {number}
+ */
+var findSpecialInteger = function (arr) {
+    let map = new Map()
+    // 统计每个数字出现的次数
+    for (let i = 0; i < arr.length; i++) {
+        if (map.has(arr[i])) {
+            map.set(arr[i], map.get(arr[i]) + 1)
+        } else {
+            map.set(arr[i], 1)
+        }
+    }
+    let max = 0
+    let number = arr[0]
+    // 找到出现最多的数字
+    for ([key, val] of map) {
+        max = Math.max(max, val)
+    }
+    for ([key, val] of map) {
+        if (val === max) {
+            number = key
+        }
+    }
+    return number
+};
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
+##### 1346. 检查整数及其两倍数是否存在
+给你一个整数数组 arr，请你检查是否存在两个整数 N 和 M，满足 N 是 M 的两倍（即，N = 2 * M）。
+
+更正式地，检查是否存在两个下标 i 和 j 满足：
+
+i != j
+0 <= i, j < arr.length
+arr[i] == 2 * arr[j]
+ 
+
+示例 1：
+
+输入：arr = [10,2,5,3]
+输出：true
+解释：N = 10 是 M = 5 的两倍，即 10 = 2 * 5 。
+示例 2：
+
+输入：arr = [7,1,14,11]
+输出：true
+解释：N = 14 是 M = 7 的两倍，即 14 = 2 * 7 。
+示例 3：
+
+输入：arr = [3,1,7,11]
+输出：false
+解释：在该情况下不存在 N 和 M 满足 N = 2 * M 。
+ 
+
+提示：
+
+2 <= arr.length <= 500
+-10^3 <= arr[i] <= 10^3
+
+```js
+/**
+ * @param {number[]} arr
+ * @return {boolean}
+ */
+var checkIfExist = function (arr) {
+    for (let i = 0; i < arr.length; i++) {
+        for (let j = 0; j < arr.length; j++) {
+            if (i !== j && arr[i] * 2 === arr[j]) {
+                return true
+            }
+        }
+    }
+    return false
+};
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
+##### 1385. 两个数组间的距离值
+给你两个整数数组 arr1 ， arr2 和一个整数 d ，请你返回两个数组之间的 距离值 。
+
+「距离值」 定义为符合此距离要求的元素数目：对于元素 arr1[i] ，不存在任何元素 arr2[j] 满足 |arr1[i]-arr2[j]| <= d 。
+
+ 
+
+示例 1：
+
+输入：arr1 = [4,5,8], arr2 = [10,9,1,8], d = 2
+输出：2
+解释：
+对于 arr1[0]=4 我们有：
+|4-10|=6 > d=2 
+|4-9|=5 > d=2 
+|4-1|=3 > d=2 
+|4-8|=4 > d=2 
+所以 arr1[0]=4 符合距离要求
+
+对于 arr1[1]=5 我们有：
+|5-10|=5 > d=2 
+|5-9|=4 > d=2 
+|5-1|=4 > d=2 
+|5-8|=3 > d=2
+所以 arr1[1]=5 也符合距离要求
+
+对于 arr1[2]=8 我们有：
+|8-10|=2 <= d=2
+|8-9|=1 <= d=2
+|8-1|=7 > d=2
+|8-8|=0 <= d=2
+存在距离小于等于 2 的情况，不符合距离要求 
+
+故而只有 arr1[0]=4 和 arr1[1]=5 两个符合距离要求，距离值为 2
+示例 2：
+
+输入：arr1 = [1,4,2,3], arr2 = [-4,-3,6,10,20,30], d = 3
+输出：2
+示例 3：
+
+输入：arr1 = [2,1,100,3], arr2 = [-5,-2,10,-3,7], d = 6
+输出：1
+ 
+
+提示：
+
+1 <= arr1.length, arr2.length <= 500
+-10^3 <= arr1[i], arr2[j] <= 10^3
+0 <= d <= 100
+
+```js
+/**
+ * @param {number[]} arr1
+ * @param {number[]} arr2
+ * @param {number} d
+ * @return {number}
+ */
+var findTheDistanceValue = function (arr1, arr2, d) {
+    let res = []
+    // 遍历数组
+    for (let i = 0; i < arr1.length; i++) {
+        // 申请标志位
+        let tag = true
+        // 不存在任何元素 arr2[j] 满足 |arr1[i]-arr2[j]| <= d 
+        for (let j = 0; j < arr2.length; j++) {
+            if (Math.abs(arr1[i] - arr2[j]) <= d) {
+                tag = false
+            }
+        }
+        // 满足条件塞入结果集
+        if (tag) {
+            res.push(arr1[i])
+        }
+    }
+    return res.length
+};
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
+##### 1394. 找出数组中的幸运数
+在整数数组中，如果一个整数的出现频次和它的数值大小相等，我们就称这个整数为「幸运数」。
+
+给你一个整数数组 arr，请你从中找出并返回一个幸运数。
+
+如果数组中存在多个幸运数，只需返回 最大 的那个。
+如果数组中不含幸运数，则返回 -1 。
+ 
+
+示例 1：
+
+输入：arr = [2,2,3,4]
+输出：2
+解释：数组中唯一的幸运数是 2 ，因为数值 2 的出现频次也是 2 。
+示例 2：
+
+输入：arr = [1,2,2,3,3,3]
+输出：3
+解释：1、2 以及 3 都是幸运数，只需要返回其中最大的 3 。
+示例 3：
+
+输入：arr = [2,2,2,3,3]
+输出：-1
+解释：数组中不存在幸运数。
+示例 4：
+
+输入：arr = [5]
+输出：-1
+示例 5：
+
+输入：arr = [7,7,7,7,7,7,7]
+输出：7
+ 
+
+提示：
+
+1 <= arr.length <= 500
+1 <= arr[i] <= 500
+
+```js
+/**
+ * @param {number[]} arr
+ * @return {number}
+ */
+var findLucky = function (arr) {
+    if (arr.length === 1) return -1
+    // 统计数字个数
+    let map = new Map()
+    for (let i = 0; i < arr.length; i++) {
+        if (map.has(arr[i])) {
+            map.set(arr[i], map.get(arr[i]) + 1)
+        } else {
+            map.set(arr[i], 1)
+        }
+    }
+    let temp = []
+    // 找出数值等于个数的数
+    for ([key, val] of map) {
+        if (key === val) {
+            temp.push(key)
+        }
+    }
+
+    return temp.length > 0 ? Math.max(...temp) : -1
+};
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
+##### 1408. 数组中的字符串匹配
+给你一个字符串数组 words ，数组中的每个字符串都可以看作是一个单词。请你按 任意 顺序返回 words 中是其他单词的子字符串的所有单词。
+
+如果你可以删除 words[j] 最左侧和/或最右侧的若干字符得到 word[i] ，那么字符串 words[i] 就是 words[j] 的一个子字符串。
+
+ 
+
+示例 1：
+
+输入：words = ["mass","as","hero","superhero"]
+输出：["as","hero"]
+解释："as" 是 "mass" 的子字符串，"hero" 是 "superhero" 的子字符串。
+["hero","as"] 也是有效的答案。
+示例 2：
+
+输入：words = ["leetcode","et","code"]
+输出：["et","code"]
+解释："et" 和 "code" 都是 "leetcode" 的子字符串。
+示例 3：
+
+输入：words = ["blue","green","bu"]
+输出：[]
+ 
+
+提示：
+
+1 <= words.length <= 100
+1 <= words[i].length <= 30
+words[i] 仅包含小写英文字母。
+题目数据 保证 每个 words[i] 都是独一无二的。
+
+```js
+/**
+ * @param {string[]} words
+ * @return {string[]}
+ */
+var stringMatching = function (words) {
+    let res = []
+    for (let w = 0; w < words.length; w++) {
+        for (let j = 0; j < words.length; j++) {
+            if (w !== j && words[w].indexOf(words[j]) > -1) {
+                res.push(words[j])
+            }
+        }
+    }
+    // 去重
+    return [...(new Set(res))]
+};
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
+##### 1460. 通过翻转子数组使两个数组相等
+给你两个长度相同的整数数组 target 和 arr 。
+
+每一步中，你可以选择 arr 的任意 非空子数组 并将它翻转。你可以执行此过程任意次。
+
+如果你能让 arr 变得与 target 相同，返回 True；否则，返回 False 。
+
+ 
+
+示例 1：
+
+输入：target = [1,2,3,4], arr = [2,4,1,3]
+输出：true
+解释：你可以按照如下步骤使 arr 变成 target：
+1- 翻转子数组 [2,4,1] ，arr 变成 [1,4,2,3]
+2- 翻转子数组 [4,2] ，arr 变成 [1,2,4,3]
+3- 翻转子数组 [4,3] ，arr 变成 [1,2,3,4]
+上述方法并不是唯一的，还存在多种将 arr 变成 target 的方法。
+示例 2：
+
+输入：target = [7], arr = [7]
+输出：true
+解释：arr 不需要做任何翻转已经与 target 相等。
+示例 3：
+
+输入：target = [1,12], arr = [12,1]
+输出：true
+示例 4：
+
+输入：target = [3,7,9], arr = [3,7,11]
+输出：false
+解释：arr 没有数字 9 ，所以无论如何也无法变成 target 。
+示例 5：
+
+输入：target = [1,1,1,1,1], arr = [1,1,1,1,1]
+输出：true
+ 
+
+提示：
+
+target.length == arr.length
+1 <= target.length <= 1000
+1 <= target[i] <= 1000
+1 <= arr[i] <= 1000
+
+```js
+/**
+ * @param {number[]} target
+ * @param {number[]} arr
+ * @return {boolean}
+ */
+var canBeEqual = function (target, arr) {
+    target.sort((a, b) => a - b)
+    arr.sort((a, b) => a - b)
+    let tag = true
+    for (let i = 0; i < target.length; i++) {
+        for (let j = 0; j < arr.length; j++) {
+            if (i === j && target[i] !== arr[j]) {
+                tag = false
+            }
+        }
+    }
+    return tag ? true : false
+};
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
+##### 1464. 数组中两元素的最大乘积
+给你一个整数数组 nums，请你选择数组的两个不同下标 i 和 j，使 (nums[i]-1)*(nums[j]-1) 取得最大值。
+
+请你计算并返回该式的最大值。
+
+ 
+
+示例 1：
+
+输入：nums = [3,4,5,2]
+输出：12 
+解释：如果选择下标 i=1 和 j=2（下标从 0 开始），则可以获得最大值，(nums[1]-1)*(nums[2]-1) = (4-1)*(5-1) = 3*4 = 12 。 
+示例 2：
+
+输入：nums = [1,5,4,5]
+输出：16
+解释：选择下标 i=1 和 j=3（下标从 0 开始），则可以获得最大值 (5-1)*(5-1) = 16 。
+示例 3：
+
+输入：nums = [3,7]
+输出：12
+ 
+
+提示：
+
+2 <= nums.length <= 500
+1 <= nums[i] <= 10^3
+
+
+```js
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var maxProduct = function (nums) {
+    nums.sort((a, b) => b - a)
+    return (nums[0] - 1) * (nums[1] - 1)
+};
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
+##### 1470. 重新排列数组
+给你一个数组 nums ，数组中有 2n 个元素，按 [x1,x2,...,xn,y1,y2,...,yn] 的格式排列。
+
+请你将数组按 [x1,y1,x2,y2,...,xn,yn] 格式重新排列，返回重排后的数组。
+
+ 
+
+示例 1：
+
+输入：nums = [2,5,1,3,4,7], n = 3
+输出：[2,3,5,4,1,7] 
+解释：由于 x1=2, x2=5, x3=1, y1=3, y2=4, y3=7 ，所以答案为 [2,3,5,4,1,7]
+示例 2：
+
+输入：nums = [1,2,3,4,4,3,2,1], n = 4
+输出：[1,4,2,3,3,2,4,1]
+示例 3：
+
+输入：nums = [1,1,2,2], n = 2
+输出：[1,2,1,2]
+ 
+
+提示：
+
+1 <= n <= 500
+nums.length == 2n
+1 <= nums[i] <= 10^3
+
+```js
+/**
+ * @param {number[]} nums
+ * @param {number} n
+ * @return {number[]}
+ */
+var shuffle = function (nums, n) {
+    let a1 = []
+    let a2 = []
+    let res = []
+    for (let i = 0; i < nums.length; i++) {
+        if (i < n) {
+            a1.push(nums[i])
+        } else {
+            a2.push(nums[i])
+        }
+    }
+    for (let i = 0; i < n; i++) {
+        res = res.concat(a1[i]).concat(a2[i])
+    }
+    return res
+};
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
 ### 栈
 栈（stack）又名堆栈，它是一种运算受限的线性表。限定仅在表尾进行插入和删除操作的线性表。这一端被称为栈顶，相对地，把另一端称为栈底。向一个栈插入新元素又称作进栈、入栈或压栈，它是把新元素放到栈顶元素的上面，使之成为新的栈顶元素；从一个栈删除元素又称作出栈或退栈，它是把栈顶元素删除掉，使其相邻的元素成为新的栈顶元素。
 ### 队列
