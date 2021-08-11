@@ -5390,6 +5390,259 @@ var shuffle = function (nums, n) {
 
 ---
 
+##### 1480. 一维数组的动态和
+给你一个数组 nums 。数组「动态和」的计算公式为：runningSum[i] = sum(nums[0]…nums[i]) 。
+
+请返回 nums 的动态和。
+
+ 
+
+示例 1：
+
+输入：nums = [1,2,3,4]
+输出：[1,3,6,10]
+解释：动态和计算过程为 [1, 1+2, 1+2+3, 1+2+3+4] 。
+示例 2：
+
+输入：nums = [1,1,1,1,1]
+输出：[1,2,3,4,5]
+解释：动态和计算过程为 [1, 1+1, 1+1+1, 1+1+1+1, 1+1+1+1+1] 。
+示例 3：
+
+输入：nums = [3,1,2,10,1]
+输出：[3,4,6,16,17]
+ 
+
+提示：
+
+1 <= nums.length <= 1000
+-10^6 <= nums[i] <= 10^6
+
+```js
+/**
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+// map 该方法创建一个新数组，是该数组中每个元素调用依次提供的函数后的返回值。
+// 该方法不改变原数组，该方法有返回值
+// forEach 该方法没有返回值，其余可以说和map相似
+var runningSum = function (nums) {
+    let res = nums.map((n, index) => {
+        let sum = n
+        for (let i = 0; i < index; i++) {
+            sum += nums[i]
+        }
+        return sum
+    })
+    return res
+};
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
+##### 1491. 去掉最低工资和最高工资后的工资平均值
+给你一个整数数组 salary ，数组里每个数都是 唯一 的，其中 salary[i] 是第 i 个员工的工资。
+
+请你返回去掉最低工资和最高工资以后，剩下员工工资的平均值。
+
+ 
+
+示例 1：
+
+输入：salary = [4000,3000,1000,2000]
+输出：2500.00000
+解释：最低工资和最高工资分别是 1000 和 4000 。
+去掉最低工资和最高工资以后的平均工资是 (2000+3000)/2= 2500
+示例 2：
+
+输入：salary = [1000,2000,3000]
+输出：2000.00000
+解释：最低工资和最高工资分别是 1000 和 3000 。
+去掉最低工资和最高工资以后的平均工资是 (2000)/1= 2000
+示例 3：
+
+输入：salary = [6000,5000,4000,3000,2000,1000]
+输出：3500.00000
+示例 4：
+
+输入：salary = [8000,9000,2000,3000,6000,1000]
+输出：4750.00000
+ 
+
+提示：
+
+3 <= salary.length <= 100
+10^3 <= salary[i] <= 10^6
+salary[i] 是唯一的。
+与真实值误差在 10^-5 以内的结果都将视为正确答案。
+
+```js
+/**
+ * @param {number[]} salary
+ * @return {number}
+ */
+ var average = function (salary) {
+    let max = Math.max(...salary)
+    let min = Math.min(...salary)
+    let maxIndex = salary.findIndex(a => a === max)
+    salary.splice(maxIndex, 1)
+    let minIndex = salary.findIndex(a => a === min)
+    salary.splice(minIndex, 1)
+    return salary.reduce((a, b) => a + b) / salary.length
+};
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
+##### 1662. 检查两个字符串数组是否相等
+给你两个字符串数组 word1 和 word2 。如果两个数组表示的字符串相同，返回 true ；否则，返回 false 。
+
+数组表示的字符串 是由数组中的所有元素 按顺序 连接形成的字符串。
+
+ 
+
+示例 1：
+
+输入：word1 = ["ab", "c"], word2 = ["a", "bc"]
+输出：true
+解释：
+word1 表示的字符串为 "ab" + "c" -> "abc"
+word2 表示的字符串为 "a" + "bc" -> "abc"
+两个字符串相同，返回 true
+示例 2：
+
+输入：word1 = ["a", "cb"], word2 = ["ab", "c"]
+输出：false
+示例 3：
+
+输入：word1  = ["abc", "d", "defg"], word2 = ["abcddefg"]
+输出：true
+ 
+
+提示：
+
+1 <= word1.length, word2.length <= 103
+1 <= word1[i].length, word2[i].length <= 103
+1 <= sum(word1[i].length), sum(word2[i].length) <= 103
+word1[i] 和 word2[i] 由小写字母组成
+
+```js
+/**
+ * @param {string[]} word1
+ * @param {string[]} word2
+ * @return {boolean}
+ */
+ var arrayStringsAreEqual = function (word1, word2) {
+    let str1 = word1.join('')
+    let str2 = word2.join('')
+    return str1 === str2 ? true : false
+};
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
+##### 1822. 数组元素积的符号
+已知函数 signFunc(x) 将会根据 x 的正负返回特定值：
+
+如果 x 是正数，返回 1 。
+如果 x 是负数，返回 -1 。
+如果 x 是等于 0 ，返回 0 。
+给你一个整数数组 nums 。令 product 为数组 nums 中所有元素值的乘积。
+
+返回 signFunc(product) 。
+
+ 
+
+示例 1：
+
+输入：nums = [-1,-2,-3,-4,3,2,1]
+输出：1
+解释：数组中所有值的乘积是 144 ，且 signFunc(144) = 1
+示例 2：
+
+输入：nums = [1,5,0,2,-3]
+输出：0
+解释：数组中所有值的乘积是 0 ，且 signFunc(0) = 0
+示例 3：
+
+输入：nums = [-1,1,-1,1,-1]
+输出：-1
+解释：数组中所有值的乘积是 -1 ，且 signFunc(-1) = -1
+ 
+
+提示：
+
+1 <= nums.length <= 1000
+-100 <= nums[i] <= 100
+
+```js
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+ var arraySign = function (nums) {
+    let product = nums.reduce((a, b) => a * b)
+    return product > 0 ? 1 : (product < 0 ? -1 : 0)
+};
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
+##### 1929. 数组串联
+给你一个长度为 n 的整数数组 nums 。请你构建一个长度为 2n 的答案数组 ans ，数组下标 从 0 开始计数 ，对于所有 0 <= i < n 的 i ，满足下述所有要求：
+
+ans[i] == nums[i]
+ans[i + n] == nums[i]
+具体而言，ans 由两个 nums 数组 串联 形成。
+
+返回数组 ans 。
+
+ 
+
+示例 1：
+
+输入：nums = [1,2,1]
+输出：[1,2,1,1,2,1]
+解释：数组 ans 按下述方式形成：
+- ans = [nums[0],nums[1],nums[2],nums[0],nums[1],nums[2]]
+- ans = [1,2,1,1,2,1]
+示例 2：
+
+输入：nums = [1,3,2,1]
+输出：[1,3,2,1,1,3,2,1]
+解释：数组 ans 按下述方式形成：
+- ans = [nums[0],nums[1],nums[2],nums[3],nums[0],nums[1],nums[2],nums[3]]
+- ans = [1,3,2,1,1,3,2,1]
+ 
+
+提示：
+
+n == nums.length
+1 <= n <= 1000
+1 <= nums[i] <= 1000
+
+```js
+/**
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+ var getConcatenation = function (nums) {
+    return nums.concat(nums)
+};
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
 ### 栈
 栈（stack）又名堆栈，它是一种运算受限的线性表。限定仅在表尾进行插入和删除操作的线性表。这一端被称为栈顶，相对地，把另一端称为栈底。向一个栈插入新元素又称作进栈、入栈或压栈，它是把新元素放到栈顶元素的上面，使之成为新的栈顶元素；从一个栈删除元素又称作出栈或退栈，它是把栈顶元素删除掉，使其相邻的元素成为新的栈顶元素。
 ### 队列
@@ -6303,6 +6556,155 @@ var countAndSay = function (n) {
   ✔ Your runtime beats 82.46 % of javascript submissions
   ✔ Your memory usage beats 40.19 % of javascript submissions (35.5 MB)
 </pre> 
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
+##### 151. 翻转字符串里的单词
+给你一个字符串 s ，逐个翻转字符串中的所有 单词 。
+
+单词 是由非空格字符组成的字符串。s 中使用至少一个空格将字符串中的 单词 分隔开。
+
+请你返回一个翻转 s 中单词顺序并用单个空格相连的字符串。
+
+说明：
+
+输入字符串 s 可以在前面、后面或者单词间包含多余的空格。
+翻转后单词间应当仅用一个空格分隔。
+翻转后的字符串中不应包含额外的空格。
+ 
+
+示例 1：
+
+输入：s = "the sky is blue"
+输出："blue is sky the"
+示例 2：
+
+输入：s = "  hello world  "
+输出："world hello"
+解释：输入字符串可以在前面或者后面包含多余的空格，但是翻转后的字符不能包括。
+示例 3：
+
+输入：s = "a good   example"
+输出："example good a"
+解释：如果两个单词间有多余的空格，将翻转后单词间的空格减少到只含一个。
+示例 4：
+
+输入：s = "  Bob    Loves  Alice   "
+输出："Alice Loves Bob"
+示例 5：
+
+输入：s = "Alice does not even like bob"
+输出："bob like even not does Alice"
+ 
+
+提示：
+
+1 <= s.length <= 104
+s 包含英文大小写字母、数字和空格 ' '
+s 中 至少存在一个 单词
+ 
+
+进阶：
+
+请尝试使用 O(1) 额外空间复杂度的原地解法。
+```js
+/**
+ * @param {string} s
+ * @return {string}
+ */
+ var reverseWords = function (s) {
+    let arr = []
+    s.split(' ').map(a => {
+        if (a) {
+            arr.push(a)
+        }
+    })
+    return arr.reverse().join(' ')
+};
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
+##### 344. 反转字符串
+编写一个函数，其作用是将输入的字符串反转过来。输入字符串以字符数组 char[] 的形式给出。
+
+不要给另外的数组分配额外的空间，你必须原地修改输入数组、使用 O(1) 的额外空间解决这一问题。
+
+你可以假设数组中的所有字符都是 ASCII 码表中的可打印字符。
+
+ 
+
+示例 1：
+
+输入：["h","e","l","l","o"]
+输出：["o","l","l","e","h"]
+示例 2：
+
+输入：["H","a","n","n","a","h"]
+输出：["h","a","n","n","a","H"]
+```js
+/**
+ * @param {character[]} s
+ * @return {void} Do not return anything, modify s in-place instead.
+ */
+ var reverseString = function (s) {
+    return s.reverse()
+ };
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
+##### 387. 字符串中的第一个唯一字符
+给定一个字符串，找到它的第一个不重复的字符，并返回它的索引。如果不存在，则返回 -1。
+
+ 
+
+示例：
+
+s = "leetcode"
+返回 0
+
+s = "loveleetcode"
+返回 2
+ 
+
+提示：你可以假定该字符串只包含小写字母。
+```js
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var firstUniqChar = function (s) {
+    let arr = s.split('')
+    let map = new Map()
+    for (let i = 0; i < arr.length; i++) {
+        if (map.has(arr[i])) {
+            map.set(arr[i], map.get(arr[i]) + 1)
+        } else {
+            map.set(arr[i], 1)
+        }
+    }
+    let find = []
+    for ([key, val] of map) {
+        if (val === 1) {
+            find.push(key)
+        }
+    }
+    let index = find.length > 0 ? arr.length : -1
+    if(index!==-1){
+        for (let j = 0; j < find.length; j++) {
+            index = Math.min(index, arr.findIndex(a => a === find[j]))
+        }
+    }
+    return index
+};
+```
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
