@@ -6561,6 +6561,69 @@ var countAndSay = function (n) {
 
 ---
 
+##### 50. Pow(x, n)
+实现 pow(x, n) ，即计算 x 的 n 次幂函数（即，xn）。
+
+ 
+
+示例 1：
+
+输入：x = 2.00000, n = 10
+输出：1024.00000
+示例 2：
+
+输入：x = 2.10000, n = 3
+输出：9.26100
+示例 3：
+
+输入：x = 2.00000, n = -2
+输出：0.25000
+解释：2-2 = 1/22 = 1/4 = 0.25
+ 
+
+提示：
+
+-100.0 < x < 100.0
+-231 <= n <= 231-1
+-104 <= xn <= 104
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/powx-n
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+```js
+/**
+ * @param {number} x
+ * @param {number} n
+ * @return {number}
+ */
+var myPow = function (x, n) {
+    // n=0直接返回1
+    if (n === 0) return 1
+    //n<0时 x的n次方等于1除以x的-n次方
+    if (n < 0) {
+        return 1 / myPow(x, -n)
+    }
+    //n是奇数时 x的n次方 = x*x的n-1次方
+    if (n % 2) {
+        return x * myPow(x, n - 1)
+    }
+    return myPow(x * x, n / 2) //n是偶数，使用分治，一分为二，等于x*x的n/2次方 
+}
+
+// 使用二分法
+
+// 1. 问题分析
+// 分：将2^n转为 (2^ 2/n) * (2^ 2/n)
+// 解：求2^2/n
+// 合：(2^ 2/n) * (2^ 2/n)
+
+// 递归
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
 ##### 151. 翻转字符串里的单词
 给你一个字符串 s ，逐个翻转字符串中的所有 单词 。
 
@@ -6622,6 +6685,431 @@ s 中 至少存在一个 单词
         }
     })
     return arr.reverse().join(' ')
+};
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
+##### 168. Excel表列名称
+给你一个整数 columnNumber ，返回它在 Excel 表中相对应的列名称。
+
+例如：
+
+A -> 1
+B -> 2
+C -> 3
+...
+Z -> 26
+AA -> 27
+AB -> 28 
+...
+ 
+
+示例 1：
+
+输入：columnNumber = 1
+输出："A"
+示例 2：
+
+输入：columnNumber = 28
+输出："AB"
+示例 3：
+
+输入：columnNumber = 701
+输出："ZY"
+示例 4：
+
+输入：columnNumber = 2147483647
+输出："FXSHRXW"
+ 
+
+提示：
+
+1 <= columnNumber <= 231 - 1
+
+```js
+/**
+ * @param {number} columnNumber
+ * @return {string}
+ */
+ var convertToTitle = function (columnNumber) {
+    let S = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    let res = ''
+    while (columnNumber > 0) {
+        // 余数
+        let mod = (columnNumber - 1) % 26
+        // 循环取
+        columnNumber = Math.floor((columnNumber - 1) / 26)
+        res = S[mod] + res
+    }
+    return res
+};
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
+##### 172. 阶乘后的零
+给定一个整数 n，返回 n! 结果尾数中零的数量。
+
+示例 1:
+
+输入: 3
+输出: 0
+解释: 3! = 6, 尾数中没有零。
+示例 2:
+
+输入: 5
+输出: 1
+解释: 5! = 120, 尾数中有 1 个零.
+说明: 你算法的时间复杂度应为 O(log n) 。
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/factorial-trailing-zeroes
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+
+```js
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var trailingZeroes = function (n) {
+    let r = 0
+    while (n > 1) {
+        n = parseInt(n / 5)
+        r += n  
+    }
+    return r
+};  
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
+##### 204. 计数质数
+统计所有小于非负整数 n 的质数的数量。
+
+ 
+
+示例 1：
+
+输入：n = 10
+输出：4
+解释：小于 10 的质数一共有 4 个, 它们是 2, 3, 5, 7 。
+示例 2：
+
+输入：n = 0
+输出：0
+示例 3：
+
+输入：n = 1
+输出：0
+ 
+
+提示：
+
+0 <= n <= 5 * 106
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/count-primes
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+```js
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var countPrimes = function (n) {
+    let arr = [], count = 0
+    for (let i = 0; i < n + 1; i++) {
+        arr[i] = true // 标记初始化
+    }
+    for (let i = 2; i < n; i++) {
+        if (arr[i]) { // 如果i是质数
+            // 将质数的倍数删除
+            for (let j = i + i; j < n; j = j + i) {
+                arr[j] = false // i的n倍数肯定不是质数
+            }
+            count++
+        }
+    }
+    return count
+};
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
+
+##### 224. 基本计算器
+给你一个字符串表达式 s ，请你实现一个基本计算器来计算并返回它的值。
+
+ 
+
+示例 1：
+
+输入：s = "1 + 1"
+输出：2
+示例 2：
+
+输入：s = " 2-1 + 2 "
+输出：3
+示例 3：
+
+输入：s = "(1+(4+5+2)-3)+(6+8)"
+输出：23
+ 
+
+提示：
+
+1 <= s.length <= 3 * 105
+s 由数字、'+'、'-'、'('、')'、和 ' ' 组成
+s 表示一个有效的表达式
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/basic-calculator
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+```js
+/**
+ * @param {string} s
+ * @return {number}
+ */
+ var calculate = function (s) {
+    return eval(s)
+};
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
+
+##### 231. 2 的幂
+给你一个整数 n，请你判断该整数是否是 2 的幂次方。如果是，返回 true ；否则，返回 false 。
+
+如果存在一个整数 x 使得 n == 2x ，则认为 n 是 2 的幂次方。
+
+ 
+
+示例 1：
+
+输入：n = 1
+输出：true
+解释：20 = 1
+示例 2：
+
+输入：n = 16
+输出：true
+解释：24 = 16
+示例 3：
+
+输入：n = 3
+输出：false
+示例 4：
+
+输入：n = 4
+输出：true
+示例 5：
+
+输入：n = 5
+输出：false
+ 
+
+提示：
+
+-231 <= n <= 231 - 1
+ 
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/power-of-two
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+```js
+/**
+ * @param {number} n
+ * @return {boolean}
+ */
+ var isPowerOfTwo = function(n) {
+    return n > 0 && (n & (n - 1)) === 0;
+};
+
+// 方法一：二进制表示
+// 思路与算法
+
+// 一个数 nn 是 22 的幂，当且仅当 nn 是正整数，并且 nn 的二进制表示中仅包含 11 个 11。
+
+// 因此我们可以考虑使用位运算，将 nn 的二进制表示中最低位的那个 11 提取出来，再判断剩余的数值是否为 00 即可。下面介绍两种常见的与「二进制表示中最低位」相关的位运算技巧。
+
+// 第一个技巧是
+
+// \texttt{n \& (n - 1)}
+// n & (n - 1)
+
+// 其中 \texttt{\&}& 表示按位与运算。该位运算技巧可以直接将 nn 二进制表示的最低位 11 移除，它的原理如下：
+
+// 假设 nn 的二进制表示为 (a 10\cdots 0)_2(a10⋯0) 
+// 2
+// ​
+//  ，其中 aa 表示若干个高位，11 表示最低位的那个 11，0\cdots 00⋯0 表示后面的若干个 00，那么 n-1n−1 的二进制表示为：
+
+// (a 01\cdots1)_2
+// (a01⋯1) 
+// 2
+// ​
+ 
+
+// 我们将 (a 10\cdots 0)_2(a10⋯0) 
+// 2
+// ​
+//   与 (a 01\cdots1)_2(a01⋯1) 
+// 2
+// ​
+//   进行按位与运算，高位 aa 不变，在这之后的所有位都会变为 00，这样我们就将最低位的那个 11 移除了。
+
+// 因此，如果 nn 是正整数并且 \texttt{n \& (n - 1) = 0}n & (n - 1) = 0，那么 nn 就是 22 的幂。
+
+// 第二个技巧是
+
+// \texttt{n \& (-n)}
+// n & (-n)
+
+// 其中 -n−n 是 nn 的相反数，是一个负数。该位运算技巧可以直接获取 nn 二进制表示的最低位的 11。
+
+// 由于负数是按照补码规则在计算机中存储的，-n−n 的二进制表示为 nn 的二进制表示的每一位取反再加上 11，因此它的原理如下：
+
+// 假设 nn 的二进制表示为 (a 10\cdots 0)_2(a10⋯0) 
+// 2
+// ​
+//  ，其中 aa 表示若干个高位，11 表示最低位的那个 11，0\cdots 00⋯0 表示后面的若干个 00，那么 -n−n 的二进制表示为：
+
+// (\bar{a} 01\cdots1)_2 + (1)_2 = (\bar{a} 10\cdots0)_2
+// ( 
+// a
+// ˉ
+//  01⋯1) 
+// 2
+// ​
+//  +(1) 
+// 2
+// ​
+//  =( 
+// a
+// ˉ
+//  10⋯0) 
+// 2
+// ​
+ 
+
+// 其中 \bar{a} 
+// a
+// ˉ
+//   表示将 aa 每一位取反。我们将 (a 10\cdots 0)_2(a10⋯0) 
+// 2
+// ​
+//   与 (\bar{a} 10\cdots0)_2( 
+// a
+// ˉ
+//  10⋯0) 
+// 2
+// ​
+//   进行按位与运算，高位全部变为 00，最低位的 11 以及之后的所有 00 不变，这样我们就获取了 nn 二进制表示的最低位的 11。
+
+// 因此，如果 nn 是正整数并且 \texttt{n \& (-n) = n}n & (-n) = n，那么 nn 就是 22 的幂。
+
+// 作者：LeetCode-Solution
+// 链接：https://leetcode-cn.com/problems/power-of-two/solution/2de-mi-by-leetcode-solution-rny3/
+// 来源：力扣（LeetCode）
+// 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
+##### 258. 各位相加
+给定一个非负整数 num，反复将各个位上的数字相加，直到结果为一位数。
+
+示例:
+
+输入: 38
+输出: 2 
+解释: 各位相加的过程为：3 + 8 = 11, 1 + 1 = 2。 由于 2 是一位数，所以返回 2。
+进阶:
+你可以不使用循环或者递归，且在 O(1) 时间复杂度内解决这个问题吗？
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/add-digits
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+```js
+/**
+ * @param {number} num
+ * @return {number}
+ */
+ var addDigits = function (num) {
+    let str = num.toString()
+    let sum = 0
+    // 终止条件：结果为一位数返回
+    if (str.length === 1) {
+        return Number(str)
+    }
+    // 累计和
+    for (let i = 0; i < str.length; i++) {
+        sum += Number(str[i])
+    }
+    // 递归
+    return addDigits(sum)
+};
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
+##### 292. Nim 游戏
+你和你的朋友，两个人一起玩 Nim 游戏：
+
+桌子上有一堆石头。
+你们轮流进行自己的回合，你作为先手。
+每一回合，轮到的人拿掉 1 - 3 块石头。
+拿掉最后一块石头的人就是获胜者。
+假设你们每一步都是最优解。请编写一个函数，来判断你是否可以在给定石头数量为 n 的情况下赢得游戏。如果可以赢，返回 true；否则，返回 false 。
+
+ 
+
+示例 1：
+
+输入：n = 4
+输出：false 
+解释：如果堆中有 4 块石头，那么你永远不会赢得比赛；
+     因为无论你拿走 1 块、2 块 还是 3 块石头，最后一块石头总是会被你的朋友拿走。
+示例 2：
+
+输入：n = 1
+输出：true
+示例 3：
+
+输入：n = 2
+输出：true
+ 
+
+提示：
+
+1 <= n <= 231 - 1
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/nim-game
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+```js
+/**
+ * @param {number} n
+ * @return {boolean}
+ */
+var canWinNim = function (n) {
+    // 去掉4的倍数
+    return n % 4 !== 0
 };
 ```
 
@@ -6892,6 +7380,118 @@ var detectCapitalUse = function (word) {
         res += obj[arr[i]]
     }
     return res === 0 ? true : false
+};
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
+##### 917. 仅仅反转字母
+给定一个字符串 S，返回 “反转后的” 字符串，其中不是字母的字符都保留在原地，而所有字母的位置发生反转。
+
+ 
+
+示例 1：
+
+输入："ab-cd"
+输出："dc-ba"
+示例 2：
+
+输入："a-bC-dEf-ghIj"
+输出："j-Ih-gfE-dCba"
+示例 3：
+
+输入："Test1ng-Leet=code-Q!"
+输出："Qedo1ct-eeLg=ntse-T!"
+ 
+
+提示：
+
+S.length <= 100
+33 <= S[i].ASCIIcode <= 122 
+S 中不包含 \ or "
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/reverse-only-letters
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+```js
+/**
+ * @param {string} s
+ * @return {string}
+ */
+ var reverseOnlyLetters = function (s) {
+    let arr = Array(s.length)
+    for (let i = 0; i < s.length; i++) {
+        let ascii = s[i].charCodeAt()
+        if (ascii < 65 || ascii > 90 && ascii < 97) {
+            arr[i] = s[i]
+        }
+    }
+    let j = arr.length - 1
+    for (let i = 0; i < s.length; i++) {
+        let ascii = s[i].charCodeAt()
+        while (arr[j]) {
+            j--
+        }
+        if (ascii >= 65 && ascii <= 90 || ascii >= 97 && ascii <= 122) {
+            arr[j] = s[i]
+        }
+    }
+    return arr.join('')
+};
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
+##### 1047. 删除字符串中的所有相邻重复项
+给出由小写字母组成的字符串 S，重复项删除操作会选择两个相邻且相同的字母，并删除它们。
+
+在 S 上反复执行重复项删除操作，直到无法继续删除。
+
+在完成所有重复项删除操作后返回最终的字符串。答案保证唯一。
+
+ 
+
+示例：
+
+输入："abbaca"
+输出："ca"
+解释：
+例如，在 "abbaca" 中，我们可以删除 "bb" 由于两字母相邻且相同，这是此时唯一可以执行删除操作的重复项。之后我们得到字符串 "aaca"，其中又只有 "aa" 可以执行重复项删除操作，所以最后的字符串为 "ca"。
+ 
+
+提示：
+
+1 <= S.length <= 20000
+S 仅由小写英文字母组成。
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/remove-all-adjacent-duplicates-in-string
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+
+```js
+/**
+ * @param {string} s
+ * @return {string}
+ */
+ var removeDuplicates = function (s) {
+    let arr = s.split('')
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i] === arr[i + 1]) {
+            arr.splice(i, 1)
+            arr.splice(i, 1)
+        }
+    }
+    for (let i = arr.length; i >= 0; i--) {
+        if (arr[i] === arr[i - 1]) {
+            arr.splice(i, 1)
+            arr.splice(i - 1, 1)
+        }
+    }
+    return arr.join('')
 };
 ```
 
