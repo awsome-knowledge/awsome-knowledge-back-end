@@ -2367,9 +2367,13 @@ var searchRange = function(nums, target) {
 
 ---
 #### 35. 搜索插入位置
- 给定一个排序数组和一个目标值，在数组中找到目标值，并返回其索引。如果目标值不存在于数组中，返回它将会被按顺序插入的位置。
-你可以假设数组中无重复元素。
+给定一个排序数组和一个目标值，在数组中找到目标值，并返回其索引。如果目标值不存在于数组中，返回它将会被按顺序插入的位置。
 
+请必须使用时间复杂度为 O(log n) 的算法。
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/search-insert-position
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 示例 1:
 ```
 输入: [1,3,5,6], 5
@@ -2421,6 +2425,53 @@ var searchInsert = function (nums, target) {
   √ Your runtime beats 24.06 % of javascript submissions
   √ Your memory usage beats 5.32 % of javascript submissions (35.9 MB)
 </pre> 
+
+> 2021/11/24后续
+```js
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number}
+ */
+var searchInsert = function (nums, target) {
+    // /**
+    //  * 第一种：暴力求解
+    //  */
+    // let len = nums.length
+    // for (let i = 0; i < len; i++) {
+    //     if (nums[i] >= target) {
+    //         return i
+    //     }
+    // }
+    // // 循环结束没找到说明目标值贼大
+    // return len
+    /**
+     * 第二种：二分法（左闭右闭）
+     */
+    let left = 0,
+        len = nums.length,
+        right = len - 1
+    // [0,nums-1]
+    while (left <= right) {
+        let middle = Math.floor((left + right) / 2)
+        if (nums[middle] < target) {
+            // 中间值比目标值小，目标值要往后找[middle+1,len]
+            left = middle + 1
+        } else {
+            // 中间值比目标值大，目标值要往前找[0,middle-1]
+            right = middle - 1
+            len = middle
+        }
+    }
+    return len
+};
+```
+```
+64 / 64 个通过测试用例
+状态：通过
+执行用时: 68 ms
+内存消耗: 38.6 MB
+```
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
