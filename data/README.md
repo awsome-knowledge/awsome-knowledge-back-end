@@ -2270,6 +2270,55 @@ var removeElement = function(nums, val) {
 };
 ```
 
+> 2021/11/24后续
+```js
+/**
+ * @param {number[]} nums
+ * @param {number} val
+ * @return {number}
+ */
+var removeElement = function (nums, val) {
+    // /**
+    //  * 1.暴力求解
+    //  */
+    // let len = nums.length
+    // for (let i = 0; i < len; i++) {
+    //     if (nums[i] === val) {
+    //         // 发现需要移除的元素，就将数组集体向前移动一位
+    //         for (let j = i + 1; j < len; j++) {
+    //             nums[j - 1] = nums[j]
+    //         }
+    //         // 因为下表i以后的数值都向前移动了一位，所以i也向前移动一位
+    //         i--
+    //         // 此时数组的大小-1
+    //         len--
+    //     }
+    // }
+    // return len
+    /**
+     * 2.双指针求解
+     */
+    let slow = 0,
+        len = nums.length
+    for (let fast = 0; fast < len; fast++) {
+        //如果当前值不需要移除，就原位置的值覆盖
+        //  如果当前值需要移除就用后面的值覆盖
+        if (nums[fast] !== val) {
+            nums[slow++] = nums[fast]
+        }
+    }
+    // 现在有多少就在slow中
+    return slow
+};
+```
+
+```
+113 / 113 个通过测试用例
+状态：通过
+执行用时: 72 ms
+内存消耗: 37.8 MB
+```
+
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
