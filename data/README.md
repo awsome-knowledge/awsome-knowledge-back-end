@@ -6,13 +6,13 @@
 树状图是一种数据结构，它是由n（n>=1）个有限结点组成一个具有层次关系的集合。把它叫做“树”是因为它看起来像一棵倒挂的树，也就是说它是根朝上，而叶朝下的。它具有以下的特点：
 每个结点有零个或多个子结点；没有父结点的结点称为根结点；每一个非根结点有且只有一个父结点；除了根结点外，每个子结点可以分为多个不相交的子树；
 #### 规律
-##### 完全二叉树的公式
+#### 完全二叉树的公式
 1. 第n层的节点数最多为2<sup>n</sup>
 2. n层二叉树最多有2<sup>0</sup>+...+2<sup>n</sup>=2<sup>n+1</sup>-1个节点
 3. 第一个非叶子节点：length/2
 4. 一个节点的孩子节点：2n、2n+1
    
-##### 插入，遍历，深度，查找
+#### 插入，遍历，深度，查找
 ```js
    function Node(data, left, right) {
        this.data = data;
@@ -184,7 +184,7 @@
 ![avatar](http://images.qiufeihong.top/tree.jpg)
 
 上述的查找运用了二分查找
-##### 二分查找
+#### 二分查找
 二分查找的条件是必须是有序的线性表。
 
 那目标值和线性表中的中点值进行比较，如果相等则返回他在表中的位置；如果小于，那线性表就要对折，起始不变，终点为线性表之前的中点；如果大于，那线性表就要对折，终点不变，起始为线性表之前的中点。依次迭代下去，如果找不到就返回-1
@@ -208,7 +208,7 @@ console.log(binarySearch(1, arr, 0, arr.length-1));
 
 ```
 
-##### 求二叉树的遍历
+#### 求二叉树的遍历
 给定一棵二叉树的前序遍历和中序遍历，求其后序遍历
 
 输入描述:
@@ -271,7 +271,7 @@ while((pre = readline())!=null){
 
 ---
 #### LeetCode
-##### 105. 从前序与中序遍历序列构造二叉树
+#### 105. 从前序与中序遍历序列构造二叉树
 根据一棵树的前序遍历与中序遍历构造二叉树。
 
 注意:
@@ -343,7 +343,7 @@ var buildTree = function(preorder, inorder) {
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
-##### 94. 二叉树的中序遍历
+#### 94. 二叉树的中序遍历
 给定一个二叉树，返回它的中序 遍历。
 
 示例:
@@ -415,7 +415,7 @@ var inorderTraversal = function (root) {
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
-##### 100. 相同的树
+#### 100. 相同的树
 给定两个二叉树，编写一个函数来检验它们是否相同。
 
 如果两个树在结构上相同，并且节点具有相同的值，则认为它们是相同的。
@@ -492,7 +492,7 @@ var isSameTree = function (p, q) {
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
-##### 101. 对称二叉树
+#### 101. 对称二叉树
 给定一个二叉树，检查它是否是镜像对称的。
 
 例如，二叉树 [1,2,2,3,4,4,3] 是对称的。
@@ -559,7 +559,7 @@ var isSymmetric = function (root) {
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
-##### 104. 二叉树的最大深度
+#### 104. 二叉树的最大深度
 给定一个二叉树，找出其最大深度。
 
 二叉树的深度为根节点到最远叶子节点的最长路径上的节点数。
@@ -619,7 +619,7 @@ var maxDepth = function (root) {
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
-##### 107. 二叉树的层次遍历 II
+#### 107. 二叉树的层次遍历 II
 给定一个二叉树，返回其节点值自底向上的层次遍历。 （即按从叶子节点所在层到根节点所在的层，逐层从左向右遍历）
 例如：
 给定二叉树 [3,9,20,null,null,15,7],
@@ -710,7 +710,7 @@ var levelOrderBottom = function(root) {
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
-##### 110. 平衡二叉树
+#### 110. 平衡二叉树
 Category|Difficulty|Likes|Dislikes
 algorithms|Easy (49.05%)|151|-
 
@@ -804,7 +804,7 @@ var isBalanced = function (root) {
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
-##### 111. 二叉树的最小深度
+#### 111. 二叉树的最小深度
 Category|Difficulty|Likes|Dislikes
 algorithms|Easy (39.81%)|148|-
 
@@ -880,7 +880,7 @@ var minDepth = function (root) {
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
-##### 114. 二叉树的前序遍历
+#### 114. 二叉树的前序遍历
 给定一个二叉树，返回它的 前序 遍历。
 
  示例:
@@ -982,7 +982,7 @@ var preorderTraversal = function (root) {
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
-##### 145. 二叉树的后序遍历
+#### 145. 二叉树的后序遍历
 给定一个二叉树，返回它的 后序 遍历。
 
 示例:
@@ -1096,7 +1096,7 @@ var postorderTraversal = function (root) {
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
-##### 226. 翻转二叉树
+#### 226. 翻转二叉树
 Category|Difficulty|Likes|Dislikes
 --|--|--|--
 algorithms|Easy (71.45%)|250|-
@@ -1175,7 +1175,7 @@ var invertTree = function (root) {
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
-##### 230. 二叉搜索树中第K小的元素
+#### 230. 二叉搜索树中第K小的元素
 Category|Difficulty|Likes|Dislikes
 algorithms|Medium(65.90%)|92|-
 
@@ -1319,7 +1319,7 @@ function kthSmallest(root, k) {
 ### 链表
 链表是一种物理存储单元上非连续、非顺序的存储结构，数据元素的逻辑顺序是通过链表中的指针链接次序实现的。链表由一系列结点（链表中每一个元素称为结点）组成，结点可以在运行时动态生成。每个结点包括两个部分：一个是存储数据元素的数据域，另一个是存储下一个结点地址的指针域。 相比于线性表顺序结构，操作复杂。由于不必须按顺序存储，链表在插入的时候可以达到O(1)的复杂度，比另一种线性表顺序快得多，但是查找一个节点或者访问特定编号的节点则需要O(n)的时间，而线性表和顺序表相应的时间复杂度分别是O(logn)和O(1)。
 使用链表结构可以克服数组链表需要预先知道数据大小的缺点，链表结构可以充分利用计算机内存空间，实现灵活的内存动态管理。但是链表失去了数组随机读取的优点，同时链表由于增加了结点的指针域，空间开销比较大。链表最明显的好处就是，常规数组排列关联项目的方式可能不同于这些数据项目在记忆体或磁盘上顺序，数据的存取往往要在不同的排列顺序中转换。链表允许插入和移除表上任意位置上的节点，但是不允许随机存取。链表有很多种不同的类型：单向链表，双向链表以及循环链表。链表可以在多种编程语言中实现。像Lisp和Scheme这样的语言的内建数据类型中就包含了链表的存取和操作。程序语言或面向对象语言，如C,C++和Java依靠易变工具来生成链表。
-##### 从尾到头打印链表
+#### 从尾到头打印链表
 题目
 
 输入一个链表，按链表值从尾到头的顺序返回一个ArrayList
@@ -1354,7 +1354,7 @@ function printListFromTailToHead(head)
 
 ---
 #### leetcode
-##### 2. 两数相加
+#### 2. 两数相加
 给出两个 非空 的链表用来表示两个非负的整数。其中，它们各自的位数是按照 逆序 的方式存储的，并且它们的每个节点只能存储 一位 数字。
 
 如果，我们将这两个数相加起来，则会返回一个新的链表来表示它们的和。
@@ -1424,7 +1424,7 @@ var addTwoNumbers = function (l1, l2) {
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
-##### 19. 删除链表的倒数第N个节点
+#### 19. 删除链表的倒数第N个节点
 给定一个链表，删除链表的倒数第 n 个节点，并且返回链表的头结点。
 
 示例：
@@ -1496,7 +1496,7 @@ var removeNthFromEnd = function(head, n) {
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
-##### 206. 反转链表
+#### 206. 反转链表
 Category|Difficulty|Likes|Dislikes
 algorithms|Easy (63.67%)|553|-
 
@@ -1565,9 +1565,9 @@ var reverseList = function (head) {
 ### 数组
 所谓数组，是有序的元素序列。若将有限个类型相同的变量的集合命名，那么这个名称为数组名。组成数组的各个变量称为数组的分量，也称为数组的元素，有时也称为下标变量。用于区分数组的各个元素的数字编号称为下标。数组是在程序设计中，为了处理方便， 把具有相同类型的若干元素按无序的形式组织起来的一种形式。这些无序排列的同类数据元素的集合称为数组。
 数组是用于储存多个相同类型数据的集合。
-##### 100万个成员的数组取第一个和最后一个是否有性能差距
+#### 100万个成员的数组取第一个和最后一个是否有性能差距
 答案显然是没有,因为数组是一块线性连续的内存,我们可以通过寻址公式一步取出对应的成员,这跟成员的位置没有关系.
-##### 1. 两数之和（字节跳动）
+#### 1. 两数之和（字节跳动）
 给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。
 
 你可以假设每种输入只会对应一个答案。但是，你不能重复利用这个数组中同样的元素。
@@ -1664,7 +1664,7 @@ function getNum(arr, sum) {
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
-##### 4. 寻找两个有序数组的中位数
+#### 4. 寻找两个有序数组的中位数
 给定两个大小为 m 和 n 的有序数组 nums1 和 nums2。
 
 请你找出这两个有序数组的中位数，并且要求算法的时间复杂度为 O(log(m + n))。
@@ -1726,7 +1726,7 @@ var findMedianSortedArrays = function (nums1, nums2) {
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
-##### 11. 盛最多水的容器
+#### 11. 盛最多水的容器
 给定 n 个非负整数 a1，a2，...，an，每个数代表坐标中的一个点 (i, ai) 。在坐标内画 n 条垂直线，垂直线 i 的两个端点分别为 (i, ai) 和 (i, 0)。找出其中的两条线，使得它们与 x 轴共同构成的容器可以容纳最多的水。
 
 说明：你不能倾斜容器，且 n 的值至少为 2。
@@ -1800,7 +1800,7 @@ var maxArea = function (height) {
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
-##### 15. 三数之和
+#### 15. 三数之和
 给定一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？找出所有满足条件且不重复的三元组。
 
 注意：答案中不可以包含重复的三元组。
@@ -1874,7 +1874,7 @@ var threeSum = function (nums) {
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
-##### 16. 最接近的三数之和
+#### 16. 最接近的三数之和
 给定一个包括 n 个整数的数组 nums 和 一个目标值 target。找出 nums 中的三个整数，使得它们的和与 target 最接近。返回这三个数的和。假定每组输入只存在唯一答案。
 
 ```
@@ -1961,7 +1961,7 @@ var threeSumClosest = function (nums, target) {
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
-##### 18. 四数之和
+#### 18. 四数之和
 
 给定一个包含 n 个整数的数组 nums 和一个目标值 target，判断 nums 中是否存在四个元素 a，b，c 和 d ，使得 a + b + c + d 的值与 target 相等？找出所有满足条件且不重复的四元组。
 
@@ -2102,7 +2102,7 @@ var fourSum = function (nums, target) {
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
-##### 26. 删除排序数组中的重复项
+#### 26. 删除排序数组中的重复项
 给定一个排序数组，你需要在原地删除重复出现的元素，使得每个元素只出现一次，返回移除后数组的新长度。
 
 不要使用额外的数组空间，你必须在原地修改输入数组并在使用 O(1) 额外空间的条件下完成。
@@ -2185,7 +2185,7 @@ var removeDuplicates = function(nums) {
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
-##### 27. 移除元素
+#### 27. 移除元素
 给定一个数组 nums 和一个值 val，你需要原地移除所有数值等于 val 的元素，返回移除后数组的新长度。
 
 不要使用额外的数组空间，你必须在原地修改输入数组并在使用 O(1) 额外空间的条件下完成。
@@ -2273,7 +2273,7 @@ var removeElement = function(nums, val) {
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
-##### 33. 搜索旋转排序数组
+#### 33. 搜索旋转排序数组
 假设按照升序排序的数组在预先未知的某个点上进行了旋转。
 
 ( 例如，数组 [0,1,2,4,5,6,7] 可能变为 [4,5,6,7,0,1,2] )。
@@ -2315,7 +2315,7 @@ var search = function(nums, target) {
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
-##### 34. 在排序数组中查找元素的第一个和最后一个位置
+#### 34. 在排序数组中查找元素的第一个和最后一个位置
 给定一个按照升序排列的整数数组 nums，和一个目标值 target。找出给定目标值在数组中的开始位置和结束位置。
 
 你的算法时间复杂度必须是 O(log n) 级别。
@@ -2366,7 +2366,7 @@ var searchRange = function(nums, target) {
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
-##### 35. 搜索插入位置
+#### 35. 搜索插入位置
  给定一个排序数组和一个目标值，在数组中找到目标值，并返回其索引。如果目标值不存在于数组中，返回它将会被按顺序插入的位置。
 你可以假设数组中无重复元素。
 
@@ -2425,7 +2425,7 @@ var searchInsert = function (nums, target) {
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
-##### 39. 组合总和
+#### 39. 组合总和
 给定一个无重复元素的数组 candidates 和一个目标数 target ，找出 candidates 中所有可以使数字和为 target 的组合。
 
 candidates 中的数字可以无限制重复被选取。
@@ -2495,7 +2495,7 @@ var combinationSum = function (candidates, target) {
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
-##### 53. 最大子序和
+#### 53. 最大子序和
 给定一个整数数组 nums ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。
 示例:
 ```
@@ -2583,7 +2583,7 @@ var divide = function(nums, l, r) {
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
-##### 66. 加一
+#### 66. 加一
 给定一个由整数组成的非空数组所表示的非负整数，在该数的基础上加一。
 
 最高位数字存放在数组的首位， 数组中每个元素只存储单个数字。
@@ -2671,7 +2671,7 @@ var plusOne = function (digits) {
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
-##### 88. 合并两个有序数组
+#### 88. 合并两个有序数组
 给定两个有序整数数组 nums1 和 nums2，将 nums2 合并到 nums1 中，使得 num1 成为一个有序数组。
 
 说明:
@@ -2726,7 +2726,7 @@ var merge = function (nums1, m, nums2, n) {
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
-##### 118. 杨辉三角
+#### 118. 杨辉三角
 给定一个非负整数 numRows，生成杨辉三角的前 numRows 行。
 
 ![avatar](./picture/118.png)
@@ -2791,6 +2791,114 @@ var generate = function (numRows) {
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
+#### 704. 二分查找
+给定一个 n 个元素有序的（升序）整型数组 nums 和一个目标值 target  ，写一个函数搜索 nums 中的 target，如果目标值存在返回下标，否则返回 -1。
+
+
+示例 1:
+```
+输入: nums = [-1,0,3,5,9,12], target = 9
+输出: 4
+解释: 9 出现在 nums 中并且下标为 4
+```
+
+示例 2:
+```
+输入: nums = [-1,0,3,5,9,12], target = 2
+输出: -1
+解释: 2 不存在 nums 中因此返回 -1
+```
+
+提示：
+```
+你可以假设 nums 中的所有元素是不重复的。
+n 将在 [1, 10000]之间。
+nums 的每个元素都将在 [-9999, 9999]之间。
+```
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/binary-search
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+
+```js
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number}
+ */
+var search = function (nums, target) {
+    // // 二分法第一种写法——左闭右闭
+    // // 第一种写法，我们定义 target 是在一个在左闭右闭的区间里，也就是[left, right] （这个很重要非常重要）。
+
+    // // 区间的定义这就决定了二分法的代码应该如何写，因为定义target在[left, right]区间，所以有如下两点：
+
+    // // while (left <= right) 要使用 <= ，因为left == right是有意义的，所以使用 <=
+    // // if (nums[middle] > target) right 要赋值为 middle - 1，因为当前这个nums[middle]一定不是target，那么接下来要查找的左区间结束下标位置就是 middle - 1
+    // // 1.找到中间数
+    // let left = 0
+    // // 定义target在左闭右闭的区间里，[left, right]
+    // // tip：一定要-1，这是左闭右闭的关键，左闭右开是不用-1
+    // let right = nums.length - 1
+    // // 2.循环左边到右边
+    // // 一直到遍历结束
+    // // 当left==right，区间[left, right]依然有效，所以用 <=
+    // while (left <= right) {
+    //     //  防止溢出 等同于left + ((right - left) / 2);
+    //     let middle = Math.floor((left + right) / 2)
+    //     if (nums[middle] > target) {
+    //         // target 在左区间，所以[left, middle - 1]
+    //         // 中间数>目标值，目标值在左区间
+    //         right = middle - 1
+    //     } else if (nums[middle] < target) {
+    //         //  target 在左区间，所以[left, middle - 1]
+    //         // 中间数<目标值，目标值在右区间
+    //         left = middle + 1
+    //     } else {
+    //         // 找到就返回下标
+    //         return middle
+    //     }
+    // }
+    // // 没找到就返回-1
+    // return -1
+
+    //     二分法第二种写法——左闭右开
+    // 如果说定义 target 是在一个在左闭右开的区间里，也就是[left, right) ，那么二分法的边界处理方式则截然不同。
+
+    // 有如下两点：
+
+    // while (left < right)，这里使用 < ,因为left == right在区间[left, right)是没有意义的
+    // if (nums[middle] > target) right 更新为
+    //  middle，因为当前nums[middle]不等于target，去左区间继续寻找，而寻找区间是左闭右开区间，所以right更新为middle，即：下一个查询区间不会去比较nums[middle]
+    let left = 0
+    // 定义target在左闭右开的区间里，即：[left, right)
+    let right = nums.length 
+    // 因为left == right的时候，在[left, right)是无效的空间，所以使用 <
+    while (left < right) {
+        let middle = Math.floor((left + right) / 2)
+        if (nums[middle] > target) {
+            // target 在左区间，在[left, middle)中
+            right = middle
+        } else if (nums[middle] < target) {
+            // target 在右区间，在[middle + 1, right)中
+            left = middle + 1
+        } else {
+            // 数组中找到目标值，直接返回下标
+            return middle
+        }
+    }
+    return -1
+};
+```
+
+```
+提交记录
+47 / 47 个通过测试用例
+状态：通过
+执行用时: 100 ms
+内存消耗: 41.1 MB
+```
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
 ### 栈
 栈（stack）又名堆栈，它是一种运算受限的线性表。限定仅在表尾进行插入和删除操作的线性表。这一端被称为栈顶，相对地，把另一端称为栈底。向一个栈插入新元素又称作进栈、入栈或压栈，它是把新元素放到栈顶元素的上面，使之成为新的栈顶元素；从一个栈删除元素又称作出栈或退栈，它是把栈顶元素删除掉，使其相邻的元素成为新的栈顶元素。
 ### 队列
@@ -2798,7 +2906,7 @@ var generate = function (numRows) {
 ### 哈希表
 散列表（Hash table，也叫哈希表），是根据关键码值(Key value)而直接进行访问的数据结构。也就是说，它通过把关键码值映射到表中一个位置来访问记录，以加快查找的速度。这个映射函数叫做散列函数，存放记录的数组叫做散列表。
 给定表M，存在函数f(key)，对任意给定的关键字值key，代入函数后若能得到包含该关键字的记录在表中的地址，则称表M为哈希(Hash）表，函数f(key)为哈希(Hash) 函数。
-##### 3. 无重复字符的最长子串
+#### 3. 无重复字符的最长子串
 给定一个字符串，请你找出其中不含有重复字符的 最长子串 的长度。
 
 示例 1:
@@ -2848,7 +2956,7 @@ var lengthOfLongestSubstring = function (s) {
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
-##### 36. 有效的数独
+#### 36. 有效的数独
 判断一个 9x9 的数独是否有效。只需要根据以下规则，验证已经填入的数字是否有效即可。
 
 数字 1-9 在每一行只能出现一次。
@@ -2950,7 +3058,7 @@ var isValidSudoku = function (board) {
 堆(Heap)是计算机科学中一类特殊的数据结构的统称。堆通常是一个可以被看做一棵完全二叉树的数组对象。
 ### 字符串
 字符串主要用于编程，概念说明、函数解释、用法详述见正文，这里补充一点：字符串在存储上类似字符数组，所以它每一位的单个元素都是可以提取的，如s=“abcdefghij”，则s[1]=“b”，s[9]="j"，而字符串的零位正是它的长度，如s[0]=10（※上述功能Ansistring没有。），这可以给我们提供很多方便，如高精度运算时每一位都可以转化为数字存入数组。
-##### 5. 最长回文子串
+#### 5. 最长回文子串
 给定一个字符串 s，找到 s 中最长的回文子串。你可以假设 s 的最大长度为 1000。
 
 示例 1：
@@ -3038,7 +3146,7 @@ var longestPalindrome = function(s) {
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
-##### 6. Z 字形变换
+#### 6. Z 字形变换
 将一个给定字符串根据给定的行数，以从上往下、从左到右进行 Z 字形排列。
 比如输入字符串为 "LEETCODEISHIRING" 行数为 3 时，排列如下：
 ```
@@ -3131,7 +3239,7 @@ console.log(convert('LEETCODEISHIRING',4))
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
-##### 8. 字符串转换整数 (atoi)
+#### 8. 字符串转换整数 (atoi)
 请你来实现一个 atoi 函数，使其能将字符串转换成整数。
 
 首先，该函数会根据需要丢弃无用的开头空格字符，直到寻找到第一个非空格的字符为止。
@@ -3205,7 +3313,7 @@ var myAtoi = function (str) {
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
-##### 10.  正则表达式匹配
+#### 10.  正则表达式匹配
 给你一个字符串 s 和一个字符规律 p，请你来实现一个支持 '.' 和 '*' 的正则表达式匹配。
 ```
 '.' 匹配任意单个字符
@@ -3256,6 +3364,7 @@ s = "mississippi"
 p = "mis*is*p*."
 输出: false
 ```
+
 [正则表达式匹配](https://blog.csdn.net/softwareX4/article/details/90761502)
 [正则表达式匹配](https://www.cnblogs.com/wangshaowei/p/11015383.html)
 
@@ -3299,7 +3408,7 @@ var isMatch = function (s, p) {
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
-##### 14.  最长公共前缀
+#### 14.  最长公共前缀
 编写一个函数来查找字符串数组中的最长公共前缀。
 如果不存在公共前缀，返回空字符串 ""。
 示例 1:
@@ -3407,7 +3516,7 @@ var lengthOfLastWord = function (s) {
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
-##### 17. 电话号码的字母组合
+#### 17. 电话号码的字母组合
 给定一个仅包含数字 2-9 的字符串，返回所有它能表示的字母组合。
 给出数字到字母的映射如下（与电话按键相同）。注意 1 不对应任何字母。
 ![avatar](./picture/17.png)
@@ -3475,7 +3584,7 @@ var letterCombinations = function (digits) {
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
-##### 20. 有效的括号
+#### 20. 有效的括号
 给定一个只包括 '('，')'，'{'，'}'，'['，']' 的字符串，判断字符串是否有效。
 有效字符串需满足：
 1. 左括号必须用相同类型的右括号闭合。
@@ -3543,7 +3652,7 @@ var isValid = function(s) {
 
 ---
 
-##### 22. 括号生成
+#### 22. 括号生成
 给出 n 代表生成括号的对数，请你写出一个函数，使其能够生成所有可能的并且有效的括号组合。
 例如，给出 n = 3，生成结果为：
 ```
@@ -3587,7 +3696,7 @@ var generateParenthesis = function(n) {
 
 ---
 
-##### 28. 实现strStr()
+#### 28. 实现strStr()
 实现 strStr() 函数。
 给定一个 haystack 字符串和一个 needle 字符串，在 haystack 字符串中找出 needle 字符串出现的第一个位置 (从0开始)。如果不存在，则返回  -1。
 示例 1:
@@ -3633,7 +3742,7 @@ var strStr = function (haystack, needle) {
 
 ---
 
-##### 38. 报数
+#### 38. 报数
 报数序列是一个整数序列，按照其中的整数的顺序进行报数，得到下一个数。其前五项如下：
 
 ```js
@@ -3711,7 +3820,7 @@ var countAndSay = function (n) {
 ### 全排列
 从n个不同元素中任取m（m≤n）个元素，按照一定的顺序排列起来，叫做从n个不同元素中取出m个元素的一个排列。当m=n时所有的排列情况叫全排列。
 公式：全排列数f(n)=n!(定义0!=1)
-##### 46. 全排列
+#### 46. 全排列
 给定一个没有重复数字的序列，返回其所有可能的全排列。
 
 示例:
@@ -3778,7 +3887,7 @@ lowbit(a)为2^(a的二进制表示末尾0的个数)。
 几何，就是研究空间结构及性质的一门学科。它是数学中最基本的研究内容之一，与分析、代数等等具有同样重要的地位，并且关系极为密切。几何学发展历史悠长，内容丰富。它和代数、分析、数论等等关系极其密切。几何思想是数学中最重要的一类思想。暂时的数学各分支发展都有几何化趋向，即用几何观点及思想方法去探讨各数学理论。常见定理有勾股定理，欧拉定理，斯图尔特定理等。
 ### 图表
 ### 数学
-##### 7. 整数反转
+#### 7. 整数反转
 给出一个 32 位的有符号整数，你需要将这个整数中每位上的数字进行反转。
 示例 1:
 ```
@@ -3847,7 +3956,7 @@ var reverse = function (x) {
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
-##### 9. 回文数
+#### 9. 回文数
 判断一个整数是否是回文数。回文数是指正序（从左向右）和倒序（从右向左）读都是一样的整数。
 示例 1:
 ```
@@ -3952,7 +4061,7 @@ var isPalindrome = function(x) {
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
-##### 12. 整数转罗马数字
+#### 12. 整数转罗马数字
 罗马数字包含以下七种字符： I， V， X， L，C，D 和 M。
 ```
 字符          数值
@@ -4044,7 +4153,7 @@ var intToRoman = function (num) {
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
-##### 13. 罗马数字转整数
+#### 13. 罗马数字转整数
 罗马数字包含以下七种字符： I， V， X， L，C，D 和 M。
 ```
 字符          数值
@@ -4132,7 +4241,7 @@ var romanToInt = function (s) {
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
-##### 29. 两数相除
+#### 29. 两数相除
 给定两个整数，被除数 dividend 和除数 divisor。将两数相除，要求不使用乘法、除法和 mod 运算符。
 
 返回被除数 dividend 除以除数 divisor 得到的商。
@@ -4273,7 +4382,7 @@ var divide = function (dividend, divisor) {
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
-##### 67. 二进制求和
+#### 67. 二进制求和
 给定两个二进制字符串，返回他们的和（用二进制表示）。
 输入为非空字符串且只包含数字 1 和 0。
 示例 1:
@@ -4374,7 +4483,7 @@ var addBinary = function (a, b) {
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
-##### 69. x 的平方根
+#### 69. x 的平方根
 实现 int sqrt(int x) 函数。
 计算并返回 x 的平方根，其中 x 是非负整数。
 由于返回类型是整数，结果只保留整数的部分，小数部分将被舍去。
