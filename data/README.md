@@ -1636,6 +1636,67 @@ var reverseList = function (head) {
   √ Your memory usage beats 52.52 % of javascript submissions (34.9 MB)
 </pre> 
 
+----- 2021/11/25后续
+
+```js
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var reverseList = function (head) {
+    // /**
+    //  * 1. 双指针
+    //  */
+    // // 首先定义一个cur指针，指向头结点，再定义一个pre指针，初始化为null。
+    // // 然后就要开始反转了，首先要把 cur->next 节点用tmp指针保存一下，也就是保存一下这个节点。
+    // // 为什么要保存一下这个节点呢，因为接下来要改变 cur->next 的指向了，将cur->next 指向pre ，此时已经反转了第一个节点了。
+
+    // // 接下来，就是循环走如下代码逻辑了，继续移动pre和cur指针。
+
+    // // 最后，cur 指针已经指向了null，循环结束，链表也反转完毕了。 此时我们return pre指针就可以了，pre指针就指向了新的头结点。
+    // let current = head,
+    //     pre = null,
+    //     temp = null
+    // while (current) {
+    //     temp = current.next
+    //     current.next = pre
+    //     // 更新pre 和current 指针
+    //     pre = current
+    //     current = temp
+    // }
+    // return pre
+
+    /**
+     * 2. 递归
+     */
+    return reverse(null, head)
+};
+
+var reverse = function (pre, head) {
+    if (!head) return pre
+    let temp = head.next
+    head.next = pre
+    // 更新pre
+    pre = head
+    // 一定要有返回值
+    return reverse(pre, temp)
+}
+```
+```
+28 / 28 个通过测试用例
+状态：通过
+执行用时: 80 ms
+内存消耗: 40 MB
+```
+
+
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
