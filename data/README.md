@@ -1639,6 +1639,178 @@ var reverseList = function (head) {
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
+
+#### 707. 设计链表
+设计链表的实现。您可以选择使用单链表或双链表。单链表中的节点应该具有两个属性：val 和 next。val 是当前节点的值，next 是指向下一个节点的指针/引用。如果要使用双向链表，则还需要一个属性 prev 以指示链表中的上一个节点。假设链表中的所有节点都是 0-index 的。
+
+在链表类中实现这些功能：
+```
+get(index)：获取链表中第 index 个节点的值。如果索引无效，则返回-1。
+addAtHead(val)：在链表的第一个元素之前添加一个值为 val 的节点。插入后，新节点将成为链表的第一个节点。
+addAtTail(val)：将值为 val 的节点追加到链表的最后一个元素。
+addAtIndex(index,val)：在链表中的第 index 个节点之前添加值为 val  的节点。如果 index 等于链表的长度，则该节点将附加到链表的末尾。如果 index 大于链表长度，则不会插入节点。如果index小于0，则在头部插入节点。
+deleteAtIndex(index)：如果索引 index 有效，则删除链表中的第 index 个节点。
+```
+
+示例：
+```js
+MyLinkedList linkedList = new MyLinkedList();
+linkedList.addAtHead(1);
+linkedList.addAtTail(3);
+linkedList.addAtIndex(1,2);   //链表变为1-> 2-> 3
+linkedList.get(1);            //返回2
+linkedList.deleteAtIndex(1);  //现在链表是1-> 3
+linkedList.get(1);            //返回3
+```
+
+提示：
+```
+所有val值都在 [1, 1000] 之内。
+操作次数将在  [1, 1000] 之内。
+请不要使用内置的 LinkedList 库。
+```
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/design-linked-list
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+
+
+```js
+class LinkNode {
+    constructor(val, next) {
+        this.val = val
+        this.next = next
+    }
+}
+var MyLinkedList = function () {
+    this._size = 0
+    this._tail = null
+    this._head = null
+};
+/**
+ * 
+ * @param {*} index 
+ * @returns 
+ */
+MyLinkedList.prototype.getNode = function (index) {
+    if (index < 0 || index >= this._size) return null
+    // 创建虚拟头结点
+    let current = new LinkNode(0, this._head)
+    // 遍历找到该节点并返回
+    while (index-- >= 0) {
+        current = current.next
+    }
+    return current
+}
+/**
+ * 获取到第index个节点数值，如果index是非法数值直接返回-1， 注意index是从0开始的，第0个节点就是头结点 
+ * @param {number} index
+ * @return {number}
+ */
+MyLinkedList.prototype.get = function (index) {
+    if (index < 0 || index >= this._size) return -1
+    // 获取当前节点的值
+    return this.getNode(index).val
+};
+
+/** 
+ * 在链表最前面插入一个节点，插入完成后，新插入的节点为链表的新的头结点
+ * @param {number} val
+ * @return {void}
+ */
+MyLinkedList.prototype.addAtHead = function (val) {
+    let newNode = new LinkNode(val, this._head)
+    this._head = newNode
+    this._size++
+    if (!this._tail) {
+        this._tail = newNode
+    }
+};
+
+/** 
+ * 在链表最后面添加一个节点
+ * @param {number} val
+ * @return {void}
+ */
+MyLinkedList.prototype.addAtTail = function (val) {
+    let newNode = new LinkNode(val, null)
+    this._size++
+    if (this._tail) {
+        this._tail.next = newNode
+        this._tail = newNode
+        return
+    }
+    this._tail = newNode
+    this._head = newNode
+};
+
+/** 
+ * 
+   在第index个节点之前插入一个新节点，例如index为0，那么新插入的节点为链表的新头节点。
+    如果index 等于链表的长度，则说明是新插入的节点为链表的尾结点
+    如果index大于链表的长度，则返回空
+ * @param {number} index 
+ * @param {number} val
+ * @return {void}
+ */
+MyLinkedList.prototype.addAtIndex = function (index, val) {
+    if (index > this._size) return
+    if (index <= 0) {
+        this.addAtHead(val)
+        return
+    }
+    if (index === this._size) {
+        this.addAtTail(val)
+        return
+    }
+    // 获取目标的上一个节点
+    let node = this.getNode(index - 1)
+    node.next = new LinkNode(val, node.next)
+    this._size++
+};
+
+/**
+ * 删除第index个节点，如果index 大于等于链表的长度，直接return，注意index是从0开始的 
+ * @param {number} index
+ * @return {void}
+ */
+MyLinkedList.prototype.deleteAtIndex = function (index) {
+    if (index < 0 || index >= this._size) return
+    if (index === 0) {
+        this._head = this._head.next
+        this._size--
+        return
+    }
+    // 获取目标的上一个节点
+    let node = this.getNode(index - 1)
+    node.next = node.next.next
+    // 尾结点
+    if (index === this._size - 1) {
+        this._tail = node
+    }
+    this._size--
+};
+
+/**
+ * Your MyLinkedList object will be instantiated and called as such:
+ * var obj = new MyLinkedList()
+ * var param_1 = obj.get(index)
+ * obj.addAtHead(val)
+ * obj.addAtTail(val)
+ * obj.addAtIndex(index,val)
+ * obj.deleteAtIndex(index)
+ */
+```
+
+```
+64 / 64 个通过测试用例
+状态：通过
+执行用时: 128 ms
+内存消耗: 45.3 MB
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
 ### 数组
 所谓数组，是有序的元素序列。若将有限个类型相同的变量的集合命名，那么这个名称为数组名。组成数组的各个变量称为数组的分量，也称为数组的元素，有时也称为下标变量。用于区分数组的各个元素的数字编号称为下标。数组是在程序设计中，为了处理方便， 把具有相同类型的若干元素按无序的形式组织起来的一种形式。这些无序排列的同类数据元素的集合称为数组。
 数组是用于储存多个相同类型数据的集合。
