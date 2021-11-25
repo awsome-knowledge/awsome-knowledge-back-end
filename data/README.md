@@ -1353,7 +1353,6 @@ function printListFromTailToHead(head)
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
-#### leetcode
 #### 2. 两数相加
 给出两个 非空 的链表用来表示两个非负的整数。其中，它们各自的位数是按照 逆序 的方式存储的，并且它们的每个节点只能存储 一位 数字。
 
@@ -1492,6 +1491,84 @@ var removeNthFromEnd = function(head, n) {
     return head
 }
 </pre> 
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
+#### 203. 移除链表元素
+给你一个链表的头节点 head 和一个整数 val ，请你删除链表中所有满足 Node.val == val 的节点，并返回 新的头节点 。
+ 
+
+示例 1：
+
+![avatar](./picture/203.jpg)
+
+```js
+输入：head = [1,2,6,3,4,5,6], val = 6
+输出：[1,2,3,4,5]
+```
+示例 2：
+```
+输入：head = [], val = 1
+输出：[]
+```
+示例 3：
+```
+输入：head = [7,7,7,7], val = 7
+输出：[]
+```
+
+提示：
+```
+列表中的节点数目在范围 [0, 104] 内
+1 <= Node.val <= 50
+0 <= val <= 50
+```
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/remove-linked-list-elements
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+
+```js
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @param {number} val
+ * @return {ListNode}
+ */
+var removeElements = function (head, val) {
+    // 这里就涉及如下链表操作的两种方式：
+
+    // 1. 直接使用原来的链表来进行删除操作。
+    // 2. 设置一个虚拟头结点在进行删除操作。
+    // 不用手动管理内存
+    let newList = new ListNode(0, head)
+    let current = newList
+    // 遍历链表，current 表示当前节点
+    while (current.next) {
+        if (current.next.val === val) {
+            current.next = current.next.next
+            continue
+        }
+        current = current.next
+
+    }
+    // 最后返回的应该是新链表
+    return newList.next
+};
+```
+```
+66 / 66 个通过测试用例
+状态：通过
+执行用时: 92 ms
+内存消耗: 42.6 MB
+```
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
