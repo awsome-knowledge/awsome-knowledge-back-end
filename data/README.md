@@ -3468,6 +3468,64 @@ var isValidSudoku = function (board) {
 堆(Heap)是计算机科学中一类特殊的数据结构的统称。堆通常是一个可以被看做一棵完全二叉树的数组对象。
 ### 字符串
 字符串主要用于编程，概念说明、函数解释、用法详述见正文，这里补充一点：字符串在存储上类似字符数组，所以它每一位的单个元素都是可以提取的，如s=“abcdefghij”，则s[1]=“b”，s[9]="j"，而字符串的零位正是它的长度，如s[0]=10（※上述功能Ansistring没有。），这可以给我们提供很多方便，如高精度运算时每一位都可以转化为数字存入数组。
+#### 5. 剑指Offer 05.替换空格
+[力扣题目链接(opens new window)](https://leetcode-cn.com/problems/ti-huan-kong-ge-lcof/)
+
+请实现一个函数，把字符串 s 中的每个空格替换成"%20"。
+
+示例 1： 
+```js
+输入：s = "We are happy."
+输出："We%20are%20happy."
+```
+
+```js
+/**
+ * 题目： 剑指Offer 05. 替换空格
+力扣题目链接(opens new window)
+请实现一个函数， 把字符串 s 中的每个空格替换成 "%20"。
+示例 1： 输入： s = "We are happy."
+输出： "We%20are%20happy."
+ */
+letrepaceSpace = function (s) {
+    /**
+     * 双指针
+     * 1. 先计算字符串中空格的个数
+     * 2. 创造一个新数组，长度是原来字符串长度加空格转化后的长度
+     * 3. 快慢指针循环，查找空格替换符号
+     * 从后向前遍历时间复杂度为0(N),否则为O(N^2)
+     */
+    // let arr = Array.from(s) 等同于
+    letarr = s.split('')
+    letcount = 0
+    arr.forEach(element=> {
+        element === ' ' ? count += 2 : ''
+    });
+    letlen = arr.length
+    letnewArr = newArray(len + count)
+    letleft = len
+    letright = newArr.length
+    while (--left >= 0) {
+        if (arr[left] === ' ') {
+            newArr[right] = "0"
+            newArr[right - 1] = "2"
+            newArr[right - 2] = "%"
+            // tip:指针一定要往前3步，毕竟这三步已经替换了
+            right -= 3
+        } else {
+            newArr[right] = arr[left]
+            right--
+        }
+    }
+    returnnewArr.join('')
+}
+console.log(repaceSpace("We are happy."))
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
 #### 5. 最长回文子串
 给定一个字符串 s，找到 s 中最长的回文子串。你可以假设 s 的最大长度为 1000。
 
