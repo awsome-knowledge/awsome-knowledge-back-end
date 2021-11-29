@@ -3315,7 +3315,115 @@ var search = function (nums, target) {
 队列是一种特殊的线性表，特殊之处在于它只允许在表的前端（front）进行删除操作，而在表的后端（rear）进行插入操作，和栈一样，队列是一种操作受限制的线性表。进行插入操作的端称为队尾，进行删除操作的端称为队头。
 ### 哈希表
 散列表（Hash table，也叫哈希表），是根据关键码值(Key value)而直接进行访问的数据结构。也就是说，它通过把关键码值映射到表中一个位置来访问记录，以加快查找的速度。这个映射函数叫做散列函数，存放记录的数组叫做散列表。
+
 给定表M，存在函数f(key)，对任意给定的关键字值key，代入函数后若能得到包含该关键字的记录在表中的地址，则称表M为哈希(Hash）表，函数f(key)为哈希(Hash) 函数。
+#### 242. 有效的字母异位词
+给定两个字符串 s 和 t ，编写一个函数来判断 t 是否是 s 的字母异位词。
+
+注意：若 s 和 t 中每个字符出现的次数都相同，则称 s 和 t 互为字母异位词。
+
+示例 1:
+```
+输入: s = "anagram", t = "nagaram"
+输出: true
+```
+示例 2:
+```
+输入: s = "rat", t = "car"
+输出: false
+```
+
+提示:
+```
+1 <= s.length, t.length <= 5 * 104
+s 和 t 仅包含小写字母
+``` 
+
+进阶: 如果输入字符串包含 unicode 字符怎么办？你能否调整你的解法来应对这种情况？
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/valid-anagram
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+
+```js
+/**
+ * @param {string} s
+ * @param {string} t
+ * @return {boolean}
+ */
+var isAnagram = function (s, t) {
+    /**
+     * 哈希表解决
+     */
+    // 定义一个数组叫做record用来上记录字符串s里字符出现的次数。
+
+    // 需要把字符映射到数组也就是哈希表的索引下表上， 因为字符a到字符z的ASCII是26个连续的数值， 所以字符a映射为下表0， 相应的字符z映射为下表25。
+
+    // 再遍历 字符串s的时候， 只需要将 s[i] - ‘a’ 所在的元素做 + 1 操作即可， 并不需要记住字符a的ASCII， 只要求出一个相对数值就可以了。 这样就将字符串s中字符出现的次数， 统计出来了。
+
+    // 那看一下如何检查字符串t中是否出现了这些字符， 同样在遍历字符串t的时候， 对t中出现的字符映射哈希表索引上的数值再做 - 1 的操作。
+
+    // 那么最后检查一下， record数组如果有的元素不为零0， 说明字符串s和t一定是谁多了字符或者谁少了字符，
+    // return false。
+
+    // 最后如果record数组所有元素都为零0， 说明字符串s和t是字母异位词，
+    // return true。
+
+    // charCodeAt()Returns the Unicode value of the character at the specified location.
+    if (s.length !== t.length) return false
+    const set = new Array(26).fill(0)
+    const base = "a".charCodeAt()
+    for (let i of s) {
+        set[i.charCodeAt() - base]++
+    }
+    for (let i of t) {
+        // 如果在集合中没有找到或者找到为0,那么就不是字母异位词
+        if (!set[i.charCodeAt() - base]) return false
+        set[i.charCodeAt() - base]--
+    }
+    return true
+};
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
+#### 3. 无重复字符的最长子串
+
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
+#### 3. 无重复字符的最长子串
+
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
+#### 3. 无重复字符的最长子串
+
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
+#### 3. 无重复字符的最长子串
+
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
+#### 3. 无重复字符的最长子串
+
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
 #### 3. 无重复字符的最长子串
 给定一个字符串，请你找出其中不含有重复字符的 最长子串 的长度。
 
