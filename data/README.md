@@ -4728,6 +4728,280 @@ var countAndSay = function (n) {
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
+#### 344. 反转字符串
+编写一个函数，其作用是将输入的字符串反转过来。输入字符串以字符数组 s 的形式给出。
+
+不要给另外的数组分配额外的空间，你必须原地修改输入数组、使用 O(1) 的额外空间解决这一问题。
+
+ 
+
+示例 1：
+```
+输入：s = ["h","e","l","l","o"]
+输出：["o","l","l","e","h"]
+```
+示例 2：
+```
+输入：s = ["H","a","n","n","a","h"]
+输出：["h","a","n","n","a","H"]
+``` 
+
+提示：
+```
+1 <= s.length <= 105
+s[i] 都是 ASCII 码表中的可打印字符
+```
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/reverse-string
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+
+```js
+/**
+ * @param {character[]} s
+ * @return {void} Do not return anything, modify s in-place instead.
+ */
+var reverseString = function (s) {
+    // 切记不可以调用 js 库 数组 函数 reverse()
+    /**
+     * 双指针
+     */
+    // 不知道为啥总是报错
+    // for (let i = 0, j = s.length - 1; i <= Math.floor(s.length / 2); i++, j--) {
+    //     let tmp = s[j]
+    //     s[j] = s[i]
+    //     s[i] = tmp
+    // }
+    // return s
+
+    let left = -1,
+        right = s.length
+    while (++left < --right) {
+        let tmp = s[left]
+        s[left] = s[right]
+        s[right] = tmp
+    }
+    return s
+};
+
+console.log(reverseString(["A", " ", "m", "a", "n", ",", " ", "a", " ", "p", "l", "a", "n", ",", " ", "a", " ", "c", "a", "n", "a", "l", ":", " ", "P", "a", "n", "a", "m", "a"]))
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+#### 541. 反转字符串 II
+给定一个字符串 s 和一个整数 k，从字符串开头算起，每计数至 2k 个字符，就反转这 2k 字符中的前 k 个字符。
+```
+如果剩余字符少于 k 个，则将剩余字符全部反转。
+如果剩余字符小于 2k 但大于或等于 k 个，则反转前 k 个字符，其余字符保持原样。
+```
+
+示例 1：
+```js
+输入：s = "abcdefg", k = 2
+输出："bacdfeg"
+```
+示例 2：
+```js
+输入：s = "abcd", k = 2
+输出："bacd"
+``` 
+
+提示：
+```
+1 <= s.length <= 104
+s 仅由小写英文组成
+1 <= k <= 104
+```
+
+```js
+/**
+ * @param {string} s
+ * @param {number} k
+ * @return {string}
+ */
+var reverseStr = function (s, k) {
+    /**
+     * 
+     * 1.for循环步长为2k（跨过2k去反转k个字符）
+     * 2.运用双指针反转字符串1
+     */
+    s = s.split('')
+    let len = s.length
+    for (let i = 0; i < len; i += 2 * k) {
+        let left = i,
+            right = i + k - 1
+        while (left < right) {
+            let temp = s[left]
+            s[left] = s[right]
+            s[right] = temp
+            // tip:转换完后 一个递增 一个递减
+            left++
+            right--
+        }
+    }
+    return s.join('')
+};
+```
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/reverse-string-ii
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+```js
+/**
+ * @param {character[]} s
+ * @return {void} Do not return anything, modify s in-place instead.
+ */
+var reverseString = function (s) {
+    // 切记不可以调用 js 库 数组 函数 reverse()
+    /**
+     * 双指针
+     */
+    // 不知道为啥总是报错
+    // for (let i = 0, j = s.length - 1; i <= Math.floor(s.length / 2); i++, j--) {
+    //     let tmp = s[j]
+    //     s[j] = s[i]
+    //     s[i] = tmp
+    // }
+    // return s
+
+    let left = -1,
+        right = s.length
+    while (++left < --right) {
+        let tmp = s[left]
+        s[left] = s[right]
+        s[right] = tmp
+    }
+    return s
+};
+
+console.log(reverseString(["A", " ", "m", "a", "n", ",", " ", "a", " ", "p", "l", "a", "n", ",", " ", "a", " ", "c", "a", "n", "a", "l", ":", " ", "P", "a", "n", "a", "m", "a"]))
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+#### 151. 翻转字符串里的单词
+给你一个字符串 s ，逐个翻转字符串中的所有 单词 。
+
+单词 是由非空格字符组成的字符串。s 中使用至少一个空格将字符串中的 单词 分隔开。
+
+请你返回一个翻转 s 中单词顺序并用单个空格相连的字符串。
+
+说明：
+```
+输入字符串 s 可以在前面、后面或者单词间包含多余的空格。
+翻转后单词间应当仅用一个空格分隔。
+翻转后的字符串中不应包含额外的空格。
+``` 
+
+示例 1：
+```
+输入：s = "the sky is blue"
+输出："blue is sky the"
+```
+示例 2：
+```
+输入：s = "  hello world  "
+输出："world hello"
+解释：输入字符串可以在前面或者后面包含多余的空格，但是翻转后的字符不能包括。
+```
+示例 3：
+```
+输入：s = "a good   example"
+输出："example good a"
+解释：如果两个单词间有多余的空格，将翻转后单词间的空格减少到只含一个。
+```
+示例 4：
+```
+输入：s = "  Bob    Loves  Alice   "
+输出："Alice Loves Bob"
+```
+示例 5：
+```
+输入：s = "Alice does not even like bob"
+输出："bob like even not does Alice"
+``` 
+
+提示：
+```
+1 <= s.length <= 104
+s 包含英文大小写字母、数字和空格 ' '
+s 中 至少存在一个 单词
+``` 
+
+进阶：
+```
+请尝试使用 O(1) 额外空间复杂度的原地解法。
+```
+
+```js
+/**
+ * @param {string} s
+ * @return {string}
+ */
+var reverseWords = function (s) {
+    /**
+     * 双指针求解
+     * 1. 去除多余空格
+     * 2. 翻转字符串
+     * 3. 翻转单词
+     */
+    let arr = s.split('')
+    // len = arr.length
+    removeSpace(arr)
+    // tip 不能使用 len，会缓存
+    reverse(arr, 0, arr.length - 1)
+    let start = 0
+    for (let i = 0; i <= arr.length; i++) {
+        // 是否是单词的标识,空格前后是单词
+        if (arr[i] === " " || i === arr.length) {
+            // 翻转长度的末尾是当前索引长度减一
+            reverse(arr, start, i - 1)
+            start = i + 1
+        }
+    }
+    return arr.join('')
+};
+var reverse = function (arr, start, end) {
+    let left = start
+    let right = end
+    while (left < right) {
+        // [0,1]=[1,0]
+        [arr[left], arr[right]] = [arr[right], arr[left]]
+        left++
+        right--
+    }
+}
+var removeSpace = function (arr) {
+    let slow = 0,
+        fast = 0,
+        len = arr.length
+    while (fast < len) {
+        // 1.当前为空，并且前面值为空
+        // 2.当前为空，并且是第一个值
+        if (arr[fast] === ' ' && (fast === 0 || arr[fast - 1] === ' ')) {
+            // 越过当前值
+            fast++
+        } else {
+            // 赋值，往后走
+            arr[slow] = arr[fast]
+            slow++
+            fast++
+        }
+    }
+    // 慢指针判断末尾空格 慢指针是有效数值
+    arr.length = arr[slow - 1] === ' ' ? slow - 1 : slow
+}
+console.log(reverseWords("  like bob"))
+```
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/reverse-words-in-a-string
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
 ### 全排列
 从n个不同元素中任取m（m≤n）个元素，按照一定的顺序排列起来，叫做从n个不同元素中取出m个元素的一个排列。当m=n时所有的排列情况叫全排列。
 公式：全排列数f(n)=n!(定义0!=1)
