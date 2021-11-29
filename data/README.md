@@ -3589,22 +3589,171 @@ function getSum(n) {
 
 ---
 
-#### 3. 无重复字符的最长子串
+#### 454. 四数相加 II
+给你四个整数数组 nums1、nums2、nums3 和 nums4 ，数组长度都是 n ，请你计算有多少个元组 (i, j, k, l) 能满足：
+```
+0 <= i, j, k, l < n
+nums1[i] + nums2[j] + nums3[k] + nums4[l] == 0
+```
 
+示例 1：
+```
+输入：nums1 = [1,2], nums2 = [-2,-1], nums3 = [-1,2], nums4 = [0,2]
+输出：2
+解释：
+两个元组如下：
+1. (0, 0, 0, 1) -> nums1[0] + nums2[0] + nums3[0] + nums4[1] = 1 + (-2) + (-1) + 2 = 0
+2. (1, 1, 0, 0) -> nums1[1] + nums2[1] + nums3[0] + nums4[0] = 2 + (-1) + (-1) + 0 = 0
+```
+示例 2：
+```
+输入：nums1 = [0], nums2 = [0], nums3 = [0], nums4 = [0]
+输出：1
+```
+
+  提示：
+```
+n == nums1.length
+n == nums2.length
+n == nums3.length
+n == nums4.length
+1 <= n <= 200
+-228 <= nums1[i], nums2[i], nums3[i], nums4[i] <= 228
+```
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/4sum-ii
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+
+```js
+/**
+ * @param {number[]} nums1
+ * @param {number[]} nums2
+ * @param {number[]} nums3
+ * @param {number[]} nums4
+ * @return {number}
+ */
+var fourSumCount = function (nums1, nums2, nums3, nums4) {
+    /**
+     * 哈希表求解
+     * 使用map
+     */
+    // 本题解题步骤：
+
+    // 首先定义 一个map， key放a和b两数之和， value 放a和b两数之和出现的次数。
+    // 遍历大A和大B数组， 统计两个数组元素之和， 和出现的次数， 放到map中。
+    // 定义int变量count， 用来统计a + b + c + d = 0 出现的次数。
+    // 在遍历大C和大D数组， 找到如果 0 - (c + d) 在map中出现过的话， 就用count把map中key对应的value也就是出现次数统计出来。
+    // 最后返回统计值 count 就可以了
+    let map = new Map()
+    for (let i of nums1) {
+        for (let j of nums2) {
+            let sum = i + j
+            // 查找到了就加一，没有默认是1
+            map.set(sum, map.has(sum) ? map.get(sum) + 1 : 1)
+        }
+    }
+    let count = 0
+    for (let i of nums3) {
+        for (let j of nums4) {
+            if (map.has(0 - (i + j))) {
+                count += map.get(0 - (i + j))
+            }
+        }
+    }
+    return count
+};
+```
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
 
-#### 3. 无重复字符的最长子串
+#### 383. 赎金信
+为了不在赎金信中暴露字迹，从杂志上搜索各个需要的字母，组成单词来表达意思。
+
+给你一个赎金信 (ransomNote) 字符串和一个杂志(magazine)字符串，判断 ransomNote 能不能由 magazines 里面的字符构成。
+
+如果可以构成，返回 true ；否则返回 false 。
+
+magazine 中的每个字符只能在 ransomNote 中使用一次。
+
+ 
+
+示例 1：
+```js
+输入：ransomNote = "a", magazine = "b"
+输出：false
+```
+示例 2：
+```js
+输入：ransomNote = "aa", magazine = "ab"
+输出：false
+```
+示例 3：
+```js
+输入：ransomNote = "aa", magazine = "aab"
+输出：true
+```
+
+提示：
+```
+1 <= ransomNote.length, magazine.length <= 105
+ransomNote 和 magazine 由小写英文字母组成
+```
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/ransom-note
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+
+```js
+/**
+ * @param {string} ransomNote
+ * @param {string} magazine
+ * @return {boolean}
+ */
+var canConstruct = function (ransomNote, magazine) {
+    /**
+     * 1. 暴力求解
+     * 双层循环
+     */
+    // 杂志要在前循环遍历，赎金信在后
+    // for (let i = 0; i < magazine.length; i++) {
+    //     for (let j = 0; j < ransomNote.length; j++) {
+    //         if (ransomNote[j] === magazine[i]) {
+    //             if (ransomNote.length === 1) {
+    //                 ransomNote = ''
+    //             }
+    //             ransomNote = ransomNote. substring(0, j) + ransomNote.substring(j + 1, ransomNote.length)
+    //             break
+    //         }
+    //     }
+    // }
+    // if (ransomNote.length === 0) {
+    //     return true
+    // }
+    // return false
 
 
-[[↑] 回到顶部](#awsome-knowledge-back-end)
-
----
-
-#### 3. 无重复字符的最长子串
-
+    /**
+     * 2. 哈希表求值
+     * 使用 数组
+     */
+    // 26个字母
+    let arr = new Array(26).fill(0)
+    let base = "a".charCodeAt()
+    for (let i of magazine) {
+        // 将字母编码作为键，出现次数作为值    
+        arr[i.charCodeAt() - base]++
+    }
+    for (let i of ransomNote) {
+        arr[i.charCodeAt() - base]--
+        if (arr[i.charCodeAt() - base] < 0) {
+            return false
+        }
+    }
+    return true
+};
+```
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
