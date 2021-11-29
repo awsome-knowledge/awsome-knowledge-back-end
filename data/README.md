@@ -1877,21 +1877,47 @@ MyLinkedList.prototype.deleteAtIndex = function (index) {
 数组是用于储存多个相同类型数据的集合。
 #### 100万个成员的数组取第一个和最后一个是否有性能差距
 答案显然是没有,因为数组是一块线性连续的内存,我们可以通过寻址公式一步取出对应的成员,这跟成员的位置没有关系.
-#### 1. 两数之和（字节跳动）
-给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。
+#### 1. 两数之和
+给定一个整数数组 nums 和一个整数目标值 target，请你在该数组中找出 和为目标值 target  的那 两个 整数，并返回它们的数组下标。
 
-你可以假设每种输入只会对应一个答案。但是，你不能重复利用这个数组中同样的元素。
+你可以假设每种输入只会对应一个答案。但是，数组中同一个元素在答案里不能重复出现。
 
-示例:
+你可以按任意顺序返回答案。
 
-给定 nums = [2, 7, 11, 15], target = 9
+ 
 
-因为 nums[0] + nums[1] = 2 + 7 = 9
-所以返回 [0, 1]
+示例 1：
+```
+输入：nums = [2,7,11,15], target = 9
+输出：[0,1]
+解释：因为 nums[0] + nums[1] == 9 ，返回 [0, 1] 。
+```
+示例 2：
+```
+输入：nums = [3,2,4], target = 6
+输出：[1,2]
+```
+示例 3：
+```
+输入：nums = [3,3], target = 6
+输出：[0,1]
+``` 
 
+提示：
+```
+2 <= nums.length <= 104
+-109 <= nums[i] <= 109
+-109 <= target <= 109
+只会存在一个有效答案
+```
+进阶：你可以想出一个时间复杂度小于 O(n2) 的算法吗？
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/two-sum
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 
 我的思路很简单，先给一个空对象，再遍历数组中的每一个数字，让目标值和每个值做差，然后判断对象中是否有差，如果有则返回对象的该差的value和i，没有则将该下标对应的值和该下标作为key和value塞进对象中
-<pre> 
+```js
 /**
  * @param {number[]} nums
  * @param {number} target
@@ -1908,10 +1934,38 @@ var twoSum = function (nums, target) {
         map[nums[i]] = i
     }
 };
-</pre> 
+```
+方法二：哈希表求解
 
-冒泡排序的方式
-<pre>
+```js
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number[]}
+ */
+var twoSum = function (nums, target) {
+    /**
+     * 哈希表求解(array、set、map)
+     * 这里采用 map，值作为键，索引所谓值
+     * set无序，array存储太大不合适
+     */
+    let map = new Map()
+    for (let i = 0; i < nums.length; i++) {
+        if (map.has(nums[i])) {
+            return [i, map.get(nums[i])]
+        }
+        map.set(target - nums[i], i)
+    }
+    return []
+};
+```
+
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+#### 冒泡排序的方式
+```js
 function getNum(arr, sum) {
     if (!Array.isArray(arr)) return null;
 
@@ -1927,11 +1981,11 @@ function getNum(arr, sum) {
 
     return null;
 }
-</pre>
-查找的方式
+```
+#### 查找的方式
 
 最终的结果是要找到和为sum的两个数，那么我们可以转换一种思路：默认第一个num1数已经存在，那么第二个数就是sum - num1，这就转换为从数组中查找的问题了。虽然和第一种方法很像，但是在有序数列中进行查找明显要快于逐个比较。
-<pre>
+```js
 function getNum(arr, sum) {
     if (!Array.isArray(arr)) return null;
 
@@ -1948,12 +2002,12 @@ function getNum(arr, sum) {
 
     return null;
 }
-</pre>
+```
 这种解法的前提是需要对数组进行排序（快排），故时间复杂度为O(nlogn)，二分查找的时间复杂度为O(log2n)，最坏的情况是遍历了整个数组，即时间复杂度为O(n)，那么整体的时间复杂度为O(nlog2n)，效果上要优于冒泡排序的方式。
 
-- 快排方式
+#### - 快排方式
 同样需要对数组进行排序（升序），我们知道排序后的数组必然是左边的数不会超过右边的数，因此我们可以把左边的数和右边的数的和作为基准值来和目标值比较，如果该值小于目标值，那么代表两个加数的值不够大，右边的值已经到达顶峰了，那么就从左边取下一个值相加和目标值比较，如果该值比目标值大，那么表示右边的值太大了，需要获取一个小一点的加数，这时需要从右边取倒数第二个数相加后比较，如果此时的值和目标值相等，恭喜你，我的小乖乖，原来你俩在这里！说了这么多感觉还是一头雾水的同学直接看代码吧，毕竟我们都是同一类猿:-)
-<pre>
+```js
 function getNum(arr, sum) {
     if (!Array.isArray(arr)) return null;
 
@@ -1969,7 +2023,7 @@ function getNum(arr, sum) {
 
     return null;
 }
-</pre>
+```
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
@@ -3389,15 +3443,147 @@ var isAnagram = function (s, t) {
 
 ---
 
-#### 3. 无重复字符的最长子串
+#### 349. 两个数组的交集
+给定两个数组，编写一个函数来计算它们的交集。
+
+示例 1：
+```js
+输入：nums1 = [1,2,2,1], nums2 = [2,2]
+输出：[2]
+```
+示例 2：
+```js
+输入：nums1 = [4,9,5], nums2 = [9,4,9,8,4]
+输出：[9,4]
+```
+
+说明：
+```
+输出结果中的每个元素一定是唯一的。
+我们可以不考虑输出结果的顺序。
+```
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/intersection-of-two-arrays
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+
+```js
+/**
+ * @param {number[]} nums1
+ * @param {number[]} nums2
+ * @return {number[]}
+ */
+var intersection = function (nums1, nums2) {
+    // 但是要注意， 使用数组来做哈希的题目， 是因为题目都限制了数值的大小。
+
+    // 而这道题目没有限制数值的大小， 就无法使用数组来做哈希表了。
+
+    // 而且如果哈希值比较少、 特别分散、 跨度非常大， 使用数组就造成空间的极大浪费。
+
+    // 此时就要使用另一种结构体了， set
+
+    // Array.from ()函数的用法. ES6为Array增加了from函数用来将其他对象转换成数组。
+    if(nums1.length < nums2.length) {
+        let tmp = nums2
+        nums2 = nums1
+        nums1 = tmp
+    }
+    let setNums1 = new Set(nums1)
+    let setNew = new Set()
+    for (let i = 0; i < nums2.length; i++) {
+        setNums1.has(nums2[i]) && setNew.add(nums2[i])
+    }
+    return Array.from(setNew)
+};
+```
+```
+55 / 55 个通过测试用例
+状态：通过
+执行用时: 68 ms
+内存消耗: 39.3 MB
+```
 
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
 
-#### 3. 无重复字符的最长子串
+#### 202. 快乐数
+编写一个算法来判断一个数 n 是不是快乐数。
 
+「快乐数」定义为：
+```
+1. 对于一个正整数，每一次将该数替换为它每个位置上的数字的平方和。
+2. 然后重复这个过程直到这个数变为 1，也可能是 无限循环 但始终变不到 1。
+3. 如果 可以变为  1，那么这个数就是快乐数。
+```
+如果 n 是快乐数就返回 true ；不是，则返回 false 。
+
+ 
+
+示例 1：
+```
+输入：n = 19
+输出：true
+解释：
+12 + 92 = 82
+82 + 22 = 68
+62 + 82 = 100
+12 + 02 + 02 = 1
+```
+示例 2：
+```
+输入：n = 2
+输出：false
+```
+
+提示：
+```
+1 <= n <= 231 - 1
+```
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/happy-number
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+
+```js
+/**
+ * @param {number} n
+ * @return {boolean}
+ */
+var isHappy = function (n) {
+    /**
+     * 哈希表求解（array、set、map）
+     */
+    // 当我们遇到了要快速判断一个元素是否出现集合里的时候， 就要考虑哈希法了。
+
+    // 所以这道题目使用哈希法， 来判断这个sum是否重复出现， 如果重复了就是return false， 否则一直找到sum为1为止。
+
+    // 判断sum是否重复出现就可以使用set
+
+    // 还有一个难点就是求和的过程，如果对取数值各个位上的单数操作不熟悉的话，做这道题也会比较艰难。
+    let set = new Set()
+    // 循环查找 sum
+    while (true) {
+        let sum = getSum(n)
+        if (sum === 1) return true
+        if (set.has(sum)) {
+            return false
+        } else {
+            set.add(sum)
+        }
+        n = sum
+    }
+};
+// 获取数字每个位置上的值的平方和
+function getSum(n) {
+    let sum = 0
+    // 遍历
+    while (n) {
+        sum += Math.pow((n % 10), 2)
+        n = Math.floor(n / 10)
+    }
+    return sum
+}
+```
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
