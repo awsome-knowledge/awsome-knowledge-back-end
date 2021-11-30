@@ -3360,11 +3360,130 @@ var search = function (nums, target) {
 执行用时: 100 ms
 内存消耗: 41.1 MB
 ```
+
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
 ### 栈
 栈（stack）又名堆栈，它是一种运算受限的线性表。限定仅在表尾进行插入和删除操作的线性表。这一端被称为栈顶，相对地，把另一端称为栈底。向一个栈插入新元素又称作进栈、入栈或压栈，它是把新元素放到栈顶元素的上面，使之成为新的栈顶元素；从一个栈删除元素又称作出栈或退栈，它是把栈顶元素删除掉，使其相邻的元素成为新的栈顶元素。
+#### 150. 逆波兰表达式求值
+根据 逆波兰表示法，求表达式的值。
+
+有效的算符包括 +、-、*、/ 。每个运算对象可以是整数，也可以是另一个逆波兰表达式。
+
+ 
+
+说明：
+```
+整数除法只保留整数部分。
+给定逆波兰表达式总是有效的。换句话说，表达式总会得出有效数值且不存在除数为 0 的情况。
+``` 
+
+示例 1：
+```
+输入：tokens = ["2","1","+","3","*"]
+输出：9
+解释：该算式转化为常见的中缀算术表达式为：((2 + 1) * 3) = 9
+```
+示例 2：
+```
+输入：tokens = ["4","13","5","/","+"]
+输出：6
+解释：该算式转化为常见的中缀算术表达式为：(4 + (13 / 5)) = 6
+```
+示例 3：
+```
+输入：tokens = ["10","6","9","3","+","-11","*","/","*","17","+","5","+"]
+输出：22
+解释：
+该算式转化为常见的中缀算术表达式为：
+  ((10 * (6 / ((9 + 3) * -11))) + 17) + 5
+= ((10 * (6 / (12 * -11))) + 17) + 5
+= ((10 * (6 / -132)) + 17) + 5
+= ((10 * 0) + 17) + 5
+= (0 + 17) + 5
+= 17 + 5
+= 22
+```
+
+提示：
+```
+1 <= tokens.length <= 104
+tokens[i] 要么是一个算符（"+"、"-"、"*" 或 "/"），要么是一个在范围 [-200, 200] 内的整数
+``` 
+
+逆波兰表达式：
+```
+逆波兰表达式是一种后缀表达式，所谓后缀就是指算符写在后面。
+
+平常使用的算式则是一种中缀表达式，如 ( 1 + 2 ) * ( 3 + 4 ) 。
+该算式的逆波兰表达式写法为 ( ( 1 2 + ) ( 3 4 + ) * ) 。
+逆波兰表达式主要有以下两个优点：
+
+去掉括号后表达式无歧义，上式即便写成 1 2 + 3 4 + * 也可以依据次序计算出正确结果。
+适合用栈操作运算：遇到数字则入栈；遇到算符则取出栈顶两个数字进行计算，并将结果压入栈中。
+```
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/evaluate-reverse-polish-notation
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+
+```js
+/**
+ * @param {string[]} tokens
+ * @return {number}
+ */
+var evalRPN = function (tokens) {
+    // 进行map存储运算符和函数，运用高阶函数求值
+    /**
+     * 无法理解下面这段代码到底哪里有问题
+     */
+    // let stack = []
+    // const map = new Map([
+    //     ["+", (a, b) =>
+    //         a + b
+    //     ],
+    //     ["-", (a, b) =>
+    //         a - b
+    //     ],
+    //     ["*", (a, b) =>
+    //         a * b
+    //     ],
+    //     ["/", (a, b) =>
+    //         Math.floor(a / b)
+    //     ]
+    // ])
+    // for (let t of tokens) {
+    //     if (!map.has(t)) {
+    //         stack.push(t)
+    //         continue
+    //     }
+    //     stack.push(map.get(t)(Number(stack.pop()), Number(stack.pop())))
+    // }
+    // return stack.pop()
+
+    
+    const s = new Map([
+        ["+", (a, b) => a * 1  + b * 1],
+        ["-", (a, b) => b - a],
+        ["*", (a, b) => b * a],
+        ["/", (a, b) => (b / a) | 0]
+    ]);
+    const stack = [];
+    for (const i of tokens) {
+        if(!s.has(i)) {
+            stack.push(i);
+            continue;
+        }
+        stack.push(s.get(i)(stack.pop(),stack.pop()))
+    }
+    return stack.pop();
+};
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
 #### 225. 用队列实现栈
 请你仅使用两个队列实现一个后入先出（LIFO）的栈，并支持普通栈的全部四种操作（push、top、pop 和 empty）。
 
@@ -3463,6 +3582,58 @@ MyStack.prototype.empty = function () {
  * var param_4 = obj.empty()
  */
 ```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
+#### 1047. 删除字符串中的所有相邻重复项
+给出由小写字母组成的字符串 S，重复项删除操作会选择两个相邻且相同的字母，并删除它们。
+
+在 S 上反复执行重复项删除操作，直到无法继续删除。
+
+在完成所有重复项删除操作后返回最终的字符串。答案保证唯一。
+
+ 
+
+示例：
+```
+输入："abbaca"
+输出："ca"
+解释：
+例如，在 "abbaca" 中，我们可以删除 "bb" 由于两字母相邻且相同，这是此时唯一可以执行删除操作的重复项。之后我们得到字符串 "aaca"，其中又只有 "aa" 可以执行重复项删除操作，所以最后的字符串为 "ca"。
+```
+
+提示：
+```
+1 <= S.length <= 20000
+S 仅由小写英文字母组成。
+```
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/remove-all-adjacent-duplicates-in-string
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+
+```js
+/**
+ * @param {string} s
+ * @return {string}
+ */
+var removeDuplicates = function (s) {
+    let stack = [],
+        x = null
+    for (let num of s) {
+        // 如果出栈的数等于num，那就正常出栈，否则不能出栈，该num也得入栈
+        if (stack.length && num === (x = stack.pop())) continue
+        stack.push(x)
+        stack.push(num)
+    }
+    return stack.join('')
+};
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
 ### 队列
 队列是一种特殊的线性表，特殊之处在于它只允许在表的前端（front）进行删除操作，而在表的后端（rear）进行插入操作，和栈一样，队列是一种操作受限制的线性表。进行插入操作的端称为队尾，进行删除操作的端称为队头。
 
@@ -3577,6 +3748,10 @@ MyQueue.prototype.empty = function () {
  * var param_4 = obj.empty()
  */
 ```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
 ### 哈希表
 散列表（Hash table，也叫哈希表），是根据关键码值(Key value)而直接进行访问的数据结构。也就是说，它通过把关键码值映射到表中一个位置来访问记录，以加快查找的速度。这个映射函数叫做散列函数，存放记录的数组叫做散列表。
 
@@ -4742,8 +4917,7 @@ var letterCombinations = function (digits) {
 5. 否则将i塞进tmp中
 6. 最后判断tmp的长度，等于0则为有效括号，返回true
 7. 如果是有效括号，那么前面push进去的，后面都能消掉。这就是这个算法的神奇之处。
-
-<pre> 
+```js
 /*
  * @lc app=leetcode.cn id=20 lang=javascript
  *
@@ -4765,8 +4939,58 @@ var isValid = function(s) {
     return tmp.length===0
 };
 
-</pre> 
+```
 
+> tip:2021-11-30更新
+
+```js
+/**
+ * @param {string} s
+ * @return {boolean}
+ */
+var isValid = function (s) {
+    // /**
+    //  * 典型的栈问题 switch求解
+    //  */
+    // let stack = []
+    // for (let num of s) {
+    //     switch (num) {
+    //         case '(':
+    //             stack.push(')')
+    //             break
+
+    //         case '[':
+    //             stack.push(']')
+    //             break
+
+    //         case '{':
+    //             stack.push('}')
+    //             break
+    //         default:
+    //             if (stack.pop() !== num) return false
+    //     }
+    // }
+    // return !stack.length
+    /*
+    简化：    map求解
+     */
+    let stack = []
+    let map = {
+        "(": ")",
+        "[": "]",
+        "{": "}"
+    }
+    for (let num of s) {
+        // 如果有找到，塞进栈中，并继续
+        if (map[num]) {
+            stack.push(num)
+            continue
+        }
+        if (map[stack.pop()] !== num) return false
+    }
+    return !stack.length
+};
+```
 
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
