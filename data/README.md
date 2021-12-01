@@ -392,8 +392,69 @@ var preorderTraversal = function (root, res = []) {
 
 ---
 
-#### 144. 二叉树的前序遍历
+#### 102. 二叉树的层序遍历
+给你一个二叉树，请你返回其按 层序遍历 得到的节点值。 （即逐层地，从左到右访问所有节点）。
 
+ 
+
+示例：
+二叉树：[3,9,20,null,null,15,7],
+```
+    3
+   / \
+  9  20
+    /  \
+   15   7
+```
+返回其层序遍历结果：
+```
+[
+  [3],
+  [9,20],
+  [15,7]
+]
+```
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/binary-tree-level-order-traversal
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+
+```js
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[][]}
+ */
+var levelOrder = function (root) {
+    let res = [],
+        queue = [root]
+    if (!root) return res
+    while (queue.length) {
+        // 记录当前层级节点数
+        let len = queue.length
+        // 存放每一层的节点
+        let curLevel = []
+        for (let i = 0; i < len; i++) {
+            // 出队 当前节点
+            let node = queue.shift()
+            curLevel.push(node.val)
+            // 队列存放当前层的下一层节点
+            node.left && queue.push(node.left)
+            node.right && queue.push(node.right)
+        }
+        // 把每一层的结果放入res
+        res.push(curLevel)
+    }
+    return res
+};
+```
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
