@@ -270,7 +270,148 @@ while((pre = readline())!=null){
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
-#### LeetCode
+
+#### 144. 二叉树的前序遍历
+给你二叉树的根节点 root ，返回它节点值的 前序 遍历。
+
+ 
+
+示例 1：
+
+![avatar](./../picture/144.jpg)
+````
+输入：root = [1,null,2,3]
+输出：[1,2,3]
+```
+示例 2：
+```
+输入：root = []
+输出：[]
+```
+示例 3：
+```
+输入：root = [1]
+输出：[1]
+```
+示例 4：
+![avatar](./../picture/144-1.jpg)
+
+```
+输入：root = [1,2]
+输出：[1,2]
+```
+示例 5：
+![avatar](./../picture/144-2.jpg)
+
+```
+输入：root = [1,null,2]
+输出：[1,2]
+``` 
+
+提示：
+```
+树中节点数目在范围 [0, 100] 内
+-100 <= Node.val <= 100
+``` 
+
+进阶：递归算法很简单，你可以通过迭代算法完成吗？
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/binary-tree-preorder-traversal
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+
+```js
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+// /**
+//  * @param {TreeNode} root
+//  * @return {number[]}
+//  */
+// var preorderTraversal = function (root) {
+//     /**
+//      * 前序遍历：根左右
+//      * 一个参数递归，采用闭包存储res
+//      */
+//     let res = []
+//     let recursive = function (root) {
+//         // tip:节点都为空了，不可能还有val属性
+//         // if (!root.val) return
+//         if (!root) return
+//         res.push(root.val)
+//         // 左子树遍历
+//         recursive(root.left)
+//         // 遍历右子树
+//         recursive(root.right)
+//     }
+//     recursive(root)
+//     return res
+// };
+/**
+ * 
+ * @param  {TreeNode} root 
+ * @param {number[]} res 
+ * @returns {number[]}
+ */
+var preorderTraversal = function (root, res = []) {
+    // /**
+    //  * 前序遍历：根左右
+    //  * 两个参数递归，非常简单
+    //  */
+    // if (!root) return res
+    // res.push(root.val)
+    // preorderTraversal(root.left, res)
+    // preorderTraversal(root.right, res)
+    // return res
+    /**
+     * 两个参数迭代
+     * 使用 栈
+     */
+    if (!root) return res
+    let stack = [root]
+    let cur = null
+    while (stack.length) {
+        // 根节点先处理
+        cur = stack.pop()
+        res.push(cur.val)
+        // 右节点先入栈，后出
+        cur.right && stack.push(cur.right)
+        // 左节点后入栈，先出
+        cur.left && stack.push(cur.left)
+    }
+    return res
+};
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
+#### 144. 二叉树的前序遍历
+
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
+#### 144. 二叉树的前序遍历
+
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
+#### 144. 二叉树的前序遍历
+
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
 #### 105. 从前序与中序遍历序列构造二叉树
 根据一棵树的前序遍历与中序遍历构造二叉树。
 
