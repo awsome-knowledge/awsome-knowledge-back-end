@@ -272,6 +272,106 @@ while((pre = readline())!=null){
 ---
 
 #### 144. 二叉树的前序遍历
+给定一个二叉树，返回它的 前序 遍历。
+
+ 示例:
+```
+输入: [1,null,2,3]  
+   1
+    \
+     2
+    /
+   3 
+
+输出: [1,2,3]
+```
+进阶: 递归算法很简单，你可以通过迭代算法完成吗？
+
+递归算法
+
+```js
+/*
+ * @lc app=leetcode.cn id=144 lang=javascript
+ *
+ * [144] 二叉树的前序遍历
+ */
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+var preorderTraversal = function (root, res = []) {
+    if (root) {
+        res.push(root.val)
+        preorderTraversal(root.left, res)
+        preorderTraversal(root.right, res)
+    }
+    return res
+};
+```
+<pre>
+√ Accepted
+  √ 68/68 cases passed (76 ms)
+  √ Your runtime beats 71.5 % of javascript submissions
+  √ Your memory usage beats 46.63 % of javascript submissions (33.7 MB)
+</pre>
+
+
+迭代算法
+
+1. 定义res和tmp数组
+2. 目标节点进入res和tmp
+3. 左孩子进入res和tmp，直到左边结束
+4. 将tmp中的值出栈，右孩子进入，再执行2，3，4
+
+```js
+/*
+ * @lc app=leetcode.cn id=144 lang=javascript
+ *
+ * [144] 二叉树的前序遍历
+ */
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+var preorderTraversal = function (root) {
+    let res = [],
+        tmp = []
+    let current = root
+    while (current || tmp.length > 0) {
+        while (current) {
+            res.push(current.val)
+            tmp.push(current)
+            current = current.left
+        }
+        current = tmp.pop()
+        current = current.right
+    }
+    return res
+};
+```
+```
+√ Accepted
+  √ 68/68 cases passed (84 ms)
+  √ Your runtime beats 37.76 % of javascript submissions
+  √ Your memory usage beats 40.42 % of javascript submissions (33.7 MB)
+```
+
+> tip:2021-12-1更新
+
 给你二叉树的根节点 root ，返回它节点值的 前序 遍历。
 
 示例 1：
@@ -392,159 +492,6 @@ var preorderTraversal = function (root, res = []) {
 
 ---
 
-#### 102. 二叉树的层序遍历
-给你一个二叉树，请你返回其按 层序遍历 得到的节点值。 （即逐层地，从左到右访问所有节点）。
-
- 
-
-示例：
-二叉树：[3,9,20,null,null,15,7],
-```
-    3
-   / \
-  9  20
-    /  \
-   15   7
-```
-返回其层序遍历结果：
-```
-[
-  [3],
-  [9,20],
-  [15,7]
-]
-```
-
-来源：力扣（LeetCode）
-链接：https://leetcode-cn.com/problems/binary-tree-level-order-traversal
-著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
-
-```js
-/**
- * Definition for a binary tree node.
- * function TreeNode(val, left, right) {
- *     this.val = (val===undefined ? 0 : val)
- *     this.left = (left===undefined ? null : left)
- *     this.right = (right===undefined ? null : right)
- * }
- */
-/**
- * @param {TreeNode} root
- * @return {number[][]}
- */
-var levelOrder = function (root) {
-    let res = [],
-        queue = [root]
-    if (!root) return res
-    while (queue.length) {
-        // 记录当前层级节点数
-        let len = queue.length
-        // 存放每一层的节点
-        let curLevel = []
-        for (let i = 0; i < len; i++) {
-            // 出队 当前节点
-            let node = queue.shift()
-            curLevel.push(node.val)
-            // 队列存放当前层的下一层节点
-            node.left && queue.push(node.left)
-            node.right && queue.push(node.right)
-        }
-        // 把每一层的结果放入res
-        res.push(curLevel)
-    }
-    return res
-};
-```
-
-[[↑] 回到顶部](#awsome-knowledge-back-end)
-
----
-
-#### 144. 二叉树的前序遍历
-
-
-[[↑] 回到顶部](#awsome-knowledge-back-end)
-
----
-
-#### 144. 二叉树的前序遍历
-
-
-[[↑] 回到顶部](#awsome-knowledge-back-end)
-
----
-#### 105. 从前序与中序遍历序列构造二叉树
-根据一棵树的前序遍历与中序遍历构造二叉树。
-
-注意:
-你可以假设树中没有重复的元素。
-
-例如，给出
-```
-前序遍历 preorder = [3,9,20,15,7]
-中序遍历 inorder = [9,3,15,20,7]
-```
-返回如下的二叉树：
-```
-    3
-   / \
-  9  20
-    /  \
-   15   7
-```
-
-
-前序遍历：根左右
-后序遍历：左根右
-
-![avatar](http://images.qiufeihong.top/105.jpg)
-
-<pre>
-/*
- * @lc app=leetcode.cn id=105 lang=javascript
- *
- * [105] 从前序与中序遍历序列构造二叉树
- */
-/**
- * Definition for a binary tree node.
- * function TreeNode(val) {
- *     this.val = val;
- *     this.left = this.right = null;
- * }
- */
-/**
- * @param {number[]} preorder
- * @param {number[]} inorder
- * @return {TreeNode}
- */
-var buildTree = function(preorder, inorder) {
-    p = i = 0
-    build = function(stop) {
-        if (inorder[i] != stop) {
-            var root = new TreeNode(preorder[p++])
-            root.left = build(root.val)
-            i++
-            root.right = build(stop)
-            return root
-        }
-        return null
-    }
-    return build()
-};
-
-
-</pre>
-
-<pre>
-✔ Accepted
-  ✔ 203/203 cases passed (108 ms)
-  ✔ Your runtime beats 86.27 % of javascript submissions
-  ✔ Your memory usage beats 91.53 % of javascript submissions (35.9 MB)
-</pre>
-
-[[↑] 回到顶部](#awsome-knowledge-back-end)
-
----
 #### 94. 二叉树的中序遍历
 给定一个二叉树，返回它的中序 遍历。
 
@@ -732,573 +679,6 @@ var inorderTraversal = function (root, res = []) {
     return res
 };
 ```
-
-[[↑] 回到顶部](#awsome-knowledge-back-end)
-
----
-#### 100. 相同的树
-给定两个二叉树，编写一个函数来检验它们是否相同。
-
-如果两个树在结构上相同，并且节点具有相同的值，则认为它们是相同的。
-
-示例 1:
-```
-输入:       1         1
-          / \       / \
-         2   3     2   3
-
-        [1,2,3],   [1,2,3]
-
-输出: true
-```
-示例 2:
-```
-输入:      1          1
-          /           \
-         2             2
-
-        [1,2],     [1,null,2]
-
-输出: false
-```
-示例 3:
-```
-输入:       1         1
-          / \       / \
-         2   1     1   2
-
-        [1,2,1],   [1,1,2]
-
-输出: false
-```
-根据题意得知，底层已经实现了TreeNode,只要判断是否是相同的树
-
-1. 如果两者都为空，那么返回true
-2. 如果两者有一者为空或者值不相同，那么返回false
-3. 迭代每一层分支
-
-<pre>
-/*
- * @lc app=leetcode.cn id=100 lang=javascript
- *
- * [100] 相同的树
- */
-/**
- * Definition for a binary tree node.
- * function TreeNode(val) {
- *     this.val = val;
- *     this.left = this.right = null;
- * }
- */
-/**
- * @param {TreeNode} p
- * @param {TreeNode} q
- * @return {boolean}
- */
-var isSameTree = function (p, q) {
-    if (!p && !q) return true
-    if (!p || !q || p.val !== q.val) return false
-    return isSameTree(p.left, q.left) && isSameTree(p.right, q.right)
-};
-</pre>
-
-<pre>
-✔ Accepted
-  ✔ 57/57 cases passed (76 ms)
-  ✔ Your runtime beats 72.47 % of javascript submissions
-  ✔ Your memory usage beats 39.77 % of javascript submissions (33.7 MB)
-</pre>
-
-
-[[↑] 回到顶部](#awsome-knowledge-back-end)
-
----
-#### 101. 对称二叉树
-给定一个二叉树，检查它是否是镜像对称的。
-
-例如，二叉树 [1,2,2,3,4,4,3] 是对称的。
-```
-    1
-   / \
-  2   2
- / \ / \
-3  4 4  3
-```
-但是下面这个 [1,2,2,null,3,null,3] 则不是镜像对称的:
-```
-    1
-   / \
-  2   2
-   \   \
-   3    3
-```
-说明:
-
-如果你可以运用递归和迭代两种方法解决这个问题，会很加分。
-
-
-根据题意得知，底层已经实现了TreeNode,只要判断是否是对称树
-
-迭代
-
-1. 需要迭代每一层p和q，判断p的left和q的right是否相同
-2. 迭代中p和q其中只有一个为空，那肯定就是不对称
-
-<pre>
-/*
- * @lc app=leetcode.cn id=101 lang=javascript
- *
- * [101] 对称二叉树
- */
-/**
- * Definition for a binary tree node.
- * function TreeNode(val) {
- *     this.val = val;
- *     this.left = this.right = null;
- * }
- */
-/**
- * @param {TreeNode} root
- * @return {boolean}
- */
-var isSymmetric = function (root) {
-    function middle(p, q) {
-        if (p == null && q == null) return true
-        if (p == null || q == null) return false
-        return p.val == q.val && middle(p.left, q.right) && middle(p.right, q.left)
-    }
-    return middle(root, root)
-};
-</pre>
-<pre>
-√ Accepted
-  √ 195/195 cases passed (88 ms)
-  √ Your runtime beats 74.55 % of javascript submissions
-  √ Your memory usage beats 38.91 % of javascript submissions (35.5 MB)
-</pre>
-
-[[↑] 回到顶部](#awsome-knowledge-back-end)
-
----
-#### 104. 二叉树的最大深度
-给定一个二叉树，找出其最大深度。
-
-二叉树的深度为根节点到最远叶子节点的最长路径上的节点数。
-
-说明: 叶子节点是指没有子节点的节点。
-
-示例：
-给定二叉树 [3,9,20,null,null,15,7]，
-```
-    3
-   / \
-  9  20
-    /  \
-   15   7
-```
-返回它的最大深度 3 。
-
-
-根据题意得知，底层已经实现了TreeNode,只要计算二叉树的最大深度
-
-递归
-1. 需要递归每一层root，如果root的left和right没定义或者为空，则返回0
-2. 在每次递归过程中，取出左边或者右边的最大值，然后加上1
-
-<pre>
-/*
- * @lc app=leetcode.cn id=104 lang=javascript
- *
- * [104] 二叉树的最大深度
- */
-/**
- * Definition for a binary tree node.
- * function TreeNode(val) {
- *     this.val = val;
- *     this.left = this.right = null;
- * }
- */
-/**
- * @param {TreeNode} root
- * @return {number}
- */
-var maxDepth = function (root) {
-    if (root === undefined || root === null) {
-        return 0
-    }
-    return Math.max(maxDepth(root.left), maxDepth(root.right)) + 1
-};
-
-</pre>
-<pre>
-√ Accepted
-  √ 39/39 cases passed (96 ms)
-  √ Your runtime beats 54.83 % of javascript submissions
-  √ Your memory usage beats 12.78 % of javascript submissions (37.4 MB)
-</pre>
-
-[[↑] 回到顶部](#awsome-knowledge-back-end)
-
----
-#### 107. 二叉树的层次遍历 II
-给定一个二叉树，返回其节点值自底向上的层次遍历。 （即按从叶子节点所在层到根节点所在的层，逐层从左向右遍历）
-例如：
-给定二叉树 [3,9,20,null,null,15,7],
-```
-    3
-   / \
-  9  20
-    /  \
-   15   7
-```
-返回其自底向上的层次遍历为：
-```
-[
-  [15,7],
-  [9,20],
-  [3]
-]
-```
-1. 先定义queue存储root节点，循环queue的长度，长度为0停止，每次循环，从queue底部出来一个节点crt，将crt放进stack中
-2. 如果crt左和右的节点还有值，那就覆盖。
-3. 第二个循环stack长度，crt是stack头部出来的值
-4. 定义的maxLevel是最大层数，定义maxLevel长度的result数组，将crt值到塞进result
-
-<pre>
-/*
- * @lc app=leetcode.cn id=107 lang=javascript
- *
- * [107] 二叉树的层次遍历 II
- */
-/**
- * Definition for a binary tree node.
- * function TreeNode(val) {
- *     this.val = val;
- *     this.left = this.right = null;
- * }
- */
-/**
- * @param {TreeNode} root
- * @return {number[][]}
- */
-var levelOrderBottom = function(root) {
-    
-    var queue = [ {node : root, level : 0} ],
-        crt,
-        stack = [],
-        maxLevel,
-        result = [];
-    
-    if(!root)
-        return result;
-        
-    while(queue.length > 0) {
-        crt = queue.shift(); // dequeue()
-        
-        stack.push(crt);
-        
-        if(crt.node.right)
-            queue.push( { node : crt.node.right, level : crt.level + 1 } );
-            
-        if(crt.node.left)
-            queue.push( { node : crt.node.left, level : crt.level + 1 });
-        
-      maxLevel = crt.level + 1;
-    }
-    
-    while(stack.length > 0) {
-        crt = stack.pop();
-        if(crt.level < maxLevel) {
-            result.push([]);
-            maxLevel--;
-        }
-        result[result.length - 1].push(crt.node.val);
-        
-    }
-    
-    return result;
-};
-
-</pre>
-
-<pre>
-✔ Accepted
-  ✔ 34/34 cases passed (92 ms)
-  ✔ Your runtime beats 32.74 % of javascript submissions
-  ✔ Your memory usage beats 5.59 % of javascript submissions (35.6 MB)
-</pre>
-
-[[↑] 回到顶部](#awsome-knowledge-back-end)
-
----
-#### 110. 平衡二叉树
-Category|Difficulty|Likes|Dislikes
-algorithms|Easy (49.05%)|151|-
-
-Tags
-
-tree | depth-first-search
-
-Companies
-
-bloomberg
-
-给定一个二叉树，判断它是否是高度平衡的二叉树。
-
-本题中，一棵高度平衡二叉树定义为：
-
-一个二叉树每个节点 的左右两个子树的高度差的绝对值不超过1。
-
-示例 1:
-
-给定二叉树 [3,9,20,null,null,15,7]
-```
-    3
-   / \
-  9  20
-    /  \
-   15   7
-```
-返回 true 。
-
-示例 2:
-
-给定二叉树 [1,2,2,3,3,null,null,4,4]
-```
-       1
-      / \
-     2   2
-    / \
-   3   3
-  / \
- 4   4
-```
-返回 false 。
-
-1. 递归
-2. 给一个中间函数
-3. 判断若是node为空，则返回0
-4. 左孩子和右孩子递归
-5. 如果左孩子右孩子和深度差大于1，则返回-1，否则返回二叉树的最大深度
-6. 最后递归结束，判断是否等于-1
-
-```js
-/*
- * @lc app=leetcode.cn id=110 lang=javascript
- *
- * [110] 平衡二叉树
- */
-/**
- * Definition for a binary tree node.
- * function TreeNode(val) {
- *     this.val = val;
- *     this.left = this.right = null;
- * }
- */
-/**
- * @param {TreeNode} root
- * @return {boolean}
- */
-var isBalanced = function (root) {
-    function middle(node) {
-        if (!node) {
-            return 0
-        }
-        let left = middle(node.left)
-        let right = middle(node.right)
-        if (left == -1 || right == -1 || Math.abs(left - right) > 1) {
-            return -1
-        }
-        return Math.max(left, right) + 1
-    }
-    return middle(root) != -1
-};
-```
-
-<pre>
-√ Accepted
-  √ 227/227 cases passed (108 ms)
-  √ Your runtime beats 49.74 % of javascript submissions
-  √ Your memory usage beats 66.34 % of javascript submissions (37.4 MB)
-</pre>
-
-[[↑] 回到顶部](#awsome-knowledge-back-end)
-
----
-#### 111. 二叉树的最小深度
-Category|Difficulty|Likes|Dislikes
-algorithms|Easy (39.81%)|148|-
-
-Tags
-
-tree | depth-first-search | breadth-first-search
-
-Companies
-
-Unknown
-
-给定一个二叉树，找出其最小深度。
-
-最小深度是从根节点到最近叶子节点的最短路径上的节点数量。
-
-说明: 叶子节点是指没有子节点的节点。
-
-示例:
-
-给定二叉树 [3,9,20,null,null,15,7],
-```
-    3
-   / \
-  9  20
-    /  \
-   15   7
-```
-返回它的最小深度  2.
-递归，分治，
-1. root为空则返回0
-2. 左孩子为空，则右孩子最小深度加1
-3. 右孩子为空，则左孩子最小深度加1
-4. 左右都有，那就是递归，重新执行1，2，3
-
-```js
-/*
- * @lc app=leetcode.cn id=111 lang=javascript
- *
- * [111] 二叉树的最小深度
- */
-/**
- * Definition for a binary tree node.
- * function TreeNode(val) {
- *     this.val = val;
- *     this.left = this.right = null;
- * }
- */
-/**
- * @param {TreeNode} root
- * @return {number}
- */
-var minDepth = function (root) {
-    if (!root) {
-        return 0
-    }
-    if (!root.left) {
-        return minDepth(root.right) + 1
-    }
-    if (!root.right) {
-        return minDepth(root.left) + 1
-    }
-    return Math.min(minDepth(root.left), minDepth(root.right)) + 1
-
-};
-```
-<pre>
-✔ Accepted
-  ✔ 41/41 cases passed (88 ms)
-  ✔ Your runtime beats 84.4 % of javascript submissions
-  ✔ Your memory usage beats 78.39 % of javascript submissions (37 MB)
-</pre>
-
-[[↑] 回到顶部](#awsome-knowledge-back-end)
-
----
-#### 114. 二叉树的前序遍历
-给定一个二叉树，返回它的 前序 遍历。
-
- 示例:
-```
-输入: [1,null,2,3]  
-   1
-    \
-     2
-    /
-   3 
-
-输出: [1,2,3]
-```
-进阶: 递归算法很简单，你可以通过迭代算法完成吗？
-
-递归算法
-
-```js
-/*
- * @lc app=leetcode.cn id=144 lang=javascript
- *
- * [144] 二叉树的前序遍历
- */
-/**
- * Definition for a binary tree node.
- * function TreeNode(val) {
- *     this.val = val;
- *     this.left = this.right = null;
- * }
- */
-/**
- * @param {TreeNode} root
- * @return {number[]}
- */
-var preorderTraversal = function (root, res = []) {
-    if (root) {
-        res.push(root.val)
-        preorderTraversal(root.left, res)
-        preorderTraversal(root.right, res)
-    }
-    return res
-};
-```
-<pre>
-√ Accepted
-  √ 68/68 cases passed (76 ms)
-  √ Your runtime beats 71.5 % of javascript submissions
-  √ Your memory usage beats 46.63 % of javascript submissions (33.7 MB)
-</pre>
-
-
-迭代算法
-
-1. 定义res和tmp数组
-2. 目标节点进入res和tmp
-3. 左孩子进入res和tmp，直到左边结束
-4. 将tmp中的值出栈，右孩子进入，再执行2，3，4
-
-```js
-/*
- * @lc app=leetcode.cn id=144 lang=javascript
- *
- * [144] 二叉树的前序遍历
- */
-/**
- * Definition for a binary tree node.
- * function TreeNode(val) {
- *     this.val = val;
- *     this.left = this.right = null;
- * }
- */
-/**
- * @param {TreeNode} root
- * @return {number[]}
- */
-var preorderTraversal = function (root) {
-    let res = [],
-        tmp = []
-    let current = root
-    while (current || tmp.length > 0) {
-        while (current) {
-            res.push(current.val)
-            tmp.push(current)
-            current = current.left
-        }
-        current = tmp.pop()
-        current = current.right
-    }
-    return res
-};
-```
-<pre>
-√ Accepted
-  √ 68/68 cases passed (84 ms)
-  √ Your runtime beats 37.76 % of javascript submissions
-  √ Your memory usage beats 40.42 % of javascript submissions (33.7 MB)
-</pre>
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
@@ -1522,6 +902,1222 @@ var postorderTraversal = function (root, res = []) {
     return res
 };
 ```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+#### 102. 二叉树的层序遍历
+给你一个二叉树，请你返回其按 层序遍历 得到的节点值。 （即逐层地，从左到右访问所有节点）。
+
+ 
+
+示例：
+二叉树：[3,9,20,null,null,15,7],
+```
+    3
+   / \
+  9  20
+    /  \
+   15   7
+```
+返回其层序遍历结果：
+```
+[
+  [3],
+  [9,20],
+  [15,7]
+]
+```
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/binary-tree-level-order-traversal
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+
+```js
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[][]}
+ */
+var levelOrder = function (root) {
+    let res = [],
+        queue = [root]
+    if (!root) return res
+    while (queue.length) {
+        // 记录当前层级节点数
+        let len = queue.length
+        // 存放每一层的节点
+        let curLevel = []
+        for (let i = 0; i < len; i++) {
+            // 出队 当前节点
+            let node = queue.shift()
+            curLevel.push(node.val)
+            // 队列存放当前层的下一层节点
+            node.left && queue.push(node.left)
+            node.right && queue.push(node.right)
+        }
+        // 把每一层的结果放入res
+        res.push(curLevel)
+    }
+    return res
+};
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+#### 107. 二叉树的层次遍历 II
+给定一个二叉树，返回其节点值自底向上的层次遍历。 （即按从叶子节点所在层到根节点所在的层，逐层从左向右遍历）
+例如：
+给定二叉树 [3,9,20,null,null,15,7],
+```
+    3
+   / \
+  9  20
+    /  \
+   15   7
+```
+返回其自底向上的层次遍历为：
+```
+[
+  [15,7],
+  [9,20],
+  [3]
+]
+```
+1. 先定义queue存储root节点，循环queue的长度，长度为0停止，每次循环，从queue底部出来一个节点crt，将crt放进stack中
+2. 如果crt左和右的节点还有值，那就覆盖。
+3. 第二个循环stack长度，crt是stack头部出来的值
+4. 定义的maxLevel是最大层数，定义maxLevel长度的result数组，将crt值到塞进result
+
+<pre>
+/*
+ * @lc app=leetcode.cn id=107 lang=javascript
+ *
+ * [107] 二叉树的层次遍历 II
+ */
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[][]}
+ */
+var levelOrderBottom = function(root) {
+    
+    var queue = [ {node : root, level : 0} ],
+        crt,
+        stack = [],
+        maxLevel,
+        result = [];
+    
+    if(!root)
+        return result;
+        
+    while(queue.length > 0) {
+        crt = queue.shift(); // dequeue()
+        
+        stack.push(crt);
+        
+        if(crt.node.right)
+            queue.push( { node : crt.node.right, level : crt.level + 1 } );
+            
+        if(crt.node.left)
+            queue.push( { node : crt.node.left, level : crt.level + 1 });
+        
+      maxLevel = crt.level + 1;
+    }
+    
+    while(stack.length > 0) {
+        crt = stack.pop();
+        if(crt.level < maxLevel) {
+            result.push([]);
+            maxLevel--;
+        }
+        result[result.length - 1].push(crt.node.val);
+        
+    }
+    
+    return result;
+};
+
+</pre>
+
+<pre>
+✔ Accepted
+  ✔ 34/34 cases passed (92 ms)
+  ✔ Your runtime beats 32.74 % of javascript submissions
+  ✔ Your memory usage beats 5.59 % of javascript submissions (35.6 MB)
+</pre>
+
+> tip:2021-12-1更新
+
+给定一个二叉树，返回其节点值自底向上的层序遍历。 （即按从叶子节点所在层到根节点所在的层，逐层从左向右遍历）
+
+例如：
+给定二叉树 [3,9,20,null,null,15,7],
+```
+    3
+   / \
+  9  20
+    /  \
+   15   7
+```
+返回其自底向上的层序遍历为：
+```
+[
+  [15,7],
+  [9,20],
+  [3]
+]
+```
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/binary-tree-level-order-traversal-ii
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+
+```js
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[][]}
+ */
+var levelOrderBottom = function (root) {
+    let res = [],
+        queue = [root]
+    if (!root) return res
+    while (queue.length) {
+        // 记录当前层级节点数
+        let len = queue.length
+        // 存放每一层的节点
+        let curLevel = []
+        for (let i = 0; i < len; i++) {
+            // 出队 当前节点
+            let node = queue.shift()
+            curLevel.push(node.val)
+            // 队列存放当前层的下一层节点
+            node.left && queue.push(node.left)
+            node.right && queue.push(node.right)
+        }
+        // 把每一层的结果放入res的头部，不需要翻转数组了
+        res.unshift(curLevel)
+    }
+    return res
+};
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
+#### 199. 二叉树的右视图
+给定一个二叉树的 根节点 root，想象自己站在它的右侧，按照从顶部到底部的顺序，返回从右侧所能看到的节点值。
+
+ 
+
+示例 1:
+
+![avatar](./picture/199.jpg)
+```
+输入: [1,2,3,null,5,null,4]
+输出: [1,3,4]
+```
+示例 2:
+```
+输入: [1,null,3]
+输出: [1,3]
+```
+示例 3:
+```
+输入: []
+输出: []
+``` 
+
+提示:
+
+二叉树的节点个数的范围是 [0,100]
+-100 <= Node.val <= 100 
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/binary-tree-right-side-view
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+
+```js
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+var rightSideView = function (root) {
+    // 将当前节点入队
+    let res = [],
+        queue = [root]
+    if (!root) return res
+    while (queue.length) {
+        let curLevel = []
+        let len = queue.length
+        for (let i = 0; i < len; i++) {
+            let node = queue.shift()
+            // 将当前节点出队塞入当前层级中
+            if (i === len - 1) curLevel.push(node.val)
+            // 将当前节点的左右节点入队
+            node.left && queue.push(node.left)
+            node.right && queue.push(node.right)
+        }
+        res.push(curLevel)
+    }
+    // 返回结果
+    return res
+
+};
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
+#### 637. 二叉树的层平均值
+给定一个非空二叉树, 返回一个由每层节点平均值组成的数组。
+
+ 
+
+示例 1：
+```
+输入：
+    3
+   / \
+  9  20
+    /  \
+   15   7
+输出：[3, 14.5, 11]
+解释：
+第 0 层的平均值是 3 ,  第1层是 14.5 , 第2层是 11 。因此返回 [3, 14.5, 11] 。
+``` 
+
+提示：
+
+节点值的范围在32位有符号整数范围内。
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/average-of-levels-in-binary-tree
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+
+```js
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+var averageOfLevels = function (root) {
+    // 将当前节点入队
+    let res = [],
+        queue = [root]
+    if (!root) return res
+    while (queue.length) {
+        let curLevel = []
+        // 当前层级的节点个数
+        let len = queue.length
+        let total = 0
+        for (let i = 0; i < len; i++) {
+            let node = queue.shift()
+            // 将当前层级中的节点求平均值
+            total += node.val
+            // 将当前节点的左右节点入队
+            node.left && queue.push(node.left)
+            node.right && queue.push(node.right)
+        }
+        curLevel.push(total / len)
+        res.push(curLevel)
+    }
+    // 返回结果
+    return res
+};
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+#### 429. N 叉树的层序遍历
+给定一个 N 叉树，返回其节点值的层序遍历。（即从左到右，逐层遍历）。
+
+树的序列化输入是用层序遍历，每组子节点都由 null 值分隔（参见示例）。
+
+ 
+
+示例 1：
+
+![avatar](./picture/429.png)
+
+```
+输入：root = [1,null,3,2,4,null,5,6]
+输出：[[1],[3,2,4],[5,6]]
+```
+示例 2：
+![avatar](./picture/429-1.png)
+
+```
+输入：root = [1,null,2,3,4,5,null,null,6,7,null,8,null,9,10,null,null,11,null,12,null,13,null,null,14]
+输出：[[1],[2,3,4,5],[6,7,8,9,10],[11,12,13],[14]]
+```
+
+提示：
+
+- 树的高度不会超过 1000
+- 树的节点总数在 [0, 10^4] 之间
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/n-ary-tree-level-order-traversal
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+
+```js
+/**
+ * // Definition for a Node.
+ * function Node(val,children) {
+ *    this.val = val;
+ *    this.children = children;
+ * };
+ */
+
+/**
+ * @param {Node|null} root
+ * @return {number[][]}
+ */
+var levelOrder = function (root) {
+    // 将当前节点入队
+    let res = [],
+        queue = [root]
+    if (!root) return res
+    while (queue.length) {
+        let curLevel = []
+        // 当前层级的节点个数
+        let len = queue.length
+        for (let i = 0; i < len; i++) {
+            let node = queue.shift()
+            curLevel.push(node.val)
+            // 将当前节点的孩子节点入队
+            if (node.children.length) {
+                for (let j = 0; j < node.children.length; j++) {
+                    queue.push(node.children[j])
+                }
+            }
+        }
+        res.push(curLevel)
+    }
+    // 返回结果
+    return res
+};
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+#### 515. 在每个树行中找最大值
+给定一棵二叉树的根节点 root ，请找出该二叉树中每一层的最大值。
+
+ 
+
+示例1：
+```
+输入: root = [1,3,2,5,3,null,9]
+输出: [1,3,9]
+解释:
+          1
+         / \
+        3   2
+       / \   \  
+      5   3   9 
+```
+示例2：
+```
+输入: root = [1,2,3]
+输出: [1,3]
+解释:
+          1
+         / \
+        2   3
+```
+示例3：
+```
+输入: root = [1]
+输出: [1]
+```
+示例4：
+```
+输入: root = [1,null,2]
+输出: [1,2]
+解释:      
+           1 
+            \
+             2     
+```
+示例5：
+```
+输入: root = []
+输出: []
+``
+
+提示：
+```
+二叉树的节点个数的范围是 [0,104]
+-231 <= Node.val <= 231 - 1
+```
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/find-largest-value-in-each-tree-row
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+
+```js
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+var largestValues = function(root) {
+    if (!root) return []
+    let queue = [root]
+    let maximums = []
+  
+    while (queue.length) {
+      let max = Number.MIN_SAFE_INTEGER
+      // 这里需要先缓存length 这个length代表当前层级的所有节点
+      // 在循环开始后 会push新的节点 length就不稳定了
+      let len = queue.length
+      for (let i = 0; i < len; i++) {
+        let node = queue[i]
+        max = Math.max(node.val, max)
+  
+        if (node.left) {
+          queue.push(node.left)
+        }
+        if (node.right) {
+          queue.push(node.right)
+        }
+      }
+  
+      // 本「层级」处理完毕，截取掉。
+      for (let i = 0; i < len; i++) {
+        queue.shift()
+      }
+  
+      // 这个for循环结束后 代表当前层级的节点全部处理完毕
+      // 直接把计算出来的最大值push到数组里即可。
+      maximums.push(max)
+    }
+  
+    return maximums
+};
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+#### 116. 填充每个节点的下一个右侧节点指针
+给定一个 完美二叉树 ，其所有叶子节点都在同一层，每个父节点都有两个子节点。二叉树定义如下：
+```
+struct Node {
+  int val;
+  Node *left;
+  Node *right;
+  Node *next;
+}
+```
+填充它的每个 next 指针，让这个指针指向其下一个右侧节点。如果找不到下一个右侧节点，则将 next 指针设置为 NULL。
+
+初始状态下，所有 next 指针都被设置为 NULL。
+
+ 
+
+进阶：
+
+- 你只能使用常量级额外空间。
+- 使用递归解题也符合要求，本题中递归程序占用的栈空间不算做额外的空间复杂度。
+ 
+
+示例：
+
+![avatar](./picture/116.png)
+
+```
+输入：root = [1,2,3,4,5,6,7]
+输出：[1,#,2,3,#,4,5,6,7,#]
+解释：给定二叉树如图 A 所示，你的函数应该填充它的每个 next 指针，以指向其下一个右侧节点，如图 B 所示。序列化的输出按层序遍历排列，同一层节点由 next 指针连接，'#' 标志着每一层的结束。
+```
+
+提示：
+
+- 树中节点的数量少于 4096
+- -1000 <= node.val <= 1000
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/populating-next-right-pointers-in-each-node
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+```js
+/**
+ * // Definition for a Node.
+ * function Node(val, left, right, next) {
+ *    this.val = val === undefined ? null : val;
+ *    this.left = left === undefined ? null : left;
+ *    this.right = right === undefined ? null : right;
+ *    this.next = next === undefined ? null : next;
+ * };
+ */
+
+/**
+ * @param {Node} root
+ * @return {Node}
+ */
+var connect = function (root) {
+    // 将当前节点入队
+    if (!root) return root
+    let queue = [root]
+    while (queue.length) {
+        // 当前层级的节点个数
+        let len = queue.length
+        for (let i = 0; i < len; i++) {
+            let node = queue.shift()
+            // 当前节点指向队头，最后一个节点指向null
+            if (i < len - 1) {
+                node.next = queue[0]
+            }
+            node.left && queue.push(node.left)
+            node.right && queue.push(node.right)
+        }
+    }
+    // 返回完美二叉树
+    return root
+};
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+#### 117. 填充每个节点的下一个右侧节点指针 II
+给定一个二叉树
+```
+struct Node {
+  int val;
+  Node *left;
+  Node *right;
+  Node *next;
+}
+```
+填充它的每个 next 指针，让这个指针指向其下一个右侧节点。如果找不到下一个右侧节点，则将 next 指针设置为 NULL。
+
+初始状态下，所有 next 指针都被设置为 NULL。
+
+ 
+
+进阶：
+
+- 你只能使用常量级额外空间。
+- 使用递归解题也符合要求，本题中递归程序占用的栈空间不算做额外的空间复杂度。
+ 
+
+示例：
+![avatar](./picture/117.png)
+
+```
+输入：root = [1,2,3,4,5,null,7]
+输出：[1,#,2,3,#,4,5,7,#]
+解释：给定二叉树如图 A 所示，你的函数应该填充它的每个 next 指针，以指向其下一个右侧节点，如图 B 所示。序列化输出按层序遍历顺序（由 next 指针连接），'#' 表示每层的末尾。
+``` 
+
+提示：
+
+- 树中的节点数小于 6000
+- -100 <= node.val <= 100
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/populating-next-right-pointers-in-each-node-ii
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+
+```js
+/**
+ * // Definition for a Node.
+ * function Node(val, left, right, next) {
+ *    this.val = val === undefined ? null : val;
+ *    this.left = left === undefined ? null : left;
+ *    this.right = right === undefined ? null : right;
+ *    this.next = next === undefined ? null : next;
+ * };
+ */
+
+/**
+ * @param {Node} root
+ * @return {Node}
+ */
+var connect = function (root) {
+    if (!root) return root
+    let queue = [root]
+    while (queue.length) {
+        let len = queue.length
+        for (let i = 0; i < len; i++) {
+            // 将该层节点遍历从头到尾出队
+            let node = queue.shift()
+            // 前一个节点指向后一节点
+            if (i < len - 1) node.next = queue[0]
+            // 换一层节点
+            node.left && queue.push(node.left)
+            node.right && queue.push(node.right)
+        }
+    }
+    return root
+};
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+#### 104. 二叉树的最大深度
+给定一个二叉树，找出其最大深度。
+
+二叉树的深度为根节点到最远叶子节点的最长路径上的节点数。
+
+说明: 叶子节点是指没有子节点的节点。
+
+示例：
+给定二叉树 [3,9,20,null,null,15,7]，
+```
+    3
+   / \
+  9  20
+    /  \
+   15   7
+```
+返回它的最大深度 3 。
+
+
+根据题意得知，底层已经实现了TreeNode,只要计算二叉树的最大深度
+
+递归
+1. 需要递归每一层root，如果root的left和right没定义或者为空，则返回0
+2. 在每次递归过程中，取出左边或者右边的最大值，然后加上1
+
+<pre>
+/*
+ * @lc app=leetcode.cn id=104 lang=javascript
+ *
+ * [104] 二叉树的最大深度
+ */
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var maxDepth = function (root) {
+    if (root === undefined || root === null) {
+        return 0
+    }
+    return Math.max(maxDepth(root.left), maxDepth(root.right)) + 1
+};
+
+</pre>
+<pre>
+√ Accepted
+  √ 39/39 cases passed (96 ms)
+  √ Your runtime beats 54.83 % of javascript submissions
+  √ Your memory usage beats 12.78 % of javascript submissions (37.4 MB)
+</pre>
+
+> tip:2021-12-1更新
+
+```js
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var maxDepth = function(root) {
+    if (!root) return root
+    let queue = [root],depth=0
+    while (queue.length) {
+        let len = queue.length
+        depth+=1
+        for (let i = 0; i < len; i++) {
+            // 将该层节点遍历从头到尾出队
+            let node = queue.shift()
+            // 换一层节点
+            node.left && queue.push(node.left)
+            node.right && queue.push(node.right)
+        }
+    }
+    return depth
+};
+```
+
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+#### 111. 二叉树的最小深度
+Category|Difficulty|Likes|Dislikes
+algorithms|Easy (39.81%)|148|-
+
+Tags
+
+tree | depth-first-search | breadth-first-search
+
+Companies
+
+Unknown
+
+给定一个二叉树，找出其最小深度。
+
+最小深度是从根节点到最近叶子节点的最短路径上的节点数量。
+
+说明: 叶子节点是指没有子节点的节点。
+
+示例:
+
+给定二叉树 [3,9,20,null,null,15,7],
+```
+    3
+   / \
+  9  20
+    /  \
+   15   7
+```
+返回它的最小深度  2.
+递归，分治，
+1. root为空则返回0
+2. 左孩子为空，则右孩子最小深度加1
+3. 右孩子为空，则左孩子最小深度加1
+4. 左右都有，那就是递归，重新执行1，2，3
+
+```js
+/*
+ * @lc app=leetcode.cn id=111 lang=javascript
+ *
+ * [111] 二叉树的最小深度
+ */
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var minDepth = function (root) {
+    if (!root) {
+        return 0
+    }
+    if (!root.left) {
+        return minDepth(root.right) + 1
+    }
+    if (!root.right) {
+        return minDepth(root.left) + 1
+    }
+    return Math.min(minDepth(root.left), minDepth(root.right)) + 1
+
+};
+```
+<pre>
+✔ Accepted
+  ✔ 41/41 cases passed (88 ms)
+  ✔ Your runtime beats 84.4 % of javascript submissions
+  ✔ Your memory usage beats 78.39 % of javascript submissions (37 MB)
+</pre>
+
+> tip:2021-12-1更新 
+
+```js
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var minDepth = function (root) {
+    if (!root) return root
+    let queue = [root],
+        depth = 0
+    while (queue.length) {
+        let len = queue.length
+        depth += 1
+        for (let i = 0; i < len; i++) {
+            // 将该层节点遍历从头到尾出队
+            let node = queue.shift()
+            // 换一层节点
+            node.left && queue.push(node.left)
+            node.right && queue.push(node.right)
+            // 左右节点都无，找到最小深度了
+            if (!node.left && !node.right) return depth
+        }
+    }
+    return depth
+};
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
+#### 105. 从前序与中序遍历序列构造二叉树
+根据一棵树的前序遍历与中序遍历构造二叉树。
+
+注意:
+你可以假设树中没有重复的元素。
+
+例如，给出
+```
+前序遍历 preorder = [3,9,20,15,7]
+中序遍历 inorder = [9,3,15,20,7]
+```
+返回如下的二叉树：
+```
+    3
+   / \
+  9  20
+    /  \
+   15   7
+```
+
+
+前序遍历：根左右
+后序遍历：左根右
+
+![avatar](http://images.qiufeihong.top/105.jpg)
+
+<pre>
+/*
+ * @lc app=leetcode.cn id=105 lang=javascript
+ *
+ * [105] 从前序与中序遍历序列构造二叉树
+ */
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {number[]} preorder
+ * @param {number[]} inorder
+ * @return {TreeNode}
+ */
+var buildTree = function(preorder, inorder) {
+    p = i = 0
+    build = function(stop) {
+        if (inorder[i] != stop) {
+            var root = new TreeNode(preorder[p++])
+            root.left = build(root.val)
+            i++
+            root.right = build(stop)
+            return root
+        }
+        return null
+    }
+    return build()
+};
+
+
+</pre>
+
+<pre>
+✔ Accepted
+  ✔ 203/203 cases passed (108 ms)
+  ✔ Your runtime beats 86.27 % of javascript submissions
+  ✔ Your memory usage beats 91.53 % of javascript submissions (35.9 MB)
+</pre>
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+#### 100. 相同的树
+给定两个二叉树，编写一个函数来检验它们是否相同。
+
+如果两个树在结构上相同，并且节点具有相同的值，则认为它们是相同的。
+
+示例 1:
+```
+输入:       1         1
+          / \       / \
+         2   3     2   3
+
+        [1,2,3],   [1,2,3]
+
+输出: true
+```
+示例 2:
+```
+输入:      1          1
+          /           \
+         2             2
+
+        [1,2],     [1,null,2]
+
+输出: false
+```
+示例 3:
+```
+输入:       1         1
+          / \       / \
+         2   1     1   2
+
+        [1,2,1],   [1,1,2]
+
+输出: false
+```
+根据题意得知，底层已经实现了TreeNode,只要判断是否是相同的树
+
+1. 如果两者都为空，那么返回true
+2. 如果两者有一者为空或者值不相同，那么返回false
+3. 迭代每一层分支
+
+<pre>
+/*
+ * @lc app=leetcode.cn id=100 lang=javascript
+ *
+ * [100] 相同的树
+ */
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} p
+ * @param {TreeNode} q
+ * @return {boolean}
+ */
+var isSameTree = function (p, q) {
+    if (!p && !q) return true
+    if (!p || !q || p.val !== q.val) return false
+    return isSameTree(p.left, q.left) && isSameTree(p.right, q.right)
+};
+</pre>
+
+<pre>
+✔ Accepted
+  ✔ 57/57 cases passed (76 ms)
+  ✔ Your runtime beats 72.47 % of javascript submissions
+  ✔ Your memory usage beats 39.77 % of javascript submissions (33.7 MB)
+</pre>
+
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+#### 101. 对称二叉树
+给定一个二叉树，检查它是否是镜像对称的。
+
+例如，二叉树 [1,2,2,3,4,4,3] 是对称的。
+```
+    1
+   / \
+  2   2
+ / \ / \
+3  4 4  3
+```
+但是下面这个 [1,2,2,null,3,null,3] 则不是镜像对称的:
+```
+    1
+   / \
+  2   2
+   \   \
+   3    3
+```
+说明:
+
+如果你可以运用递归和迭代两种方法解决这个问题，会很加分。
+
+
+根据题意得知，底层已经实现了TreeNode,只要判断是否是对称树
+
+迭代
+
+1. 需要迭代每一层p和q，判断p的left和q的right是否相同
+2. 迭代中p和q其中只有一个为空，那肯定就是不对称
+
+<pre>
+/*
+ * @lc app=leetcode.cn id=101 lang=javascript
+ *
+ * [101] 对称二叉树
+ */
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {boolean}
+ */
+var isSymmetric = function (root) {
+    function middle(p, q) {
+        if (p == null && q == null) return true
+        if (p == null || q == null) return false
+        return p.val == q.val && middle(p.left, q.right) && middle(p.right, q.left)
+    }
+    return middle(root, root)
+};
+</pre>
+<pre>
+√ Accepted
+  √ 195/195 cases passed (88 ms)
+  √ Your runtime beats 74.55 % of javascript submissions
+  √ Your memory usage beats 38.91 % of javascript submissions (35.5 MB)
+</pre>
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+#### 110. 平衡二叉树
+Category|Difficulty|Likes|Dislikes
+algorithms|Easy (49.05%)|151|-
+
+Tags
+
+tree | depth-first-search
+
+Companies
+
+bloomberg
+
+给定一个二叉树，判断它是否是高度平衡的二叉树。
+
+本题中，一棵高度平衡二叉树定义为：
+
+一个二叉树每个节点 的左右两个子树的高度差的绝对值不超过1。
+
+示例 1:
+
+给定二叉树 [3,9,20,null,null,15,7]
+```
+    3
+   / \
+  9  20
+    /  \
+   15   7
+```
+返回 true 。
+
+示例 2:
+
+给定二叉树 [1,2,2,3,3,null,null,4,4]
+```
+       1
+      / \
+     2   2
+    / \
+   3   3
+  / \
+ 4   4
+```
+返回 false 。
+
+1. 递归
+2. 给一个中间函数
+3. 判断若是node为空，则返回0
+4. 左孩子和右孩子递归
+5. 如果左孩子右孩子和深度差大于1，则返回-1，否则返回二叉树的最大深度
+6. 最后递归结束，判断是否等于-1
+
+```js
+/*
+ * @lc app=leetcode.cn id=110 lang=javascript
+ *
+ * [110] 平衡二叉树
+ */
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {boolean}
+ */
+var isBalanced = function (root) {
+    function middle(node) {
+        if (!node) {
+            return 0
+        }
+        let left = middle(node.left)
+        let right = middle(node.right)
+        if (left == -1 || right == -1 || Math.abs(left - right) > 1) {
+            return -1
+        }
+        return Math.max(left, right) + 1
+    }
+    return middle(root) != -1
+};
+```
+
+<pre>
+√ Accepted
+  √ 227/227 cases passed (108 ms)
+  √ Your runtime beats 49.74 % of javascript submissions
+  √ Your memory usage beats 66.34 % of javascript submissions (37.4 MB)
+</pre>
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
