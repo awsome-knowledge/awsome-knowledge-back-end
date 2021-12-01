@@ -562,6 +562,8 @@ var inorderTraversal = function (root) {
 
 示例 1：
 
+![avatar](./../picture/94.jpg)
+
 ```
 输入：root = [1,null,2,3]
 输出：[1,3,2]
@@ -577,12 +579,12 @@ var inorderTraversal = function (root) {
 输出：[1]
 ```
 示例 4：
-
+![avatar](./../picture/94-1.jpg)
 
 输入：root = [1,2]
 输出：[2,1]
 示例 5：
-
+![avatar](./../picture/94-2.jpg)
 ```
 输入：root = [1,null,2]
 输出：[1,2]
@@ -1286,12 +1288,13 @@ var postorderTraversal = function (root, res = []) {
     return res
 };
 ```
-<pre>
+```
 √ Accepted
   √ 68/68 cases passed (88 ms)
   √ Your runtime beats 24.38 % of javascript submissions
   √ Your memory usage beats 38.52 % of javascript submissions (33.7 MB)
-</pre>
+```
+
 迭代算法
 
 取跟节点为目标节点，开始遍历
@@ -1350,6 +1353,114 @@ var postorderTraversal = function (root) {
   √ Your runtime beats 71.18 % of javascript submissions
   √ Your memory usage beats 48.36 % of javascript submissions (33.7 MB)
 </pre>
+
+> tip:2021-12-1更新
+
+给定一个二叉树，返回它的 后序 遍历。
+
+示例:
+```
+输入: [1,null,2,3]  
+   1
+    \
+     2
+    /
+   3 
+
+输出: [3,2,1]
+```
+进阶: 递归算法很简单，你可以通过迭代算法完成吗？
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/binary-tree-postorder-traversal
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+
+```js
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+// /**
+//  * @param {TreeNode} root
+//  * @return {number[]}
+//  */
+// var postorderTraversal = function (root) {
+//     /**
+//      * 后序遍历：左右根
+//      * 一个参数，采用闭包保存res
+//      */
+//     let res = []
+//     let recursive = function (root) {
+//         if (!root) return
+//         recursive(root.left)
+//         recursive(root.right)
+//         res.push(root.val)
+//     }
+//     recursive(root)
+//     return res
+// };
+/**
+ * 
+ * @param {TreeNode[]} root 
+ * @param {number[]} res 
+ * @returns {number[]}
+ */
+var postorderTraversal = function (root, res = []) {
+    // /**
+    //  * 后序遍历：左右根
+    //  * 2 个参数，每次递归结束返回res
+    //  */
+    // if (!root) return res
+    // postorderTraversal(root.left, res)
+    // postorderTraversal(root.right, res)
+    // res.push(root.val)
+    // return res
+    // /**
+    //  * 迭代：利用栈
+    //  * 入栈：左->右
+    //  * 出栈：根->右->左 结果翻转
+    //  */
+    // if (!root) return res
+    // let stack = [root]
+    // let cur = null
+    // do {
+    //     // 根节点出栈
+    //     cur = stack.pop()
+    //     res.push(cur.val)
+    //     // 左节点先入栈
+    //     cur.left && stack.push(cur.left)
+    //     // 右节点再入栈
+    //     cur.right && stack.push(cur.right)
+    // } while (stack.length)
+    // return res.reverse()
+
+    /**
+     * 迭代：利用栈
+     * 入栈：中->右->左
+     * 出栈：左右中
+     */
+    if (!root) return res
+    let stack = [root]
+    let cur = null
+    while (stack.length) {
+        cur = stack.pop()
+        if (!cur) {
+            // tip:空的情况下，下一个要出栈，就是中
+            res.push(stack.pop().val)
+            continue
+        }
+        stack.push(cur)
+        stack.push(null)
+        cur.right && stack.push(cur.right)
+        cur.left && stack.push(cur.left)
+    }
+    return res
+};
+```
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
