@@ -274,15 +274,15 @@ while((pre = readline())!=null){
 #### 144. 二叉树的前序遍历
 给你二叉树的根节点 root ，返回它节点值的 前序 遍历。
 
- 
-
 示例 1：
 
 ![avatar](./../picture/144.jpg)
-````
+
+```
 输入：root = [1,null,2,3]
 输出：[1,2,3]
 ```
+
 示例 2：
 ```
 输入：root = []
@@ -508,7 +508,7 @@ var buildTree = function(preorder, inorder) {
 4. root被root右分支替换
 5. 最后返回res
 
-<pre>
+```
 /*
  * @lc app=leetcode.cn id=94 lang=javascript
  *
@@ -542,16 +542,133 @@ var inorderTraversal = function (root) {
   
     return res;
 };
+```
 
-
-</pre>
-
-<pre>
+```
 ✔ Accepted
   ✔ 68/68 cases passed (88 ms)
   ✔ Your runtime beats 26.11 % of javascript submissions
   ✔ Your memory usage beats 41.05 % of javascript submissions (33.7 MB)
-</pre>
+```
+
+
+> tip:2021-12-1更新
+
+
+
+给定一个二叉树的根节点 root ，返回它的 中序 遍历。
+
+ 
+
+示例 1：
+
+```
+输入：root = [1,null,2,3]
+输出：[1,3,2]
+```
+示例 2：
+```
+输入：root = []
+输出：[]
+```
+示例 3：
+```
+输入：root = [1]
+输出：[1]
+```
+示例 4：
+
+
+输入：root = [1,2]
+输出：[2,1]
+示例 5：
+
+```
+输入：root = [1,null,2]
+输出：[1,2]
+``` 
+
+提示：
+```
+树中节点数目在范围 [0, 100] 内
+-100 <= Node.val <= 100
+``` 
+
+进阶: 递归算法很简单，你可以通过迭代算法完成吗？
+
+
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/binary-tree-inorder-traversal
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+
+```js
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+// /**
+//  * @param {TreeNode} root
+//  * @return {number[]}
+//  */
+// var inorderTraversal = function (root) {
+//     /**
+//      * 中序遍历：左根右
+//      * 一个参数，采用闭包保存res
+//      */
+//     let res = []
+//     let recursive = function (root) {
+//         if (!root) return
+//         recursive(root.left)
+//         res.push(root.val)
+//         recursive(root.right)
+//     }
+//     recursive(root)
+//     return res
+// };
+/**
+ * 
+ * @param {TreeNode} root 
+ * @param {number[]} res 
+ * @returns {number[]}
+ */
+var inorderTraversal = function (root, res = []) {
+    // /**
+    //  * 中序遍历：左根右
+    //  * 2 个参数，每次递归返回 res
+    //  */
+    // if (!root) return res
+    // inorderTraversal(root.left, res)
+    // res.push(root.val)
+    // inorderTraversal(root.right, res)
+    // return res
+    /**
+     * 迭代，使用栈
+     * 入栈：左->右
+     * 出栈：左->中->右
+     */
+    let cur = root
+    let stack = []
+    while (stack.length || cur) {
+        if (cur) {
+            // 处理左节点
+            stack.push(cur)
+            cur = cur.left
+        } else {
+            // 处理根节点
+            cur = stack.pop()
+            res.push(cur.val)
+            // 处理右节点
+            cur = cur.right
+        }
+    }
+    return res
+};
+```
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
