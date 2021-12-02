@@ -12,6 +12,535 @@
 ### 深度优先搜索
 深度优先搜索是一种在开发爬虫早期使用较多的方法。它的目的是要达到被搜索结构的叶结点(即那些不包含任何超链的HTML文件) 。在一个HTML文件中，当一个超链被选择后，被链接的HTML文件将执行深度优先搜索，即在搜索其余的超链结果之前必须先完整地搜索单独的一条链。深度优先搜索沿着HTML文件上的超链走到不能再深入为止，然后返回到某一个HTML文件，再继续选择该HTML文件中的其他超链。当不再有其他超链可选择时，说明搜索已经结束。
 ### 回溯
+回溯法也可以叫做回溯搜索法，它是一种搜索的方式。
+
+回溯是递归的副产品，只要有递归就会有回溯。
+
+所以以下讲解中，回溯函数也就是递归函数，指的都是一个函数。
+
+
+回溯法，一般可以解决如下几种问题：
+
+- 组合问题：N个数里面按一定规则找出k个数的集合
+- 切割问题：一个字符串按一定规则有几种切割方式
+- 子集问题：一个N个数的集合里有多少符合条件的子集
+- 排列问题：N个数按一定规则全排列，有几种排列方式
+- 棋盘问题：N皇后，解数独等等
+
+#### 77. 组合
+给定两个整数 n 和 k，返回范围 [1, n] 中所有可能的 k 个数的组合。
+
+你可以按 任何顺序 返回答案。
+
+ 
+
+示例 1：
+```
+输入：n = 4, k = 2
+输出：
+[
+  [2,4],
+  [3,4],
+  [2,3],
+  [1,2],
+  [1,3],
+  [1,4],
+]
+```
+示例 2：
+```
+输入：n = 1, k = 1
+输出：[[1]]
+```
+
+提示：
+```
+1 <= n <= 20
+1 <= k <= n
+```
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/combinations
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+
+```js
+/**
+ * @param {number} n
+ * @param {number} k
+ * @return {number[][]}
+ */
+var combine = function (n, k) {
+    // 回溯法， 又被称为“ 试探法”。 解决问题时， 每进行一步， 都是抱着试试看的态度，
+    // 如果发现当前选择并不是最好的， 或者这么走下去肯定达不到目标，
+    // 立刻做回退操作重新选择。
+    // 这种走不通就回退再走的方法就是回溯法。
+    let res = [],
+        path = []
+    // 闭包保存res的值
+    var recursive = (n, k, startIndex) => {
+        if (path.length === k) {
+            // 浅拷贝有问题
+            // 当 数组是一维数组时，扩展运算符可以进行完全深拷贝 ，改变拷贝后数组的值并不会影响拷贝源的值。
+            // res.push(path)
+            // 需要深拷贝
+            res.push([...path])
+            return
+        }
+        for (let i = startIndex; i <= n - (k - path.length) + 1; i++) {
+            path.push(i)
+            recursive(n, k, i + 1)
+            // 回溯操作
+            path.pop()
+        }
+    }
+    recursive(n, k, 1)
+    return res
+};
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
+#### 216. 组合总和 III
+找出所有相加之和为 n 的 k 个数的组合。组合中只允许含有 1 - 9 的正整数，并且每种组合中不存在重复的数字。
+
+说明：
+```
+所有数字都是正整数。
+解集不能包含重复的组合。 
+```
+示例 1:
+```
+输入: k = 3, n = 7
+输出: [[1,2,4]]
+```
+示例 2:
+```
+输入: k = 3, n = 9
+输出: [[1,2,6], [1,3,5], [2,3,4]]
+```
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/combination-sum-iii
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+
+```js
+/**
+ * @param {number} k
+ * @param {number} n
+ * @return {number[][]}
+ */
+// var combinationSum3 = function (k, n) {
+//     /**
+//      * 回溯法求解
+//      * 1.确定参数
+//      * 2.终止条件
+//      * 3.遍历单层处理
+//      */
+//     let res = [],
+//         path = [],
+//         sum = 0
+//     var recursive = (k, n, startIndex) => {
+//         if (path.length === k && sum === n) {
+//             // 深拷贝，不影响被拷贝的变量
+//             res.push([...path])
+//             return
+//         }
+//         // 未剪枝
+//         for (let i = startIndex; i <= 9; i++) {
+//             sum += i
+//             path.push(i)
+//             recursive(k, n, i + 1)
+//             // 回溯
+//             sum -= i
+//             path.pop(i)
+//         }
+//     }
+//     recursive(k, n, 1)
+//     return res
+// };
+
+var combinationSum3 = function (k, n) {
+    /**
+     * 剪枝优化
+     * 总和大于目标值 sum>n 没必要继续，剪枝
+     * 遍历次数不需要9次，比如此题中：8和9
+     * path.length 目前路径长度
+     * k - path.length 还需要的数的长度
+     * 9 - (k - path.length) + 1 最大能遍历到的数
+     */
+
+    let res = [],
+        path = [],
+        sum = 0
+    var recursive = (k, n, startIndex) => {
+        // 剪枝
+        if (sum > n) return
+        if (path.length === k && sum === n) {
+            // 深拷贝，不影响被拷贝的变量
+            res.push([...path])
+            return
+        }
+        // 剪枝优化    
+        for (let i = startIndex; i <= 9 - (k - path.length) + 1; i++) {
+            sum += i
+            path.push(i)
+            recursive(k, n, i + 1)
+            // 回溯
+            sum -= i
+            path.pop(i)
+        }
+    }
+    recursive(k, n, 1)
+    return res
+};
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
+#### 17. 电话号码的字母组合
+给定一个仅包含数字 2-9 的字符串，返回所有它能表示的字母组合。答案可以按 任意顺序 返回。
+
+给出数字到字母的映射如下（与电话按键相同）。注意 1 不对应任何字母。
+
+
+![avatar](../picture/17.png)
+ 
+
+示例 1：
+```
+输入：digits = "23"
+输出：["ad","ae","af","bd","be","bf","cd","ce","cf"]
+```
+示例 2：
+```
+输入：digits = ""
+输出：[]
+```
+示例 3：
+```
+输入：digits = "2"
+输出：["a","b","c"]
+``` 
+
+提示：
+```
+0 <= digits.length <= 4
+digits[i] 是范围 ['2', '9'] 的一个数字。
+```
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/letter-combinations-of-a-phone-number
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+
+```js
+/**
+ * @param {string} digits
+ * @return {string[]}
+ */
+var letterCombinations = function (digits) {
+    /**
+     * 回溯法
+     * 1.确定参数
+     * 2.终止条件
+     * 3.遍历单层处理数据
+     */
+    if (digits.length === 0) return []
+    let res = [],
+        path = [],
+        // 字母数字映射
+        map = {
+            0: "", // 0
+            1: "", // 1
+            2: "abc", // 2
+            3: "def", // 3
+            4: "ghi", // 4
+            5: "jkl", // 5
+            6: "mno", // 6
+            7: "pqrs", // 7
+            8: "tuv", // 8
+            9: "wxyz", // 9
+        },
+        // 递归的深度
+        len = digits.length
+    var recursive = (n, k, startIndex) => {
+        if (path.length === k) {
+            res.push(path.join(''))
+            return
+        }
+        // n[startIndex] 取字符串中的数字
+        // map[n[startIndex]] 根据字符串中的数字取出字母
+        // 遍历这些字母
+        for (let i of map[n[startIndex]]) {
+            path.push(i)
+            recursive(n, k, startIndex + 1)
+            // 回溯
+            path.pop()
+        }
+    }
+    recursive(digits, len, 0)
+    return res
+};
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
+#### 39. 组合总和
+给定一个无重复元素的正整数数组 candidates 和一个正整数 target ，找出 candidates 中所有可以使数字和为目标数 target 的唯一组合。
+
+candidates 中的数字可以无限制重复被选取。如果至少一个所选数字数量不同，则两种组合是唯一的。 
+
+对于给定的输入，保证和为 target 的唯一组合数少于 150 个。
+
+ 
+
+示例 1：
+```
+输入: candidates = [2,3,6,7], target = 7
+输出: [[7],[2,2,3]]
+```
+示例 2：
+```
+输入: candidates = [2,3,5], target = 8
+输出: [[2,2,2,2],[2,3,3],[3,5]]
+```
+示例 3：
+```
+输入: candidates = [2], target = 1
+输出: []
+```
+示例 4：
+```
+输入: candidates = [1], target = 1
+输出: [[1]]
+```
+示例 5：
+```
+输入: candidates = [1], target = 2
+输出: [[1,1]]
+```
+
+提示：
+```
+1 <= candidates.length <= 30
+1 <= candidates[i] <= 200
+candidate 中的每个元素都是独一无二的。
+1 <= target <= 500
+```
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/combination-sum
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+```js
+/**
+ * @param {number[]} candidates
+ * @param {number} target
+ * @return {number[][]}
+ */
+var combinationSum = function (candidates, target) {
+    /**
+     * 回溯法求解-不剪枝
+     * 1.确定递归的参数
+     * 2.结束的条件
+     * 3.遍历每层数据进行处理
+     */
+    let res = [],
+        path = [],
+        sum = 0
+    var recursive = (n, k, startIndex) => {
+        if (sum > k) return
+        if (sum === k) {
+            res.push([...path])
+            return
+        }
+        // 遍历原数组
+        for (let i = startIndex; i < n.length; i++) {
+            // 每个数试错相加
+            sum += n[i]
+            path.push(n[i])
+            // i不需要加一，可以重复，包括自己
+            recursive(n, k, i)
+            // 回溯
+            sum -= n[i]
+            path.pop()
+        }
+    }
+    recursive(candidates, target, 0)
+    return res
+};
+// Accepted
+// 170/170 cases passed (112 ms)
+// Your runtime beats 12.15 % of javascript submissions
+// Your memory usage beats 71.03 % of javascript submissions (40.1 MB)
+
+// var combinationSum = function (candidates, target) {
+//     /**
+//      * 回溯法求解-剪枝优化（有问题）
+//      * 3.遍历每层数据 如果sum+当前值大于目标值，就没必要往下递归了
+//      */
+//     let res = [],
+//         path = [],
+//         sum = 0
+//     var recursive = (n, k, startIndex) => {
+//         if (sum > k) return
+//         if (sum === k) {
+//             res.push([...path])
+//             return
+//         }
+//         // 遍历原数组
+//         for (let i = startIndex; i < n.length && sum + n[i] <= k; i++) {
+//             // 每个数试错相加
+//             sum += n[i]
+//             path.push(n[i])
+//             // i不需要加一，可以重复，包括自己
+//             recursive(n, k, i)
+//             // 回溯
+//             sum -= n[i]
+//             path.pop()
+//         }
+//     }
+//     recursive(candidates, target, 0)
+//     return res
+// };
+// console.log(combinationSum([2,7,6,3,5,1], 9))
+// [[2,2,2,2],[2,3,3],[3,5]]
+```
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
+#### 40. 组合总和 II
+给定一个数组 candidates 和一个目标数 target ，找出 candidates 中所有可以使数字和为 target 的组合。
+
+candidates 中的每个数字在每个组合中只能使用一次。
+
+注意：解集不能包含重复的组合。 
+
+ 
+
+示例 1:
+```
+输入: candidates = [10,1,2,7,6,1,5], target = 8,
+输出:
+[
+[1,1,6],
+[1,2,5],
+[1,7],
+[2,6]
+]
+```
+示例 2:
+```
+输入: candidates = [2,5,2,1,2], target = 5,
+输出:
+[
+[1,2,2],
+[5]
+]
+```
+
+提示:
+```
+1 <= candidates.length <= 100
+1 <= candidates[i] <= 50
+1 <= target <= 30
+```
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/combination-sum-ii
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+```js
+/**
+ * @param {number[]} candidates
+ * @param {number} target
+ * @return {number[][]}
+ */
+// var combinationSum2 = function (candidates, target) {
+//     /**
+//      * 回溯法求解（使用used有问题）
+//      * 1.确定递归的参数
+//      * 2.结束的条件
+//      * 3.遍历每层数据进行处理
+//      * 
+//      * 
+//      * 这道题目，元素在同一组合内是可以重复的，但是两个组合不能重复。
+//      * 要去重的是同一树层上的“使用过”，同一树枝上的都是一个组合里的元素，不用去重。
+//      * 
+//      * 先进行排序，将相同的数放在附近
+//      * 再去重
+//      * 
+//      * 不明白查阅：
+//      * https://programmercarl.com/0040.%E7%BB%84%E5%90%88%E6%80%BB%E5%92%8CII.html#%E5%9B%9E%E6%BA%AF%E4%B8%89%E9%83%A8%E6%9B%B2
+//      */
+//     let res = [],
+//         path = [],
+//         sum = 0,
+//         // true 同一树枝的使用过
+//         // false 同一树层的使用过
+//         used = []
+//     candidates.sort((a, b) => a - b)
+//     var recursive = (n, k, startIndex, used) => {
+//         if (sum > k) return
+//         if (sum === k) {
+//             res.push([...path])
+//             return
+//         }
+//         // 遍历原数组
+//         for (let i = startIndex; i < n.length; i++) {
+//             // 如果是同一树层n[[i - 1]]上"使用过"，并且前后两值相等，跳出这层递归
+//             // i要从1开始，i-1可以从0开始
+//             if (used[i - 1] === false && i > 0 && n[i] === n[i - 1]) continue
+//             // 每个数试错相加
+//             sum += n[i]
+//             path.push(n[i])
+//             // 同一树枝上
+//             used[i] = true
+//             recursive(n, k, i + 1, used)
+//             // 同一树层
+//             used[i] = false
+//             // 回溯
+//             sum -= n[i]
+//             path.pop()
+//         }
+//     }
+//     recursive(candidates, target, 0, used)
+//     return res
+// };
+var combinationSum2 = function (candidates, target) {
+    /**
+     * 回溯法求解
+     */
+    let res = [],
+        path = [],
+        sum = 0
+    candidates.sort((a, b) => a - b)
+    var recursive = (n, k, startIndex) => {
+        if (sum > k) return
+        if (sum === k) {
+            res.push([...path])
+            return
+        }
+        // 遍历原数组
+        for (let i = startIndex; i < n.length; i++) {
+            // 每个节点是能使用一次，不同节点不能重复
+            if (i > startIndex && n[i] === n[i - 1]) continue
+            // 每个数试错相加
+            sum += n[i]
+            path.push(n[i])
+            recursive(n, k, i + 1)
+            // 回溯
+            sum -= n[i]
+            path.pop()
+        }
+    }
+    recursive(candidates, target, 0)
+    return res
+};
+```
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
 ### 动态规划
 动态规划(dynamic programming)是运筹学的一个分支，是求解决策过程(decision process)最优化的数学方法。20世纪50年代初美国数学家R.E.Bellman等人在研究多阶段决策过程(multistep decision process)的优化问题时，提出了著名的最优化原理(principle of optimality)，把多阶段过程转化为一系列单阶段问题，利用各阶段之间的关系，逐个求解，创立了解决这类过程优化问题的新方法——动态规划。1957年出版了他的名著《Dynamic Programming》，这是该领域的第一本著作。
 ##### 70. 爬楼梯
