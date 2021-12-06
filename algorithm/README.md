@@ -543,7 +543,77 @@ var combinationSum2 = function (candidates, target) {
 
 ### 动态规划
 动态规划(dynamic programming)是运筹学的一个分支，是求解决策过程(decision process)最优化的数学方法。20世纪50年代初美国数学家R.E.Bellman等人在研究多阶段决策过程(multistep decision process)的优化问题时，提出了著名的最优化原理(principle of optimality)，把多阶段过程转化为一系列单阶段问题，利用各阶段之间的关系，逐个求解，创立了解决这类过程优化问题的新方法——动态规划。1957年出版了他的名著《Dynamic Programming》，这是该领域的第一本著作。
-##### 70. 爬楼梯
+#### 509. 斐波那契数
+斐波那契数，通常用 F(n) 表示，形成的序列称为 斐波那契数列 。该数列由 0 和 1 开始，后面的每一项数字都是前面两项数字的和。也就是：
+```
+F(0) = 0，F(1) = 1
+F(n) = F(n - 1) + F(n - 2)，其中 n > 1
+```
+给你 n ，请计算 F(n) 。
+
+ 
+
+示例 1：
+```
+输入：2
+输出：1
+解释：F(2) = F(1) + F(0) = 1 + 0 = 1
+```
+示例 2：
+```
+输入：3
+输出：2
+解释：F(3) = F(2) + F(1) = 1 + 1 = 2
+```
+示例 3：
+```
+输入：4
+输出：3
+解释：F(4) = F(3) + F(2) = 2 + 1 = 3
+```
+
+提示：
+```
+0 <= n <= 30
+```
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/fibonacci-number
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+
+```js
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var fib = function (n) {
+    /**
+     * 我先尝试用递归求解，毕竟是一颗树的遍历，内存占用贼大。
+     */
+    // if (n === 0) return 0
+    // if (n === 1) return 1
+    // return fib(n - 1) + fib(n - 2)
+    /**
+     * 动态规划求解
+     */
+    // dp[i]的定义：斐波那契数 dp数组上第i个值
+
+    // dp初始值 dp[0]=0,dp[1]=1
+    let dp = [0, 1]
+    // dp递推公式：dp[n]=dp[n-1]+dp[n-2]
+
+    // 确定dp递推顺序：从前向后
+    for (let i = 2; i <= n; i++) {
+        dp[i] = dp[i - 2] + dp[i - 1]
+    }
+    // 返回dp[i]的值
+    return dp[n]
+};
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+#### 70. 爬楼梯
 假设你正在爬楼梯。需要 n 阶你才能到达楼顶。
 每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？
 注意：给定 n 是一个正整数。
@@ -623,6 +693,288 @@ var climbStairs = function (n) {
   ✔ Your runtime beats 98.63 % of javascript submissions
   ✔ Your memory usage beats 41.12 % of javascript submissions (33.7 MB)
 </pre>
+
+
+> tip：2021-12-6更新
+
+```js
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var climbStairs = function (n) {
+    /**
+     * 动态规划求解
+     */
+    // 1.dp[i]定义：在爬楼梯数组dp中第i个阶梯有几种爬法
+    // 2.确定初始化参数： dp[1]=1,dp[2]=2,dp[3]=3
+    // 3.递推公式:dp[n]=dp[n-2]+dp[n-1] ,n>2
+    // 4.地推顺序:从前向后
+    // 5.求dp数组
+    let dp = [null, 1, 2]
+    for (let i = 3; i <= n; i++) {
+        dp[i] = dp[i - 2] + dp[i - 1]
+    }
+    console.log(dp)
+    return dp[n]
+};
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
+#### 746. 使用最小花费爬楼梯
+数组的每个下标作为一个阶梯，第 i 个阶梯对应着一个非负数的体力花费值 cost[i]（下标从 0 开始）。
+
+每当你爬上一个阶梯你都要花费对应的体力值，一旦支付了相应的体力值，你就可以选择向上爬一个阶梯或者爬两个阶梯。
+
+请你找出达到楼层顶部的最低花费。在开始时，你可以选择从下标为 0 或 1 的元素作为初始阶梯。
+
+ 
+
+示例 1：
+```
+输入：cost = [10, 15, 20]
+输出：15
+解释：最低花费是从 cost[1] 开始，然后走两步即可到阶梯顶，一共花费 15 。
+```
+ 示例 2：
+```
+输入：cost = [1, 100, 1, 1, 1, 100, 1, 1, 100, 1]
+输出：6
+解释：最低花费方式是从 cost[0] 开始，逐个经过那些 1 ，跳过 cost[3] ，一共花费 6 。
+``` 
+
+提示：
+```
+cost 的长度范围是 [2, 1000]。
+cost[i] 将会是一个整型数据，范围为 [0, 999] 。
+```
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/min-cost-climbing-stairs
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+```js
+/**
+ * @param {number[]} cost
+ * @return {number}
+ */
+var minCostClimbingStairs = function (cost) {
+    /**
+     * 动态规划求解
+     */
+    // 1.dp[i]:第i个阶梯对应需要花费的体力值
+    // 2.初始值:dp[0]=cost[0],dp[1]=cost[1]
+    // 递推公式:dp[i]=Math.min(dp[i-1],dp[i-2]+cost[i])
+    // 递推顺序:从前向后
+    // 求递推数组dp
+    let dp = [cost[0], cost[1]]
+    for (let i = 2; i < cost.length; i++) {
+        // 因为最大是两步,所以需要加cost[i]
+        dp[i] = Math.min(dp[i - 1] +
+            cost[i], dp[i - 2] + cost[i])
+    }
+    console.log(dp)
+    // 注意最后一步可以理解为不用花费，所以取倒数第一步，第二步的最少值
+    return Math.min(dp[cost.length - 1], dp[cost.length - 2])
+};
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+#### 62. 不同路径
+一个机器人位于一个 m x n 网格的左上角 （起始点在下图中标记为 “Start” ）。
+
+机器人每次只能向下或者向右移动一步。机器人试图达到网格的右下角（在下图中标记为 “Finish” ）。
+
+问总共有多少条不同的路径？
+
+
+
+示例 1：
+
+![avatar](./picture/62.png)
+
+```
+输入：m = 3, n = 7
+输出：28
+```
+示例 2：
+```
+输入：m = 3, n = 2
+输出：3
+解释：
+从左上角开始，总共有 3 条路径可以到达右下角。
+1. 向右 -> 向下 -> 向下
+2. 向下 -> 向下 -> 向右
+3. 向下 -> 向右 -> 向下
+```
+示例 3：
+```
+输入：m = 7, n = 3
+输出：28
+```
+示例 4：
+```
+输入：m = 3, n = 3
+输出：6
+``` 
+
+提示：
+```
+1 <= m, n <= 100
+题目数据保证答案小于等于 2 * 109
+```
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/unique-paths
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+```js
+/**
+ * @param {number} m
+ * @param {number} n
+ * @return {number}
+ */
+var uniquePaths = function (m, n) {
+    /**
+     * 动态规划
+     */
+    // 1.dp[i,j]:从dp[0,0]到dp[i,j]一共有多少条路径
+    // 2.初始值:d[i,0]=1,横向一条路,d[0,j]=1，纵向也是一条路
+    // 3.递推公式：dp[i,j]=dp[i-1,j]+dp[i,j-1],都是左边的所有路径+上边的所有路径
+    // 4.顺序：从左往右一层层往下走
+    // 5.求递推dp数组
+    // 如果包括0的话，那就不能包括m或者n，应该是左闭右开区间
+
+    // 横向循环遍历设置初始值
+    let dp = []
+    for (let i = 0; i < m; i++) {
+        dp[i, 0] = 1
+    }
+    // 纵向循环遍历设置初始值
+    for (let j = 0; j < n; j++) {
+        dp[0, j] = 1
+    }
+    // 从左往右遍历，应该从1开始，要往前算一位
+    for (let i = 1; i < m; i++) {
+        //    从上往下遍历
+        for (let j = 1; j < n; j++) {
+            dp[i, j] = dp[i - 1, j] + dp[i, j - 1]
+        }
+    }
+    console.log(dp)
+    return dp[m - 1, n - 1]
+};
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+#### 63. 不同路径 II
+一个机器人位于一个 m x n 网格的左上角 （起始点在下图中标记为“Start” ）。
+
+机器人每次只能向下或者向右移动一步。机器人试图达到网格的右下角（在下图中标记为“Finish”）。
+
+现在考虑网格中有障碍物。那么从左上角到右下角将会有多少条不同的路径？
+
+![avatar](./picture/63-1.png)
+
+网格中的障碍物和空位置分别用 1 和 0 来表示。
+
+ 
+
+示例 1：
+![avatar](./picture/63-2.jpg)
+```
+输入：obstacleGrid = [[0,0,0],[0,1,0],[0,0,0]]
+输出：2
+解释：
+3x3 网格的正中间有一个障碍物。
+从左上角到右下角一共有 2 条不同的路径：
+1. 向右 -> 向右 -> 向下 -> 向下
+2. 向下 -> 向下 -> 向右 -> 向右
+```
+示例 2：
+![avatar](./picture/63-3.jpg)
+
+```
+输入：obstacleGrid = [[0,1],[0,0]]
+输出：1
+``` 
+
+提示：
+```
+m == obstacleGrid.length
+n == obstacleGrid[i].length
+1 <= m, n <= 100
+obstacleGrid[i][j] 为 0 或 1
+```
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/unique-paths-ii
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+
+```js
+/**
+ * @param {number[][]} obstacleGrid
+ * @return {number}
+ */
+var uniquePathsWithObstacles = function (obstacleGrid) {
+    /**
+     * 动态规划
+     */
+    // 1.dp[i,j]:从dp[0,0]到dp[i,j]一共有多少条路径(有障碍)
+    // 2.初始值:d[i,0]=1,横向一条路,d[0,j]=1，纵向也是一条路，如果有障碍，那么路径总和应该是0。
+    // 3.递推公式：dp[i,j]=dp[i-1,j]+dp[i,j-1],都是左边的所有路径+上边的所有路径
+    // 4.顺序：从左往右一层层往下走
+    // 5.求递推dp数组
+    // 如果包括0的话，那就不能包括m或者n，应该是左闭右开区间
+    // m是表格的横向
+    // n是表格的纵向
+    // 横向循环遍历设置初始值,没有障碍的话
+
+    // // 下面这样报错：Line 26: TypeError: Cannot read property '0' of undefined
+    // let m = obstacleGrid[0].length,
+    //     n = obstacleGrid.length,
+    //     dp = Array(m).fill().map(item => Array(n).fill(0))
+
+    const m = obstacleGrid.length,
+        n = obstacleGrid[0].length
+    let dp = Array(m).fill().map(item => Array(n).fill(0))
+    // 二维数组:[ [ 0, 0, 0 ], [ 0, 0, 0 ], [ 0, 0, 0 ] ]
+    for (let i = 0; i < m && obstacleGrid[i][0] === 0; ++i) {
+        dp[i][0] = 1
+    }
+    // 纵向循环遍历设置初始值,没有障碍的话
+    for (let j = 0; j < n && obstacleGrid[0][j] === 0; j++) {
+        dp[0][j] = 1
+    }
+    // 从左往右遍历，应该从1开始，要往前算一位
+    for (let i = 1; i < m; i++) {
+        //    从上往下遍历
+        for (let j = 1; j < n; j++) {
+            // 当(i, j)没有障碍的时候，再推导dp[i][j]
+            if (obstacleGrid[i][j] === 1) continue
+            // 这是一个二维数组
+            dp[i][j] = dp[i - 1][j] + dp[i][j - 1]
+        }
+    }
+    console.log(dp)
+    // 这是一个二维数组
+    return dp[m - 1][n - 1]
+};
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+#### 509. 斐波那契数
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+#### 509. 斐波那契数
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
@@ -1066,7 +1418,7 @@ var jump = function (nums) {
 ### 两个指针
 ### 并查集
 ### 未知 
-##### 395. 至少有K个重复字符的最长子串
+#### 395. 至少有K个重复字符的最长子串
 
 找到给定字符串（由小写字符组成）中的最长子串 T ， 要求 T 中的每一字符出现次数都不少于 k 。输出 T 的长度。
 
