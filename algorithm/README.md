@@ -630,6 +630,425 @@ var climbStairs = function (n) {
 ### 贪心算法
 贪心算法（又称贪婪算法）是指，在对问题求解时，总是做出在当前看来是最好的选择。也就是说，不从整体最优上加以考虑，他所做出的是在某种意义上的局部最优解。
 贪心算法不是对所有问题都能得到整体最优解，关键是贪心策略的选择，选择的贪心策略必须具备无后效性，即某个状态以前的过程不会影响以后的状态，只与当前状态有关。
+#### 455. 分发饼干
+假设你是一位很棒的家长，想要给你的孩子们一些小饼干。但是，每个孩子最多只能给一块饼干。
+
+对每个孩子 i，都有一个胃口值 g[i]，这是能让孩子们满足胃口的饼干的最小尺寸；并且每块饼干 j，都有一个尺寸 s[j] 。如果 s[j] >= g[i]，我们可以将这个饼干 j 分配给孩子 i ，这个孩子会得到满足。你的目标是尽可能满足越多数量的孩子，并输出这个最大数值。
+
+ 
+示例 1:
+```
+输入: g = [1,2,3], s = [1,1]
+输出: 1
+解释: 
+你有三个孩子和两块小饼干，3个孩子的胃口值分别是：1,2,3。
+虽然你有两块小饼干，由于他们的尺寸都是1，你只能让胃口值是1的孩子满足。
+所以你应该输出1。
+```
+示例 2:
+```
+输入: g = [1,2], s = [1,2,3]
+输出: 2
+解释: 
+你有两个孩子和三块小饼干，2个孩子的胃口值分别是1,2。
+你拥有的饼干数量和尺寸都足以让所有孩子满足。
+所以你应该输出2.
+``` 
+
+提示：
+```
+1 <= g.length <= 3 * 104
+0 <= s.length <= 3 * 104
+1 <= g[i], s[j] <= 231 - 1
+```
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/assign-cookies
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+
+```js
+/**
+ * @param {number[]} g 胃口
+ * @param {number[]} s 饼干
+ * @return {number}
+ */
+var findContentChildren = function (g, s) {
+    /**
+     * 贪心算法求解：
+     * 先考虑饼干
+     * 1.小饼干先满足小胃口
+     */
+    // g = g.sort((a, b) => a - b)
+    // s = s.sort((a, b) => a - b)
+    // // 喂饱的人数
+    // let count = 0,
+    //     startIndex = 0
+    // for (let i = 0; i < s.length; i++) {
+    //     if (s[i] >= g[startIndex]) {
+    //         count++
+    //         startIndex++
+    //     }
+    // }
+    // return count
+
+    /**
+     * 先考虑胃口
+     * 2.大饼干先满足大胃口
+     */
+    g = g.sort((a, b) => b - a)
+    s = s.sort((a, b) => b - a)
+    let count = 0,
+        startIndex = 0
+    for (let i = 0; i < g.length; i++) {
+        if (g[i] <= s[startIndex]) {
+            count++
+            startIndex++
+        }
+    }
+    return count
+};
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+#### 376. 摆动序列
+如果连续数字之间的差严格地在正数和负数之间交替，则数字序列称为 摆动序列 。第一个差（如果存在的话）可能是正数或负数。仅有一个元素或者含两个不等元素的序列也视作摆动序列。
+
+例如， [1, 7, 4, 9, 2, 5] 是一个 摆动序列 ，因为差值 (6, -3, 5, -7, 3) 是正负交替出现的。
+
+相反，[1, 4, 7, 2, 5] 和 [1, 7, 4, 5, 5] 不是摆动序列，第一个序列是因为它的前两个差值都是正数，第二个序列是因为它的最后一个差值为零。
+子序列 可以通过从原始序列中删除一些（也可以不删除）元素来获得，剩下的元素保持其原始顺序。
+
+给你一个整数数组 nums ，返回 nums 中作为 摆动序列 的 最长子序列的长度 。
+
+ 
+
+示例 1：
+```
+输入：nums = [1,7,4,9,2,5]
+输出：6
+解释：整个序列均为摆动序列，各元素之间的差值为 (6, -3, 5, -7, 3) 。
+```
+示例 2：
+```
+输入：nums = [1,17,5,10,13,15,10,5,16,8]
+输出：7
+解释：这个序列包含几个长度为 7 摆动序列。
+其中一个是 [1, 17, 10, 13, 10, 16, 8] ，各元素之间的差值为 (16, -7, 3, -3, 6, -8) 。
+```
+示例 3：
+```
+输入：nums = [1,2,3,4,5,6,7,8,9]
+输出：2
+``` 
+
+提示：
+```
+1 <= nums.length <= 1000
+0 <= nums[i] <= 1000
+``` 
+
+进阶：你能否用 O(n) 时间复杂度完成此题?
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/wiggle-subsequence
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+
+```js
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var wiggleMaxLength = function (nums) {
+    /**
+     * 贪心算法求解
+     */
+    // 上一个区间的差值
+    let preDiff = 0,
+    // 当前区间的差值
+        curDiff = 0,
+        // 最开始节点
+        res = 1
+    for (let i = 0; i < nums.length; i++) {
+        curDiff = nums[i + 1] - nums[i]
+        // 当前区间的差值 和 前一个区间的差值 正负相反
+        if (curDiff > 0 && preDiff <= 0 || (curDiff < 0 && preDiff >= 0)) {
+            res++
+            preDiff = curDiff
+        }
+    }
+    return res
+};
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+#### 53. 最大子数组和
+给你一个整数数组 nums ，请你找出一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。
+
+子数组 是数组中的一个连续部分。
+
+示例 1：
+```
+输入：nums = [-2,1,-3,4,-1,2,1,-5,4]
+输出：6
+解释：连续子数组 [4,-1,2,1] 的和最大，为 6 。
+```
+示例 2：
+```
+输入：nums = [1]
+输出：1
+```
+示例 3：
+```
+输入：nums = [5,4,-1,7,8]
+输出：23
+``` 
+
+提示：
+```
+1 <= nums.length <= 105
+-104 <= nums[i] <= 104
+```
+
+进阶：如果你已经实现复杂度为 O(n) 的解法，尝试使用更为精妙的 分治法 求解。
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/maximum-subarray
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+
+```js
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var maxSubArray = function (nums) {
+    /**
+     * 暴力求解（有问题：通不过测试）
+     */
+    // 全局属性 Infinity 是一个数值，表示无穷大。
+    // let res = -Infinity,
+    //     count = 0
+    // for (let i = 0; i < nums.length; i++) {
+    //     // 每次重置开始位置，都应该置空count
+    //     count = 0
+    //     for (let j = i; j < nums.length; j++) {
+    //         count += nums[j]
+    //         res = count > res ? count : res
+    //     }
+    // }
+    // return res
+    /**
+     * 贪心算法
+     */
+    let res = -Infinity,
+        count = 0
+    for (let i = 0; i < nums.length; i++) {
+        count += nums[i]
+        // 取区间累计的最大值（相当于不断确定最大子序终止位置）
+        res = count > res ? count : res
+        // 和<0重置为0，因为任何数和负数相加总是越来越小
+        if (count < 0) {
+            count = 0
+        }
+    }
+    return res
+};
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+#### 122. 买卖股票的最佳时机 II
+给定一个数组 prices ，其中 prices[i] 是一支给定股票第 i 天的价格。
+
+设计一个算法来计算你所能获取的最大利润。你可以尽可能地完成更多的交易（多次买卖一支股票）。
+
+注意：你不能同时参与多笔交易（你必须在再次购买前出售掉之前的股票）。
+
+ 
+
+示例 1:
+```
+输入: prices = [7,1,5,3,6,4]
+输出: 7
+解释: 在第 2 天（股票价格 = 1）的时候买入，在第 3 天（股票价格 = 5）的时候卖出, 这笔交易所能获得利润 = 5-1 = 4 。
+     随后，在第 4 天（股票价格 = 3）的时候买入，在第 5 天（股票价格 = 6）的时候卖出, 这笔交易所能获得利润 = 6-3 = 3 。
+```
+示例 2:
+```
+输入: prices = [1,2,3,4,5]
+输出: 4
+解释: 在第 1 天（股票价格 = 1）的时候买入，在第 5 天 （股票价格 = 5）的时候卖出, 这笔交易所能获得利润 = 5-1 = 4 。
+     注意你不能在第 1 天和第 2 天接连购买股票，之后再将它们卖出。因为这样属于同时参与了多笔交易，你必须在再次购买前出售掉之前的股票。
+```
+示例 3:
+```
+输入: prices = [7,6,4,3,1]
+输出: 0
+解释: 在这种情况下, 没有交易完成, 所以最大利润为 0。
+```
+
+提示：
+```
+1 <= prices.length <= 3 * 104
+0 <= prices[i] <= 104
+```
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-ii
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+
+```js
+/**
+ * @param {number[]} prices
+ * @return {number}
+ */
+var maxProfit = function (prices) {
+    /**
+     * 贪心算法求解
+     * 
+     * 上升区间的头节点买入,尾节点卖出最赚
+     */
+    let curDiff = 0,
+        res = 0
+    for (let i = 0; i < prices.length; i++) {
+        // 当前区间的盈利
+        curDiff = prices[i + 1] - prices[i]
+        // 如果盈利是正的,就相加
+        if (curDiff > 0) {
+            res += curDiff
+        }
+    }
+    return res
+};
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+#### 55. 跳跃游戏
+给定一个非负整数数组 nums ，你最初位于数组的 第一个下标 。
+
+数组中的每个元素代表你在该位置可以跳跃的最大长度。
+
+判断你是否能够到达最后一个下标。
+
+ 
+
+示例 1：
+```
+输入：nums = [2,3,1,1,4]
+输出：true
+解释：可以先跳 1 步，从下标 0 到达下标 1, 然后再从下标 1 跳 3 步到达最后一个下标。
+```
+示例 2：
+```
+输入：nums = [3,2,1,0,4]
+输出：false
+解释：无论怎样，总会到达下标为 3 的位置。但该下标的最大跳跃长度是 0 ， 所以永远不可能到达最后一个下标。
+``` 
+
+提示：
+```
+1 <= nums.length <= 3 * 104
+0 <= nums[i] <= 105
+```
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/jump-game
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+
+```js
+/**
+ * @param {number[]} nums
+ * @return {boolean}
+ */
+var canJump = function (nums) {
+    if (nums.length === 1) return true
+    let count = 0
+    // 每次移动只能在count的范围内移动，每移动一个元素，count得到该元素数值（新的覆盖范围）的补充，让i继续移动下去。
+    // 而count每次只取 max(该元素数值补充后的范围, count本身范围)。
+    for (let i = 0; i <= count; i++) {
+        // 当前位置加上当前值 和 count 取谁最大
+        count = Math.max(i + nums[i], count)
+        // 如果 count 大于数组长度，那就是全覆盖了
+        if (count >= nums.length - 1) return true
+    }
+    return false
+};
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+#### 45. 跳跃游戏 II
+给你一个非负整数数组 nums ，你最初位于数组的第一个位置。
+
+数组中的每个元素代表你在该位置可以跳跃的最大长度。
+
+你的目标是使用最少的跳跃次数到达数组的最后一个位置。
+
+假设你总是可以到达数组的最后一个位置。
+
+ 
+
+示例 1:
+```
+输入: nums = [2,3,1,1,4]
+输出: 2
+解释: 跳到最后一个位置的最小跳跃数是 2。
+     从下标为 0 跳到下标为 1 的位置，跳 1 步，然后跳 3 步到达数组的最后一个位置。
+```
+示例 2:
+```
+输入: nums = [2,3,0,1,4]
+输出: 2
+``` 
+
+提示:
+```
+1 <= nums.length <= 104
+0 <= nums[i] <= 1000
+```
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/jump-game-ii
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+
+```js
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var jump = function (nums) {
+    if (nums.length === 1) return 0
+    // 步长
+    let step = 0,
+        // 当前最远距离
+        currentDistance = 0,
+        //    下一步最远距离
+        nextDistance = 0
+    for (let i = 0; i < nums.length; i++) {
+        // 更新下一步覆盖最远距离下标
+        nextDistance = Math.max(nextDistance, i + nums[i])
+        // 如果已经达到最远距离
+        if (i === currentDistance) {
+            // 如果没有到达终点
+            if (currentDistance < nums.length - 1) {
+                step++
+                currentDistance = nextDistance
+            } else {
+                break
+            }
+        }
+    }
+    return step
+};
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
 ### 位操纵
 位操作是程序设计中对位模式按位或二进制数的一元和二元操作. 在许多古老的微处理器上, 位运算比加减运算略快, 通常位运算比乘除法运算要快很多. 在现代架构中, 情况并非如此:位运算的运算速度通常与加法运算相同（仍然快于乘法运算）。
 ### 脑筋急转弯
