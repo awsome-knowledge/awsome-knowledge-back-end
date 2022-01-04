@@ -3493,6 +3493,38 @@ var fourSum = function (nums, target) {
 
 ---
 #### 26. 删除排序数组中的重复项
+> 新的版本 2022-1-4
+```js
+/*
+ * @lc app=leetcode.cn id=26 lang=javascript
+ *
+ * [26] 删除有序数组中的重复项
+ */
+// @lc code=start
+/**
+ * @param{number[]}nums
+ * @return{number}
+ */
+varremoveDuplicates = function (nums) {
+    // 不要使用额外的数组空间，你必须在 原地 修改输入数组
+    /**
+     * 双指针法
+     * 快慢指针
+     */
+    letslow = 0
+    for (letfast = 0; fast <= nums.length - 1; fast++) {
+        // 如果前后值不相等，那就处理，否则就跳过当前重复值
+        if (nums[fast] !== nums[fast + 1]) {
+            nums[slow++] = nums[fast]
+        }
+    }
+    returnslow
+};
+// @lc code=end
+console.log(removeDuplicates([0, 0, 1, 1, 1, 2, 2, 3, 3, 4]))
+```
+
+> 旧的版本
 给定一个排序数组，你需要在原地删除重复出现的元素，使得每个元素只出现一次，返回移除后数组的新长度。
 
 不要使用额外的数组空间，你必须在原地修改输入数组并在使用 O(1) 额外空间的条件下完成。
@@ -3576,6 +3608,62 @@ var removeDuplicates = function(nums) {
 
 ---
 #### 27. 移除元素
+> 新的版本 2022-1-4
+```js
+/*
+ * @lc app=leetcode.cn id=27 lang=javascript
+ *
+ * [27] 移除元素
+ */
+// @lc code=start
+/**
+ * @param{number[]}nums
+ * @param{number}val
+ * @return{number}
+ */
+varremoveElement = function (nums, val) {
+    // /**
+    //  * 1.暴力求解
+    //  */
+    // let len = nums.length
+    // for (let i = 0; i < len; i++) {
+    //     if (nums[i] === val) {
+    //         // 发现需要移除的元素，就将数组集体向前移动一位
+    //         for (let j = i + 1; j < len; j++) {
+    //             nums[j - 1] = nums[j]
+    //         }
+    //         // 因为下表i以后的数值都向前移动了一位，所以i也向前移动一位
+    //         i--
+    //         // 此时数组的大小-1
+    //         len--
+    //     }
+    // }
+    // return len
+    /**
+     * 2.双指针求解
+     */
+    letslow = 0,
+        len = nums.length
+    for (letfast = 0; fast < len; fast++) {
+        //如果当前值不需要移除，就原位置的值覆盖
+        //  如果当前值需要移除就用后面的值覆盖
+        if (nums[fast] !== val) {
+            nums[slow++] = nums[fast]
+        }
+    }
+    // 现在有多少就在slow中
+    returnslow
+    // 现在nums的值，后面三个是没有替换的，符合题目中不能动原数组的意思
+    // [
+    //     0, 1, 3, 0,
+    //     4, 0, 4, 2
+    //   ]
+};
+// @lc code=end
+console.log(removeElement([0, 1, 2, 2, 3, 0, 4, 2], 2))
+```
+
+> 旧的版本
 给定一个数组 nums 和一个值 val，你需要原地移除所有数值等于 val 的元素，返回移除后数组的新长度。
 
 不要使用额外的数组空间，你必须在原地修改输入数组并在使用 O(1) 额外空间的条件下完成。
@@ -3755,6 +3843,70 @@ var search = function(nums, target) {
 
 ---
 #### 34. 在排序数组中查找元素的第一个和最后一个位置
+> 新的版本 2022-1-4
+```js
+/*
+ * @lc app=leetcode.cn id=34 lang=javascript
+ *
+ * [34] 在排序数组中查找元素的第一个和最后一个位置
+ */
+// @lc code=start
+/**
+ * @param{number[]}nums
+ * @param{number}target
+ * @return{number[]}
+ */
+varsearchRange = function (nums, target) {
+    /**
+     * 二分法求解（左闭右闭区间）
+     * 1.寻找左边界
+     * 2.寻找右边界
+     * 3.组合
+     */
+    //  寻找左边界
+    searchLeftBorder = (nums, target) => {
+        letleftBorder = -2,
+            left = 0,
+            right = nums.length - 1
+        while (left <= right) {
+            letmid = left + Math.floor((right - left) / 2)
+            if (nums[mid] >= target) {
+                // 中间值大于等于目标值，一直往右找，找到最右边
+                right = mid - 1
+                leftBorder = right
+            } else {
+                // 中间值太小，重置左位置left
+                left = mid + 1
+            }
+        }
+        returnleftBorder
+    }
+    // 寻找右边界
+    searchRightBorder = (nums, target) => {
+        letrightBorder = -2,
+            left = 0,
+            right = nums.length - 1
+        while (left <= right) {
+            letmid = left + Math.floor((right - left) / 2)
+            if (nums[mid] > target) {
+                right = mid - 1
+            } else {
+                left = mid + 1
+                rightBorder = left
+            }
+        }
+        returnrightBorder
+    }
+    letleftB = searchLeftBorder(nums, target),
+        rightB = searchRightBorder(nums, target)
+    if (leftB === -2 && rightB === -2) return [-1, -1]
+    if (rightB - leftB > 1) return [leftB + 1, rightB - 1]
+};
+// @lc code=end
+console.log(searchRange([5, 7, 7, 8, 8, 10], 8))
+```
+
+> 旧的版本
 给定一个按照升序排列的整数数组 nums，和一个目标值 target。找出给定目标值在数组中的开始位置和结束位置。
 
 你的算法时间复杂度必须是 O(log n) 级别。
@@ -4216,6 +4368,55 @@ var merge = function (nums1, m, nums2, n) {
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
+#### 283.移动零
+给一个数组 nums 写一个函数将 0 移动到数组的最后面，非零元素保持原数组的顺序
+```
+1.必须在原数组上操作
+2.最小化操作数
+```
+样例
+例1:
+```
+输入: nums = [0, 1, 0, 3, 12],
+输出: [1, 3, 12, 0, 0].
+```
+例2:
+```
+输入: nums = [0, 0, 0, 3, 1],
+输出: [3, 1, 0, 0, 0].
+```
+```js
+/*
+ * @lc app=leetcode.cn id=283 lang=javascript
+ *
+ * [283] 移动零
+ */
+// @lc code=start
+/**
+ * @param{number[]}nums
+ * @return{void} Do not return anything, modify nums in-place instead.
+ */
+varmoveZeroes = function (nums) {
+    /**
+     * 双指针
+     */
+    letslow = 0
+    for (letfast = 0; fast <= nums.length - 1; fast++) {
+        if (nums[fast] !== 0) {
+            // 当前不为0的处理
+            nums[slow++] = nums[fast]
+        }
+    }
+    // 处理后续的位置
+    for (leti = slow; i <= nums.length - 1; i++) {
+        nums[i] = 0
+    }
+    returnnums
+};
+// @lc code=end
+console.log(moveZeroes([0, 1, 0, 3, 12]))
+```
+
 #### 118. 杨辉三角
 给定一个非负整数 numRows，生成杨辉三角的前 numRows 行。
 
@@ -4386,6 +4587,293 @@ var search = function (nums, target) {
 执行用时: 100 ms
 内存消耗: 41.1 MB
 ```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+#### 844. 比较含退格的字符串
+给定 S 和 T 两个字符串，当它们分别被输入到空白的文本编辑器后，判断二者是否相等，并返回结果。 # 代表退格字符。
+```
+1 <= S.length <= 200
+1 <= T.length <= 200
+```
+
+S 和 T 只含有小写字母以及字符 '#'。
+
+样例
+
+样例 1：
+```
+输入：S = "ab#c", T = "ad#c"
+输出：true
+解释：S 和 T 都会变成 “ac”。
+```
+样例 2：
+
+输入：S = "ab##", T = "c#d#"
+输出：true
+解释：S 和 T 都会变成 “”。
+样例 3：
+```
+输入：S = "a##c", T = "#a#c"
+输出：true
+解释：S 和 T 都会变成 “c”。
+```
+示例 4：
+```
+输入：S = "a#c", T = "b"
+输出：false
+```
+解释：S 会变成 “c”，但 T 仍然是 “b”。
+
+挑战
+
+你可以在O(N)O(N)的时间复杂度和O(1)O(1)的额外空间复杂度完成吗？
+```js
+/*
+ * @lc app=leetcode.cn id=844 lang=javascript
+ *
+ * [844] 比较含退格的字符串
+ */
+// @lc code=start
+/**
+ * @param{string}s
+ * @param{string}t
+ * @return{boolean}
+ */
+varbackspaceCompare = function (s, t) {
+    /**
+     * 双指针
+     * 解题思路
+     * https://leetcode-cn.com/problems/backspace-string-compare/solution/shuang-zhi-zhen-bi-jiao-han-tui-ge-de-zi-8fn8/
+     * 
+     */
+    // 从后往前判断
+    let
+        tArr = t.split(''),
+        sArr = s.split(''),
+        // 当前位置
+        tCurrent = tArr.length - 1,
+        sCurrent = sArr.length - 1,
+        // 当前需要跳过的步数
+        tSkip = 0,
+        sSkip = 0
+    // 开启大循环
+    while (sCurrent >= 0 || tCurrent >= 0) {
+        while (sCurrent >= 0) {
+            // s开始循环
+            if (sArr[sCurrent] === '#') {
+                // 遇到退格，记录步数，当前位置往前移
+                sSkip++
+                sCurrent--
+            } elseif (sSkip > 0) {
+                // 退格清除字符循环
+                sSkip--
+                sCurrent--
+            } elsebreak
+        }
+        while (tCurrent >= 0) {
+            // t开始循环
+            if (tArr[tCurrent] === '#') {
+                tSkip++
+                tCurrent--
+            } elseif (tSkip > 0) {
+                tSkip--
+                tCurrent--
+            } elsebreak
+        }
+        if (sArr[sCurrent] !== tArr[tCurrent]) {
+            returnfalse
+        }
+        sCurrent--
+        tCurrent--
+    }
+    returntrue
+};
+// @lc code=end
+console.log(backspaceCompare("a##c", "#a#c"))
+```
+
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
+#### 977. 有序数组的平方
+```js
+/*
+ * @lc app=leetcode.cn id=977 lang=javascript
+ *
+ * [977] 有序数组的平方
+ */
+// @lc code=start
+/**
+ * @param{number[]}nums
+ * @return{number[]}
+ */
+varsortedSquares = function (nums) {
+    for (leti = 0; i < nums.length; i++) {
+        nums[i] = nums[i] * nums[i]
+    }
+    returnnums.sort((a, b) =>a - b)
+};
+// @lc code=end
+console.log(sortedSquares([-7, -3, 2, 3, 11]))
+```
+
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
+#### 209.  长度最小的子数组
+```js
+/*
+ * @lc app=leetcode.cn id=209 lang=javascript
+ *
+ * [209] 长度最小的子数组
+ */
+// @lc code=start
+/**
+ * @param{number}target
+ * @param{number[]}nums
+ * @return{number}
+ */
+varminSubArrayLen = function (target, nums) {
+    /**
+     * 滑动窗口
+     * 窗口就是 满足其和 ≥ s 的长度最小的 连续 子数组。
+    窗口的起始位置如何移动：如果当前窗口的值大于s了，窗口就要向前移动了（也就是该缩小了）。
+    窗口的结束位置如何移动：窗口的结束位置就是遍历数组的指针，窗口的起始位置设置为数组的起始位置就可以了。
+    可以发现滑动窗口的精妙之处在于根据当前子序列和大小的情况，不断调节子序列的起始位置。从而将O(n^2)的暴力解法降为O(n)。
+     */
+    letleft = right = sum = 0,
+        len = nums.length + 1
+    while (right++ <= nums.length) {
+        sum += nums[right]
+        while (sum >= target) {
+            len = Math.min(len, right - left)
+            // 窗口右移，和排查左边值
+            sum -= nums[left++]
+        }
+    }
+    returnlen
+};
+// @lc code=end
+console.log(minSubArrayLen(7, [2, 3, 1, 2, 4, 3]))
+```
+
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
+
+#### 59.  螺旋矩阵 II
+```js
+/*
+
+
+
+ * @lc app=leetcode.cn id=59 lang=javascript
+ *
+ * [59] 螺旋矩阵 II
+ */
+// @lc code=start
+/**
+ * @param{number}n
+ * @return{number[][]}
+ */
+vargenerateMatrix = function (n) {
+    /**
+     * 二分法求解
+     * https://programmercarl.com/0059.%E8%9E%BA%E6%97%8B%E7%9F%A9%E9%98%B5II.html#%E5%85%B6%E4%BB%96%E8%AF%AD%E8%A8%80%E7%89%88%E6%9C%AC
+     */
+    // 起始位置
+    letstartX = startY = 0,
+        // 旋转圈数
+        loop = Math.floor(n / 2),
+        // 中间位置
+        mid = Math.floor(n / 2),
+        // 控制每一层填充元素个数
+        offset = 1,
+        // 更新填充数字
+        count = 1,
+        // 数组初始化
+        res = newArray(n).fill(0).map(() =>newArray(n).fill(0))
+    while (loop--) {
+        letrow = startX,
+            col = startY
+        // 上行从左到右（左闭右开）
+        for (; col < startY + n - offset; col++) {
+            res[row][col] = count++
+        }
+        // 右列从上到下（左闭右开）
+        for (; row < startX + n - offset; row++) {
+            res[row][col] = count++
+        }
+        // 下行从右到左（左闭右开）
+        for (; col > startX; col--) {
+            res[row][col] = count++
+        }
+        // 左列做下到上（左闭右开）
+        for (; row > startY; row--) {
+            res[row][col] = count++
+        }
+        // 更新起始位置
+        startY++
+        startX++
+        // 更新offset
+        offset += 2
+    }
+    // 如果n为奇数的话，需要单独给矩阵最中间的位置赋值
+    if (n % 2 === 1) {
+        res[mid][mid] = count
+    }
+    returnres
+};
+// @lc code=end
+console.log(generateMatrix(4))
+```
+
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+#### 总结
+数组
+
+数组是存放在连续内存空间上的相同类型数据的集合。
+
+数组可以方便的通过下标索引的方式获取到下标下对应的数据。
+
+需要两点注意的是
+-  数组下标都是从0开始的。
+-  数组内存空间的地址是连续的
+正是因为数组的在内存空间的地址是连续的，所以我们在删除或者增添元素的时候，就难免要移动其他元素的地址。
+
+> 二分法
+
+我们讲到了循环不变量原则，只有在循环中坚持对区间的定义，才能清楚的把握循环中的各种细节。
+二分法是算法面试中的常考题
+
+> 双指针法
+
+双指针法（快慢指针法）：通过一个快指针和慢指针在一个for循环下完成两个for循环的工作。
+
+
+>滑动窗口
+
+滑动窗口的精妙之处在于根据当前子序列和大小的情况，不断调节子序列的起始位置。从而将O(n^2)的暴力解法降为O(n)。
+
+> 模拟行为
+
+模拟类的题目在数组中很常见，不涉及到什么算法，就是单纯的模拟，十分考察大家对代码的掌控能力。
+
+在这道题目中，我们再一次介绍到了循环不变量原则，其实这也是写程序中的重要原则。
+
+相信大家又遇到过这种情况： 感觉题目的边界调节超多，一波接着一波的判断，找边界，踩了东墙补西墙，好不容易运行通过了，代码写的十分冗余，毫无章法，其实真正解决题目的代码都是简洁的，或者有原则性的，大家可以在这道题目中体会到这一点。
+
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
@@ -6548,6 +7036,125 @@ console.log(reverseWords("  like bob"))
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
+#### 剑指Offer58-II.左旋转字符串
+```js
+// 题目：剑指Offer58-II.左旋转字符串
+
+
+// 力扣题目链接(opens new window)
+// 字符串的左旋转操作是把字符串前面的若干个字符转移到字符串的尾部。请定义一个函数实现字符串左旋转操作的功能。比如，输入字符串"abcdefg"和数字2，该函数将返回左旋转两位得到的结果"cdefgab"。
+// 示例 1：
+// 输入: s = "abcdefg", k = 2
+// 输出: "cdefgab"
+// 示例 2：
+// 输入: s = "lrloseumgh", k = 6
+// 输出: "umghlrlose"
+// 限制：
+// 1 <= k < s.length <= 10000
+varreverseLeftWords = function (s, n) {
+    // /**
+    //  * 使用额外的空间
+    //  */
+    // let leftStr = s.slice(0, n),
+    //     rightStr = s.slice(n)
+    // return rightStr + leftStr
+    /**
+     *  不适用额外空间
+     */
+    constlen = s.length
+    leti = 0
+    // 循环i 小于 需要左移的长度
+    while (i < len - n) {
+        // 拼接字符串
+        s = s[len - 1] + s
+        i++
+    }
+    returns.slice(0, len)
+};
+console.log(reverseLeftWords("abcdefg", 2))
+```
+
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
+#### 总结
+> 什么是字符串
+
+字符串是若干字符组成的有限序列，也可以理解为是一个字符数组
+
+> 要不要使用库函数
+在文章344.反转字符串(opens new window)中强调了打基础的时候，不要太迷恋于库函数。
+
+甚至一些同学习惯于调用substr，split，reverse之类的库函数，却不知道其实现原理，也不知道其时间复杂度，这样实现出来的代码，如果在面试现场，面试官问：“分析其时间复杂度”的话，一定会一脸懵逼！
+
+所以建议如果题目关键的部分直接用库函数就可以解决，建议不要使用库函数。
+
+如果库函数仅仅是 解题过程中的一小部分，并且你已经很清楚这个库函数的内部实现原理的话，可以考虑使用库函数。
+
+> 双指针法
+
+在344.反转字符串(opens new window)，我们使用双指针法实现了反转字符串的操作，双指针法在数组，链表和字符串中很常用。
+
+接着在字符串：替换空格(opens new window)，同样还是使用双指针法在时间复杂度$O(n)$的情况下完成替换空格。
+
+其实很多数组填充类的问题，都可以先预先给数组扩容带填充后的大小，然后在从后向前进行操作。
+
+那么针对数组删除操作的问题，其实在27. 移除元素(opens new window)中就已经提到了使用双指针法进行移除操作。
+
+同样的道理在151.翻转字符串里的单词(opens new window)中我们使用$O(n)$的时间复杂度，完成了删除冗余空格。
+
+一些同学会使用for循环里调用库函数erase来移除元素，这其实是$O(n^2)$的操作，因为erase就是$O(n)$的操作，所以这也是典型的不知道库函数的时间复杂度，上来就用的案例了。
+
+> 反转系列
+在反转上还可以在加一些玩法，其实考察的是对代码的掌控能力。
+
+541. 反转字符串II(opens new window)中，一些同学可能为了处理逻辑：每隔2k个字符的前k的字符，写了一堆逻辑代码或者再搞一个计数器，来统计2k，再统计前k个字符。
+
+其实当需要固定规律一段一段去处理字符串的时候，要想想在在for循环的表达式上做做文章。
+
+只要让 i += (2 * k)，i 每次移动 2 * k 就可以了，然后判断是否需要有反转的区间。
+
+因为要找的也就是每2 * k 区间的起点，这样写程序会高效很多。
+
+在151.翻转字符串里的单词(opens new window)中要求翻转字符串里的单词，这道题目可以说是综合考察了字符串的多种操作。是考察字符串的好题。
+
+这道题目通过 先整体反转再局部反转，实现了反转字符串里的单词。
+
+后来发现反转字符串还有一个牛逼的用处，就是达到左旋的效果。
+
+在字符串：反转个字符串还有这个用处？(opens new window)中，我们通过先局部反转再整体反转达到了左旋的效果。
+
+> KMP
+KMP的主要思想是当出现字符串不匹配时，可以知道一部分之前已经匹配的文本内容，可以利用这些信息避免从头再去做匹配了。
+
+KMP的精髓所在就是前缀表，在KMP精讲(opens new window)中提到了，什么是KMP，什么是前缀表，以及为什么要用前缀表。
+
+前缀表：起始位置到下标i之前（包括i）的子串中，有多大长度的相同前缀后缀。
+
+那么使用KMP可以解决两类经典问题：
+1. 匹配问题：28. 实现 strStr()(opens new window)
+2. 重复子串问题：459.重复的子字符串(opens new window)
+
+再一次强调了什么是前缀，什么是后缀，什么又是最长相等前后缀。
+
+前缀：指不包含最后一个字符的所有以第一个字符开头的连续子串。
+
+后缀：指不包含第一个字符的所有以最后一个字符结尾的连续子串。
+
+然后针对前缀表到底要不要减一，这其实是不同KMP实现的方式，我们在KMP精讲(opens new window)中针对之前两个问题，分别给出了两个不同版本的的KMP实现。
+
+其中主要理解j=next[x]这一步最为关键！
+
+字符串类类型的题目，往往想法比较简单，但是实现起来并不容易，复杂的字符串题目非常考验对代码的掌控能力。
+双指针法是字符串处理的常客。
+
+KMP算法是字符串查找最重要的算法，但彻底理解KMP并不容易，我们已经写了五篇KMP的文章，不断总结和完善，最终才把KMP讲清楚。
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
 ### 全排列
 从n个不同元素中任取m（m≤n）个元素，按照一定的顺序排列起来，叫做从n个不同元素中取出m个元素的一个排列。当m=n时所有的排列情况叫全排列。
 公式：全排列数f(n)=n!(定义0!=1)
@@ -7215,6 +7822,46 @@ var addBinary = function (a, b) {
 
 ---
 #### 69. x 的平方根
+> 新的版本 2022-1-4
+
+```js
+/*
+ * @lc app=leetcode.cn id=69 lang=javascript
+ *
+ * [69] Sqrt(x)
+ */
+// @lc code=start
+/**
+ * @param{number}x
+ * @return{number}
+ */
+varmySqrt = function (x) {
+    /**
+     * 二分法求解（左闭右闭区间）
+     */
+    let left = 0,
+        right = x
+    while (left <= right) {
+        let mid = left + Math.floor((right - left) / 2)
+        letji = mid * mid
+        // 积大的情况下
+        if (ji > x) {
+            right = mid - 1
+        } elseif (ji < x) {
+            // 积小的情况下
+            left = mid + 1
+        } else {
+            return mid
+        }
+    }
+    // 查找无果返回最大值
+    return right
+};
+// @lc code=end
+console.log(mySqrt(8))
+```
+
+> 旧的版本
 实现 int sqrt(int x) 函数。
 计算并返回 x 的平方根，其中 x 是非负整数。
 由于返回类型是整数，结果只保留整数的部分，小数部分将被舍去。
@@ -7313,6 +7960,43 @@ var mySqrt = function (x) {
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
+
+#### 367. 有效的完全平方数
+```js
+/*
+ * @lc app=leetcode.cn id=367 lang=javascript
+ *
+ * [367] 有效的完全平方数
+ */
+// @lc code=start
+/**
+ * @param{number}num
+ * @return{boolean}
+ */
+varisPerfectSquare = function (num) {
+    /**
+     * 二分法求解（左闭右闭区间）
+     */
+    let [left, right] = [0, num]
+    while (left <= right) {
+        letmid = left + Math.floor((right - left) / 2)
+        letji = mid * mid
+        if (ji === num) {
+            returntrue
+        } elseif (ji > num) {
+            // 积太大，mid要变小
+            right = mid - 1
+        } else {
+            // 积太小，mid要变大
+            left = mid + 1
+        }
+    }
+    // 循环后找不到那就不是完全平方数
+    returnfalse
+};
+// @lc code=end
+console.log(isPerfectSquare(16))
+```
 ### 线段树
 线段树是一种二叉搜索树，与区间树相似，它将一个区间划分成一些单元区间，每个单元区间对应线段树中的一个叶结点。
 使用线段树可以快速的查找某一个节点在若干条线段中出现的次数，时间复杂度为O(logN)。而未优化的空间复杂度为2N，实际应用时一般还要开4N的数组以免越界，因此有时需要离散化让空间压缩。
