@@ -7028,6 +7028,69 @@ console.log(reverseString(["A", " ", "m", "a", "n", ",", " ", "a", " ", "p", "l"
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
+
+#### 459. 重复的子字符串
+给定一个非空的字符串 s ，检查是否可以通过由它的一个子串重复多次构成。
+
+示例 1:
+```
+输入: s = "abab"
+输出: true
+```
+解释: 可由子串 "ab" 重复两次构成。
+
+示例 2:
+```
+输入: s = "aba"
+输出: false
+```
+示例 3:
+```
+输入: s = "abcabcabcabc"
+输出: true
+```
+解释: 可由子串 "abc" 重复四次构成。 (或子串 "abcabc" 重复两次构成。)
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/repeated-substring-pattern
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+
+
+```js
+/**
+ * @param {string} s
+ * @return {boolean}
+ */
+var repeatedSubstringPattern = function(s) {
+if(s.length===0)return false
+const getNext=(s)=>{
+    let next=[]
+    let j=-1
+    next.push(j)
+    // 构造next数组
+    for(let i=1;i<s.length;++i){
+        // 匹配不成功，j回到前一位置next数组所对应的值
+        while(j>=0&&s[i]!==s[j+1])
+        j=next[j]
+        // 匹配成功，j往后移
+        if(s[i]===s[j+1])j++
+        // 更新next数组的值
+        next.push(j)
+    }
+    return next
+}
+let next=getNext(s)
+// 说明（数组长度-最长相等前后缀的长度）正好可以被数组的长度整除，说明有该字符串有重复的子字符串。
+// 数组长度减去最长相同的长度相当于是第一个周期的长度，也就是一个周期的长度，如果这个周期可以被整除，就说明整个数组就是这个周期的循环。
+if(next[next.length-1]!==-1&&s.length%(s.length-(next[next.length-1]+1))===0)return true
+return false
+};
+```
+
+[[↑] 回到顶部](#awsome-knowledge-back-end)
+
+---
+
 #### 151. 翻转字符串里的单词
 给你一个字符串 s ，逐个翻转字符串中的所有 单词 。
 
