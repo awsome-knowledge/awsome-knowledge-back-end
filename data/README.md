@@ -3261,6 +3261,53 @@ var threeSum = function (nums) {
 };
 </pre> 
 
+> 2022.2.20更新
+
+```js
+/**
+ * @param {number[]} nums
+ * @return {number[][]}
+ */
+var threeSum = function(nums) {
+    let res = [],
+    len = nums.length
+    // 长度小于3返回空数组
+    if (len < 3) return []
+    // 先排序
+    nums.sort((a, b) => a - b) 
+    // a从0开始到最后第三个数
+    for (let i = 0; i < len - 2; i++) {
+        if (nums[i] > 0) break
+        // a去重
+        if (i > 0 && nums[i] === nums[i - 1]) continue 
+        // b从第二个开始，c从最后一个数开始
+        let left = i + 1,right = len - 1
+        while (left < right) {
+            let sum = nums[i] + nums[left] + nums[right]
+            // 当前值+左边值+右边值>0，那么右边往前移动来缩小和
+            if (sum > 0) {
+                right--
+                continue
+            }
+            if (sum < 0) {
+                // 当前值+左边值+右边值<0，那么左边往后移动来增大和
+                left++
+                continue
+            }
+            res.push([nums[i], nums[left], nums[right]])
+            // b去重
+            // 左边值若相等，往后移去重
+            while (left < right && nums[left] === nums[++left]);
+            // c去重
+            // 右边值若相等，往前移去重
+            while (left < right && nums[right] === nums[--right]);
+        }
+    }
+    return res
+};
+```
+
+
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
