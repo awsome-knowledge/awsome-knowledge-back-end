@@ -2761,6 +2761,37 @@ var reverse = function (pre, head) {
 ```
 
 
+> 2022.2.20更新
+
+```js
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var reverseList = function(head) {
+    let temp = pre = null,
+    cur = head
+    while (cur) {
+        // 将当前指针的下一个节点存放在temp中
+        temp = cur.next
+        // 将当前指针指向pre
+        cur.next = pre
+        // 将当前指针赋值给pre
+        pre = cur
+        // 将temp存储的下一个节点赋值给当前
+        cur = temp
+    }
+    return pre
+};
+```
+
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
