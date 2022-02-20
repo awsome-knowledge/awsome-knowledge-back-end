@@ -2518,6 +2518,44 @@ var removeNthFromEnd = function(head, n) {
 }
 </pre> 
 
+> 2022.2.20更新
+
+```js
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @param {number} n
+ * @return {ListNode}
+ */
+var removeNthFromEnd = function(head, n) {
+    // 双指针法
+    // 先创建一个虚拟头结点的链表res
+    let res=new ListNode(null,head)
+    // 声明快慢链表
+    let slow=fast=res
+    // 循环n--，快指针先走
+    while(n--){
+        fast=fast.next
+    }
+    // 快慢指针同时走，当快指针为空就同时停下不走
+    while(fast.next){
+        slow=slow.next
+        fast=fast.next
+    }
+    // 慢指针就跳过下一个指向下下一个节点
+    slow.next=slow.next.next
+    // 去掉虚拟头结点
+    return res.next
+};
+```
+
+
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
 ---
