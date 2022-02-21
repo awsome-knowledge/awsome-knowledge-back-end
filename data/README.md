@@ -3149,7 +3149,7 @@ nums2 = [3, 4]
 1. 先将两个数组塞进第三个数组中，这个数组进行正排或逆排，然后筛选中位数
 2. 再取数组长度，判断是偶数还是奇数，奇数则取最中间的数，偶数取最中间的两者的平均数
 
-<pre> 
+```js
 /*
  * @lc app=leetcode.cn id=4 lang=javascript
  *
@@ -3180,7 +3180,32 @@ var findMedianSortedArrays = function (nums1, nums2) {
     }
     return medianVal
 };
-</pre> 
+```
+
+
+> 2022/2/21更新
+
+```js
+/**
+ * @param {number[]} nums1
+ * @param {number[]} nums2
+ * @return {number}
+ */
+var findMedianSortedArrays = function (nums1, nums2) {
+    let arr = nums1.concat(nums2)
+    arr.sort((a, b) => a - b)
+    let len = arr.length, mid = Math.floor(len / 2)
+    if (len % 2 === 0) {
+        // 长度为偶数
+        return (arr[mid - 1] + arr[mid]) / 2
+    } else {
+        return arr[mid]
+        // 长度为奇数
+    }
+};
+// @lc code=end
+console.log(findMedianSortedArrays([2], []))
+```
 
 [[↑] 回到顶部](#awsome-knowledge-back-end)
 
