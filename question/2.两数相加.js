@@ -15,6 +15,15 @@
  * @param {ListNode} l2
  * @return {ListNode}
  */
+//  由于输入的两个链表都是逆序存储数字的位数的，因此两个链表中同一位置的数字可以直接相加。
+
+//  我们同时遍历两个链表，逐位计算它们的和，并与当前位置的进位值相加。具体而言，如果当前两个链表处相应位置的数字为 n1,n2n1,n2，进位值为 \textit{carry}carry，则它们的和为 n1+n2+\textit{carry}n1+n2+carry；其中，答案链表处相应位置的数字为 (n1+n2+\textit{carry}) \bmod 10(n1+n2+carry)mod10，
+
+//  如果两个链表的长度不同，则可以认为长度短的链表的后面有若干个 00 。
+
+// 此外，如果链表遍历结束后，有 \textit{carry} > 0carry>0，还需要在答案链表的后面附加一个节点，节点的值为 \textit{carry}carry。
+
+// 链接：https://leetcode-cn.com/problems/add-two-numbers/solution/liang-shu-xiang-jia-by-leetcode-solution/
 var addTwoNumbers = function (l1, l2) {
     // list中放入值为0的链表
     var List = new ListNode(0);
